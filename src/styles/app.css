@@ -24,6 +24,14 @@
   --ui-border-muted: var(--color-stone-200);
   --ui-border-accented: var(--color-stone-300);
   --ui-border-inverted: var(--color-stone-900);
+
+  /* ── Theme color ── */
+  --ui-primary: var(--color-green-500);
+  --ui-secondary: var(--color-blue-500);
+  --ui-success: var(--color-green-500);
+  --ui-info: var(--color-blue-500);
+  --ui-warning: var(--color-yellow-500);
+  --ui-error: var(--color-red-500);
 }
 
 .dark {
@@ -47,6 +55,14 @@
   --ui-border-muted: var(--color-stone-700);
   --ui-border-accented: var(--color-stone-700);
   --ui-border-inverted: var(--color-stone-50);
+
+  /* ── Theme color ── */
+  --ui-primary: var(--color-green-400);
+  --ui-secondary: var(--color-blue-400);
+  --ui-success: var(--color-green-400);
+  --ui-info: var(--color-blue-400);
+  --ui-warning: var(--color-yellow-400);
+  --ui-error: var(--color-red-400);
 }
 
 @variant light (&:where(.light, .light *));
@@ -78,6 +94,14 @@
   --color-ui-border-muted: var(--ui-border-muted);
   --color-ui-border-accented: var(--ui-border-accented);
   --color-ui-border-inverted: var(--ui-border-inverted);
+
+  /* ── Theme color ── */
+  --color-ui-primary: var(--ui-primary);
+  --color-ui-secondary: var(--ui-secondary);
+  --color-ui-success: var(--ui-success);
+  --color-ui-info: var(--ui-info);
+  --color-ui-warning: var(--ui-warning);
+  --color-ui-error: var(--ui-error);
 
   /* ── Z-index ── */
   --z-index-hide: -1;

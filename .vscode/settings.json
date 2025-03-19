@@ -141,5 +141,8 @@
   "cSpell.words": ["bytriska"],
 
   /* --- extension: copilot --- */
-  "github.copilot.nextEditSuggestions.extendedRange": true
+  "github.copilot.nextEditSuggestions.extendedRange": true,
+
+  /** --- extension: tailwindcss --- */
+  "tailwindCSS.classFunctions": ["tv"]
 }
