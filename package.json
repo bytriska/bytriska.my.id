@@ -1,0 +1,38 @@
+{
+  "name": "bytriska.my.id",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint --cache . && prettier --cache --check .",
+    "lint:fix": "eslint --cache --fix . && prettier --cache --write ."
+  },
+  "dependencies": {
+    "vue": "^3.5.25"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^7.4.3",
+    "@types/node": "^24.10.1",
+    "@vitejs/plugin-vue": "^6.0.2",
+    "@vue/tsconfig": "^0.8.1",
+    "eslint": "^10.0.0",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
+    "simple-git-hooks": "^2.13.1",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1",
+    "vue-tsc": "^3.1.5"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,cjs,mjs,json,yaml,md,css,vue,svg}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}
