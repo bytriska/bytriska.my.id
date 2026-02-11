@@ -17,5 +17,8 @@
       ]
     }
   },
-  "postCreateCommand": "pnpm install"
+  "postCreateCommand": "pnpm install",
+  "features": {
+    "ghcr.io/devcontainers/features/git-lfs:1": {}
+  }
 }
