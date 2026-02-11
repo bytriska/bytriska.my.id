@@ -1,0 +1,21 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/typescript-node",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "antfu.icons-carbon",
+        "antfu.theme-vitesse",
+        "catppuccin.catppuccin-vsc-icons",
+        "github.copilot-chat",
+        "github.copilot",
+        "dbaeumer.vscode-eslint",
+        "usernamehw.errorlens",
+        "streetsidesoftware.code-spell-checker",
+        "editorconfig.editorconfig",
+        "github.vscode-github-actions",
+        "github.vscode-pull-request-github"
+      ]
+    }
+  },
+  "postCreateCommand": "pnpm install"
+}

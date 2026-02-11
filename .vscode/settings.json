@@ -1,0 +1,145 @@
+{
+  /* --- global --- */
+  "window.dialogStyle": "custom",
+  "window.title": "${rootName}",
+  "window.titleBarStyle": "native",
+  "extensions.autoUpdate": "onlyEnabledExtensions",
+
+  /* --- visual --- */
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.fontFamily": "'JetBrainsMono Nerd Font', monospace",
+  "editor.guides.bracketPairs": "active",
+  "editor.lineNumbers": "off",
+  "editor.renderWhitespace": "boundary",
+  "editor.minimap.autohide": "mouseover",
+  "editor.minimap.enabled": true,
+  "breadcrumbs.enabled": false,
+  "window.autoDetectColorScheme": false,
+  "workbench.colorTheme": "Vitesse Dark Soft",
+  "workbench.iconTheme": "catppuccin-mocha",
+  "workbench.productIconTheme": "icons-carbon",
+  "workbench.editor.tabActionLocation": "left",
+  "workbench.list.smoothScrolling": true,
+  "workbench.sideBar.location": "right",
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.tree.expandMode": "singleClick",
+  "workbench.tree.indent": 10,
+  "explorer.fileNesting.enabled": false,
+
+  /* --- editor --- */
+  "debug.onTaskErrors": "debugAnyway",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
+  "editor.find.addExtraSpaceOnTop": false,
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggestSelection": "first",
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.tabSize": 2,
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "editor.stickyScroll.enabled": true,
+  "editor.hover.sticky": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "never",
+    "source.fixAll.eslint": "never",
+    "source.organizeImports": "never"
+  },
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.simpleDialog.enable": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.untrackedChanges": "separate",
+  "scm.diffDecorationsGutterWidth": 2,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font', monospace",
+  "terminal.integrated.fontWeight": "300",
+  "terminal.integrated.persistentSessionReviveProcess": "never",
+  "terminal.integrated.tabs.enabled": true,
+  "workbench.editor.closeOnFileDelete": true,
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.limit.enabled": true,
+  "workbench.editor.limit.perEditorGroup": true,
+  "workbench.editor.limit.value": 5,
+  "search.exclude": {
+    "**/*.snap": true,
+    "**/*.svg": true,
+    "**/.git": true,
+    "**/.github": false,
+    "**/.nuxt": true,
+    "**/.output": true,
+    "**/.pnpm": true,
+    "**/.vscode": true,
+    "**/.yarn": true,
+    "**/assets": true,
+    "**/bower_components": true,
+    "**/dist/**": true,
+    "**/logs": true,
+    "**/node_modules": true,
+    "**/out/**": true,
+    "**/package-lock.json": true,
+    "**/pnpm-lock.yaml": true,
+    "**/public": true,
+    "**/temp": true,
+    "**/yarn.lock": true,
+    "**/CHANGELOG*": true,
+    "**/LICENSE*": true
+  },
+
+  /* --- extension: emmet --- */
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.syntaxProfiles": {
+    "javascript": "jsx",
+    "typescript": "tsx",
+    "vue-html": "html",
+    "vue": "html"
+  },
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact",
+    "vue-html": "html",
+    "vue": "html"
+  },
+
+  /* --- extension: errorlens --- */
+  "errorLens.enabledDiagnosticLevels": ["error", "warning"],
+  "errorLens.excludeBySource": ["eslint", "cSpell"],
+
+  /* --- extension: eslint --- */
+  "eslint.quiet": true,
+  "eslint.rules.customizations": [
+    { "rule": "style/*", "severity": "off" },
+    { "rule": "format/*", "severity": "off" },
+    { "rule": "*-indent", "severity": "off" },
+    { "rule": "*-spacing", "severity": "off" },
+    { "rule": "*-spaces", "severity": "off" },
+    { "rule": "*-order", "severity": "off" },
+    { "rule": "*-dangle", "severity": "off" },
+    { "rule": "*-newline", "severity": "off" },
+    { "rule": "*quotes", "severity": "off" },
+    { "rule": "*semi", "severity": "off" }
+  ],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml",
+    "toml"
+  ],
+
+  /* --- extension: cspell --- */
+  "cSpell.allowCompoundWords": true,
+  "cSpell.words": ["bytriska"],
+
+  /* --- extension: copilot --- */
+  "github.copilot.nextEditSuggestions.extendedRange": true
+}
