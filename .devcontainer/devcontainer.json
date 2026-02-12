@@ -13,7 +13,8 @@
         "streetsidesoftware.code-spell-checker",
         "editorconfig.editorconfig",
         "github.vscode-github-actions",
-        "github.vscode-pull-request-github"
+        "github.vscode-pull-request-github",
+        "Vue.volar"
       ]
     }
   },
