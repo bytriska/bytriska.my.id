@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router';
+
 
 </script>
 
 <template>
   <div class="min-h-dvh flex flex-col items-center justify-center gap-4">
-  <p class="text-xl text-gray-500">Hello world</p>
+    <main>
+    <RouterView />
+    </main>
+    <nav class="flex gap-4">
+    <RouterLink to="/">Home</RouterLink>
+    <RouterLink to="/posts">Posts</RouterLink>
+    </nav>
   </div>
 </template>
 
