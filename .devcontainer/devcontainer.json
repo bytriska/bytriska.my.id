@@ -14,7 +14,8 @@
         "editorconfig.editorconfig",
         "github.vscode-github-actions",
         "github.vscode-pull-request-github",
-        "Vue.volar"
+        "Vue.volar",
+        "bradlc.vscode-tailwindcss"
       ]
     }
   },
