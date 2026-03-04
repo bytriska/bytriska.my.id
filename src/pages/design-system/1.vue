@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, onUnmounted, ref}from "vue"
+import {ref}from "vue"
 
   const moon  = ref<SVGAElement|null>(null);
   const sun    =ref<SVGAElement|null>(null);
@@ -21,28 +21,15 @@ import {onMounted, onUnmounted, ref}from "vue"
 <template>
   <!-- ─── STICKY NAV ───────────────────────────────────────────────── -->
   <header
-    style="
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      background-color: color-mix(in srgb, var(--color-bg) 85%, transparent);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--color-border);
-    "
+    class="sticky top-0 z-20 bg-bg/85 backdrop-blur border-b border-border"
   >
     <div
-      class="container-ds"
-      style="
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 56px;
-        gap: 16px;
-      "
+      class="container-ds flex items-center justify-between gap-4"
+      style="height: 56px"
     >
       <a
         href="#"
-        style="display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0"
+        class="flex items-center gap-2 shrink-0 no-underline"
       >
         <span
           style="

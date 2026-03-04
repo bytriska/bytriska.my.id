@@ -7,7 +7,7 @@ import { RouterLink } from 'vue-router'
     <main class="w-screen">
       <RouterView />
     </main>
-    <nav class="flex gap-4">
+    <nav class="container-ds flex gap-4">
       <RouterLink to="/"> Home </RouterLink>
       <RouterLink to="/posts"> Posts </RouterLink>
       <RouterLink to="/posts/example"> Example Post </RouterLink>

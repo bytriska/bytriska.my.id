@@ -3,47 +3,50 @@
   /* --font-display: 'Syne', sans-serif; */
   /* --font-body: 'Newsreader', Georgia, serif; */
   /* --font-mono: 'DM Mono', 'Fira Code', monospace; */
+  --font-display: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Fira Mono', 'Courier New', monospace;
 
-  /* ── Vitesse Color Palette ─────────────────────── */
-  --color-vs-bg-dark: #121212;
-  --color-vs-bg-dark-2: #1e1e1e;
-  --color-vs-bg-dark-3: #2a2a2a;
-  --color-vs-bg-dark-4: #343434;
-  --color-vs-fg-dark: #dbd7ca;
-  --color-vs-fg-muted-dark: #9b9380;
-  --color-vs-border-dark: #3d3d3d;
+  /* ── Color Palette ─────────────────────── */
+  --palette-bg-dark: #121212;
+  --palette-bg-dark-2: #1e1e1e;
+  --palette-bg-dark-3: #2a2a2a;
+  --palette-bg-dark-4: #343434;
+  --palette-fg-dark: #dbd7ca;
+  --palette-fg-muted-dark: #9b9380;
+  --palette-border-dark: #3d3d3d;
 
-  --color-vs-bg-light: #ffffff;
-  --color-vs-bg-light-2: #f5f5f0;
-  --color-vs-bg-light-3: #eeeee8;
-  --color-vs-bg-light-4: #e5e5de;
-  --color-vs-fg-light: #393a34;
-  --color-vs-fg-muted-light: #7c7c72;
-  --color-vs-border-light: #d5d5cc;
+  --palette-bg-light: #ffffff;
+  --palette-bg-light-2: #f5f5f0;
+  --palette-bg-light-3: #eeeee8;
+  --palette-bg-light-4: #e5e5de;
+  --palette-fg-light: #393a34;
+  --palette-fg-muted-light: #7c7c72;
+  --palette-border-light: #d5d5cc;
 
   /* Brand */
-  --color-vs-green: #4d9375;
-  --color-vs-green-light: #80a665;
-  --color-vs-green-dim: #3b7a5f;
-  --color-vs-blue: #6394bf;
-  --color-vs-blue-dim: #4e7ea8;
-  --color-vs-yellow: #e6cc77;
-  --color-vs-yellow-dim: #c9a84c;
-  --color-vs-orange: #d4976c;
-  --color-vs-red: #cb7676;
-  --color-vs-purple: #d9739f;
-  --color-vs-teal: #5eaab5;
+  --color-ds-green: #4d9375;
+  --color-ds-green-light: #80a665;
+  --color-ds-green-dim: #3b7a5f;
+  --color-ds-blue: #6394bf;
+  --color-ds-blue-dim: #4e7ea8;
+  --color-ds-yellow: #e6cc77;
+  --color-ds-yellow-dim: #c9a84c;
+  --color-ds-orange: #d4976c;
+  --color-ds-red: #cb7676;
+  --color-ds-purple: #d9739f;
+  --color-ds-teal: #5eaab5;
 
   /* ── Semantic Aliases ──────────────────────────── */
-  --color-bg: var(--color-vs-bg-light);
-  --color-bg-subtle: var(--color-vs-bg-light-2);
-  --color-bg-muted: var(--color-vs-bg-light-3);
-  --color-bg-emphasis: var(--color-vs-bg-light-4);
-  --color-fg: var(--color-vs-fg-light);
-  --color-fg-muted: var(--color-vs-fg-muted-light);
-  --color-border: var(--color-vs-border-light);
-  --color-accent: var(--color-vs-green);
-  --color-accent-dim: var(--color-vs-green-dim);
+  --color-bg: var(--palette-bg-light);
+  --color-bg-subtle: var(--palette-bg-light-2);
+  --color-bg-muted: var(--palette-bg-light-3);
+  --color-bg-emphasis: var(--palette-bg-light-4);
+  --color-fg: var(--palette-fg-light);
+  --color-fg-muted: var(--palette-fg-muted-light);
+  --color-border: var(--palette-border-light);
+  --color-accent: var(--color-ds-green-light);
+  --color-accent-dim: var(--color-ds-green-dim);
 
   /* ── Spacing Scale (4px base) ──────────────────── */
   --spacing-px: 1px;
@@ -115,13 +118,14 @@
 
 /* ── Dark Mode ──────────────────────────────────── */
 .dark {
-  --color-bg: var(--color-vs-bg-dark);
-  --color-bg-subtle: var(--color-vs-bg-dark-2);
-  --color-bg-muted: var(--color-vs-bg-dark-3);
-  --color-bg-emphasis: var(--color-vs-bg-dark-4);
-  --color-fg: var(--color-vs-fg-dark);
-  --color-fg-muted: var(--color-vs-fg-muted-dark);
-  --color-border: var(--color-vs-border-dark);
+  --color-bg: var(--palette-bg-dark);
+  --color-bg-subtle: var(--palette-bg-dark-2);
+  --color-bg-muted: var(--palette-bg-dark-3);
+  --color-bg-emphasis: var(--palette-bg-dark-4);
+  --color-fg: var(--palette-fg-dark);
+  --color-fg-muted: var(--palette-fg-muted-dark);
+  --color-border: var(--palette-border-dark);
+  --color-accent: var(--color-ds-green)
 }
 
 /* ── Base ───────────────────────────────────────── */
@@ -162,7 +166,7 @@
     font-family: var(--font-mono);
   }
   ::selection {
-    background-color: var(--color-vs-green);
+    background-color: var(--color-accent);
     color: #fff;
   }
 }
@@ -235,24 +239,24 @@
     text-transform: uppercase;
   }
   .badge-accent {
-    background-color: color-mix(in srgb, var(--color-vs-green) 15%, transparent);
-    color: var(--color-vs-green);
-    border: 1px solid color-mix(in srgb, var(--color-vs-green) 30%, transparent);
+    background-color: color-mix(in srgb, var(--color-accent) 15%, transparent);
+    color: var(--color-accent);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
   }
   .badge-blue {
-    background-color: color-mix(in srgb, var(--color-vs-blue) 15%, transparent);
-    color: var(--color-vs-blue);
-    border: 1px solid color-mix(in srgb, var(--color-vs-blue) 30%, transparent);
+    background-color: color-mix(in srgb, var(--color-ds-blue) 15%, transparent);
+    color: var(--color-ds-blue);
+    border: 1px solid color-mix(in srgb, var(--color-ds-blue) 30%, transparent);
   }
   .badge-yellow {
-    background-color: color-mix(in srgb, var(--color-vs-yellow) 20%, transparent);
-    color: var(--color-vs-yellow-dim);
-    border: 1px solid color-mix(in srgb, var(--color-vs-yellow) 40%, transparent);
+    background-color: color-mix(in srgb, var(--color-ds-yellow) 20%, transparent);
+    color: var(--color-ds-yellow-dim);
+    border: 1px solid color-mix(in srgb, var(--color-ds-yellow) 40%, transparent);
   }
   .badge-red {
-    background-color: color-mix(in srgb, var(--color-vs-red) 15%, transparent);
-    color: var(--color-vs-red);
-    border: 1px solid color-mix(in srgb, var(--color-vs-red) 30%, transparent);
+    background-color: color-mix(in srgb, var(--color-ds-red) 15%, transparent);
+    color: var(--color-ds-red);
+    border: 1px solid color-mix(in srgb, var(--color-ds-red) 30%, transparent);
   }
   .badge-muted {
     background-color: var(--color-bg-muted);
@@ -278,13 +282,13 @@
     user-select: none;
   }
   .btn-primary {
-    background-color: var(--color-vs-green);
+    background-color: var(--color-ds-green);
     color: #fff;
-    border-color: var(--color-vs-green-dim);
+    border-color: var(--color-ds-green-dim);
   }
   .btn-primary:hover {
-    background-color: var(--color-vs-green-dim);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-vs-green) 25%, transparent);
+    background-color: var(--color-ds-green-dim);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ds-green) 25%, transparent);
   }
   .btn-secondary {
     background-color: transparent;
@@ -297,11 +301,11 @@
   }
   .btn-ghost {
     background-color: transparent;
-    color: var(--color-vs-green);
+    color: var(--color-ds-green);
     border-color: transparent;
   }
   .btn-ghost:hover {
-    background-color: color-mix(in srgb, var(--color-vs-green) 10%, transparent);
+    background-color: color-mix(in srgb, var(--color-ds-green) 10%, transparent);
   }
   .btn-sm {
     padding: var(--spacing-2) var(--spacing-4);
@@ -329,8 +333,8 @@
       box-shadow var(--duration-fast);
   }
   .input:focus {
-    border-color: var(--color-vs-green);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-vs-green) 20%, transparent);
+    border-color: var(--color-ds-green);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ds-green) 20%, transparent);
   }
   .input::placeholder {
     color: var(--color-fg-muted);
@@ -351,8 +355,8 @@
     transition: all var(--duration-fast);
   }
   .tag:hover {
-    border-color: var(--color-vs-green);
-    color: var(--color-vs-green);
+    border-color: var(--color-ds-green);
+    color: var(--color-ds-green);
   }
 
   .text-display {
@@ -396,7 +400,7 @@
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     padding: 1px 6px;
-    color: var(--color-vs-green);
+    color: var(--color-ds-green);
   }
 
   .code-block {
@@ -419,20 +423,20 @@
     align-items: flex-start;
   }
   .alert-info {
-    background-color: color-mix(in srgb, var(--color-vs-blue) 8%, transparent);
-    border-left-color: var(--color-vs-blue);
+    background-color: color-mix(in srgb, var(--color-ds-blue) 8%, transparent);
+    border-left-color: var(--color-ds-blue);
   }
   .alert-success {
-    background-color: color-mix(in srgb, var(--color-vs-green) 8%, transparent);
-    border-left-color: var(--color-vs-green);
+    background-color: color-mix(in srgb, var(--color-ds-green) 8%, transparent);
+    border-left-color: var(--color-ds-green);
   }
   .alert-warning {
-    background-color: color-mix(in srgb, var(--color-vs-yellow) 10%, transparent);
-    border-left-color: var(--color-vs-yellow-dim);
+    background-color: color-mix(in srgb, var(--color-ds-yellow) 10%, transparent);
+    border-left-color: var(--color-ds-yellow-dim);
   }
   .alert-error {
-    background-color: color-mix(in srgb, var(--color-vs-red) 8%, transparent);
-    border-left-color: var(--color-vs-red);
+    background-color: color-mix(in srgb, var(--color-ds-red) 8%, transparent);
+    border-left-color: var(--color-ds-red);
   }
 
   .stat-card {
@@ -461,10 +465,10 @@
     font-weight: 500;
   }
   .stat-delta.up {
-    color: var(--color-vs-green);
+    color: var(--color-ds-green);
   }
   .stat-delta.down {
-    color: var(--color-vs-red);
+    color: var(--color-ds-red);
   }
 
   .avatar {
@@ -504,7 +508,7 @@
   .progress-bar {
     height: 100%;
     border-radius: var(--radius-full);
-    background-color: var(--color-vs-green);
+    background-color: var(--color-ds-green);
     transition: width var(--duration-slow) var(--ease-default);
   }
 
@@ -550,8 +554,8 @@
     background-color: var(--color-bg-muted);
   }
   .nav-link.active {
-    color: var(--color-vs-green);
-    background-color: color-mix(in srgb, var(--color-vs-green) 10%, transparent);
+    color: var(--color-ds-green);
+    background-color: color-mix(in srgb, var(--color-ds-green) 10%, transparent);
   }
 }
 
@@ -567,7 +571,7 @@
     font-family: var(--font-mono);
   }
   .text-accent {
-    color: var(--color-vs-green);
+    color: var(--color-ds-green);
   }
   .text-muted {
     color: var(--color-fg-muted);
