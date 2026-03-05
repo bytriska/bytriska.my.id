@@ -3,9 +3,9 @@
   /* --font-display: 'Syne', sans-serif; */
   /* --font-body: 'Newsreader', Georgia, serif; */
   /* --font-mono: 'DM Mono', 'Fira Code', monospace; */
-  --font-display: 'Inter', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'Fira Mono', 'Courier New', monospace;
+  --font-display: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-body: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' ;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
   /* ── Color Palette ─────────────────────── */
   --palette-bg-dark: #121212;
