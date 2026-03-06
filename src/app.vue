@@ -11,7 +11,7 @@ import { RouterLink } from 'vue-router'
       <RouterLink to="/"> Home </RouterLink>
       <RouterLink to="/posts"> Posts </RouterLink>
       <RouterLink to="/posts/example"> Example Post </RouterLink>
-      <RouterLink to="/design-system/1"> Design System </RouterLink>
+      <RouterLink to="/design-system"> Design System </RouterLink>
     </nav>
   </div>
 </template>
