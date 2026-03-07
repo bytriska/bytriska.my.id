@@ -46,7 +46,7 @@ const tags = ['Tailwind v4', 'CSS Custom Properties', 'Dark Mode Ready', 'WCAG A
     <div class="flex">
       <DocSidebar :active-section="activeSection" @navigate="setActive" :is-sidebar-visible="isSidebarVisible" @close-sidebar="closeSidebar" />
 
-      <main class="flex-1 min-w-0 max-w-[860px] px-4 md:px-8 pb-24">
+      <main class="flex-1 min-w-0 max-w-4xl px-4 md:px-8 pb-24">
 
         <div class="pt-12 pb-8">
           <p class="text-xs font-semibold tracking-widest uppercase text-content-tertiary mb-3">

@@ -13,7 +13,15 @@
    ============================================================ */
 
 :root {
-  /* ── Surface hierarchy ── */
+  /* ── Color ── */
+  --ui-primary: var(--color-green-500);
+  --ui-secondary: var(--color-blue-500);
+  --ui-success: var(--color-green-500);
+  --ui-info: var(--color-blue-500);
+  --ui-warning: var(--color-yellow-500);
+  --ui-error: var(--color-red-500);
+
+  /* ── Surface ── */
   --surface-base:    var(--color-stone-50);
   --surface-raised:  var(--color-white);
   --surface-overlay: var(--color-stone-100);
@@ -45,6 +53,11 @@
   --border-subtle:  var(--color-stone-200);
   --border-strong:  var(--color-stone-500);
 
+  --ui-border-default: var(--color-stone-200);
+  --ui-border-muted: var(--color-stone-200);
+  --ui-border-accented: var(--color-stone-300);
+  --ui-border-inverted: var(--color-stone-900);
+
   /* ── Action subtle backgrounds (switch in dark mode) ── */
   --action-primary-subtle:   var(--color-green-50);
   --action-secondary-subtle: var(--color-blue-50);
@@ -58,10 +71,20 @@
   --status-error-edge:      var(--color-red-200);
   --status-info-surface:    var(--color-blue-50);
   --status-info-edge:       var(--color-blue-200);
+
+  /* ── Layout ── */
+  --ui-header-height: --spacing(16)
 }
 
 /* ── Dark mode overrides ── */
 .dark {
+  --ui-primary: var(--color-green-400);
+  --ui-secondary: var(--color-blue-400);
+  --ui-success: var(--color-green-400);
+  --ui-info: var(--color-blue-400);
+  --ui-warning: var(--color-yellow-400);
+  --ui-error: var(--color-red-400);
+
   --surface-base:    var(--color-stone-950);
   --surface-raised:  var(--color-stone-900);
   --surface-overlay: var(--color-stone-800);
@@ -91,6 +114,11 @@
   --border-subtle:  var(--color-stone-800);
   --border-strong:  var(--color-stone-500);
 
+  --ui-border-default: var(--color-stone-800);
+  --ui-border-muted: var(--color-stone-700);
+  --ui-border-accented: var(--color-stone-700);
+  --ui-border-inverted: var(--color-stone-50);
+
   --action-primary-subtle:   var(--color-green-950);
   --action-secondary-subtle: var(--color-blue-950);
 
@@ -119,6 +147,14 @@
   --font-display: "Instrument Serif", ui-serif, Georgia, Cambria, serif;
   --font-body:    "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-code:    "JetBrains Mono", ui-monospace, "Courier New", monospace;
+
+  /* ── Color ── */
+  --color-primary: var(--ui-primary);
+  --color-secondary: var(--ui-secondary);
+  --color-success: var(--ui-success);
+  --color-info: var(--ui-info);
+  --color-warning: var(--ui-warning);
+  --color-error: var(--ui-error);
 
   /* ── Surfaces → bg-surface-* ── */
   --color-surface-base:    var(--surface-base);
@@ -151,6 +187,11 @@
   --color-edge:        var(--border-default);
   --color-edge-subtle: var(--border-subtle);
   --color-edge-strong: var(--border-strong);
+
+  --color-ui-border: var(--ui-border-default);
+  --color-ui-border-muted: var(--ui-border-muted);
+  --color-ui-border-accented: var(--ui-border-accented);
+  --color-ui-border-inverted: var(--ui-border-inverted);
 
   /* ── Action subtle → bg-primary-subtle, bg-secondary-subtle ── */
   --color-primary-subtle:   var(--action-primary-subtle);

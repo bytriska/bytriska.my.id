@@ -15,7 +15,7 @@ const navLinks = [
 </script>
 
 <template>
-  <nav class="h-[60px] flex items-center gap-6 px-6
+  <nav class="h-(--ui-header-height) flex items-center gap-6 px-6
               bg-ui-surface-base border-b border-edge-subtle
               sticky top-0 z-[200] shadow-xs">
 
