@@ -16,11 +16,11 @@ const navLinks = [
 
 <template>
   <nav class="h-[60px] flex items-center gap-6 px-6
-              bg-surface-raised border-b border-edge-subtle
+              bg-ui-surface-base border-b border-edge-subtle
               sticky top-0 z-[200] shadow-xs">
 
     <!-- Brand -->
-    <a href="#" class="font-display text-lg font-semibold text-content-primary no-underline shrink-0">
+    <a href="#" class="font-display text-lg font-semibold text-ui-content-base no-underline shrink-0">
       <span class="text-green-600">◆</span>&nbsp;DesignSys
     </a>
 
@@ -42,8 +42,8 @@ const navLinks = [
       <button
         :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
         class="flex items-center justify-center w-9 h-9 rounded-md
-               text-content-secondary transition-colors duration-150
-               hover:bg-surface-overlay hover:text-content-primary"
+               text-ui-content-toned transition-colors duration-150
+               hover:bg-ui-surface-accented/80 hover:text-ui-content-base"
         @click="$emit('toggleDark')"
       >
         <!-- Sun icon (light mode) -->
@@ -63,8 +63,8 @@ const navLinks = [
       <button
         :title="isSidebarVisible ? 'Hide Sidebar' : 'Show sidebar'"
         class="flex items-center justify-center w-9 h-9 rounded-md
-               text-content-secondary transition-colors duration-150
-               hover:bg-surface-overlay hover:text-content-primary"
+               text-ui-content-toned transition-colors duration-150
+               hover:bg-ui-surface-accented/80 hover:text-ui-content-base"
         @click="$emit('toggleSidebar')"
       >
         <!-- Menu icon -->

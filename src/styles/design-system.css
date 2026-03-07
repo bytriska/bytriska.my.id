@@ -20,12 +20,25 @@
   --surface-sunken:  var(--color-stone-200);
   --surface-inverse: var(--color-stone-900);
 
+  --ui-surface-base: var(--color-stone-50);
+  --ui-surface-muted: var(--color-stone-100);
+  --ui-surface-elevated: var(--color-stone-100);
+  --ui-surface-accented: var(--color-stone-200);
+  --ui-surface-inverted: var(--color-stone-900);
+
   /* ── Content ── */
   --content-primary:   var(--color-stone-900);
   --content-secondary: var(--color-stone-600);
   --content-tertiary:  var(--color-stone-500);
   --content-disabled:  var(--color-stone-400);
   --content-inverse:   var(--color-stone-50);
+
+  --ui-content-dimmed:   var(--color-stone-400);
+  --ui-content-muted: var(--color-stone-500);
+  --ui-content-toned:  var(--color-stone-600);
+  --ui-content-base:  var(--color-stone-700);
+  --ui-content-highlighted: var(--color-stone-900);
+  --ui-content-inverted:   var(--color-stone-50);
 
   /* ── Borders ── */
   --border-default: var(--color-stone-300);
@@ -55,11 +68,24 @@
   --surface-sunken:  oklch(0.12 0.003 49.25);
   --surface-inverse: var(--color-stone-50);
 
+  --ui-surface-base: var(--color-stone-900);
+  --ui-surface-muted: var(--color-stone-800);
+  --ui-surface-elevated: var(--color-stone-800);
+  --ui-surface-accented: var(--color-stone-700);
+  --ui-surface-inverted: var(--color-stone-50);
+
   --content-primary:   var(--color-stone-50);
   --content-secondary: var(--color-stone-400);
   --content-tertiary:  var(--color-stone-500);
   --content-disabled:  var(--color-stone-600);
   --content-inverse:   var(--color-stone-900);
+
+  --ui-content-dimmed:   var(--color-stone-500);
+  --ui-content-muted: var(--color-stone-400);
+  --ui-content-toned:  var(--color-stone-300);
+  --ui-content-base:  var(--color-stone-200);
+  --ui-content-highlighted: var(--color-stone-50);
+  --ui-content-inverted:   var(--color-stone-900);
 
   --border-default: var(--color-stone-700);
   --border-subtle:  var(--color-stone-800);
@@ -101,12 +127,25 @@
   --color-surface-sunken:  var(--surface-sunken);
   --color-surface-inverse: var(--surface-inverse);
 
+  --color-ui-surface-base: var(--ui-surface-base);
+  --color-ui-surface-muted: var(--ui-surface-muted);
+  --color-ui-surface-elevated: var(--ui-surface-elevated);
+  --color-ui-surface-accented: var(--ui-surface-accented);
+  --color-ui-surface-inverted: var(--ui-surface-inverted);
+
   /* ── Content → text-content-* ── */
   --color-content-primary:   var(--content-primary);
   --color-content-secondary: var(--content-secondary);
   --color-content-tertiary:  var(--content-tertiary);
   --color-content-disabled:  var(--content-disabled);
   --color-content-inverse:   var(--content-inverse);
+
+  --color-ui-content-dimmed:   var(--ui-content-dimmed);
+  --color-ui-content-muted: var(--ui-content-muted);
+  --color-ui-content-toned:  var(--ui-content-toned);
+  --color-ui-content-base:  var(--ui-content-base);
+  --color-ui-content-highlighted: var(--ui-content-highlighted);
+  --color-ui-content-inverted:   var(--ui-content-inverted);
 
   /* ── Borders → border-edge-* ── */
   --color-edge:        var(--border-default);
@@ -144,8 +183,8 @@
 
   body {
     font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-    background-color: var(--surface-base);
-    color: var(--content-primary);
+    background-color: var(--bg-ui-surface-base);
+    color: var(--text-ui-content-base);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.5;
@@ -176,7 +215,7 @@
     height: 18px;
     border: 1.5px solid var(--border-default);
     border-radius: 0.25rem;
-    background-color: var(--surface-raised);
+    background-color: var(--bg-ui-surface-accented);
     cursor: pointer;
     flex-shrink: 0;
     display: grid;
@@ -214,7 +253,7 @@
     height: 18px;
     border: 1.5px solid var(--border-default);
     border-radius: 50%;
-    background-color: var(--surface-raised);
+    background-color: var(--bg-ui-surface-accented);
     cursor: pointer;
     flex-shrink: 0;
     display: grid;

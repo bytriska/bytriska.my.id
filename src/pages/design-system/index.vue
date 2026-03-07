@@ -39,7 +39,7 @@ const tags = ['Tailwind v4', 'CSS Custom Properties', 'Dark Mode Ready', 'WCAG A
 </script>
 
 <template>
-  <div class="min-h-screen bg-surface-base text-content-primary transition-colors duration-200" :class="[{ dark: isDark }]">
+  <div class="min-h-screen bg-ui-surface-base text-ui-content-base transition-colors duration-200" :class="[{ dark: isDark }]">
 
     <DocNavbar :is-dark="isDark" @toggle-dark="toggleDark" :is-sidebar-visible="isSidebarVisible" @toggle-sidebar="toggleSidebar" />
 
