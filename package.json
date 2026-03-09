@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "postinstall": "simple-git-hooks",
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
@@ -36,8 +37,8 @@
   },
   "lint-staged": {
     "*.{js,ts,cjs,mjs,json,yaml,md,css,vue,svg}": [
-      "eslint --fix",
-      "prettier --write"
+      "eslint --cache --fix",
+      "prettier --cache --write"
     ]
   }
 }
