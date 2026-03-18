@@ -3,13 +3,19 @@
 <template>
   <div class="min-h-dvh w-full flex flex-col">
     <slot name="header">
-      <header
-        class="@container w-full max-w-7xl flex items-center justify-end gap-4 mx-auto px-4 py-4 sm:px-6 lg:px-8"
-      >
+      <Header>
         <RouterLink to="/" class="text-sm underline"> Home </RouterLink>
         <RouterLink to="/posts" class="text-sm underline"> Posts </RouterLink>
         <RouterLink to="/posts/example" class="text-sm underline"> Example Post </RouterLink>
-      </header>
+
+        <template #sidebar-content>
+          <div class="flex flex-col gap-4">
+            <RouterLink to="/" class="text-sm underline"> Home </RouterLink>
+            <RouterLink to="/posts" class="text-sm underline"> Posts </RouterLink>
+            <RouterLink to="/posts/example" class="text-sm underline"> Example Post </RouterLink>
+          </div>
+        </template>
+      </Header>
     </slot>
 
     <slot />

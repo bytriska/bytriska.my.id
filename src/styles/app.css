@@ -102,6 +102,6 @@
   }
 
   body {
-    @apply antialiased text-ui-content-base bg-ui-surface-base scheme-light dark:scheme-dark;
+    @apply antialiased text-ui-content-base bg-ui-surface-base border-ui-border scheme-light dark:scheme-dark;
   }
 }
