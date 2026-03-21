@@ -6,6 +6,7 @@ const props = defineProps<{
   block?: ButtonVariantProps['block']
   color?: ButtonVariantProps['color']
   size?: ButtonVariantProps['size']
+  square?: ButtonVariantProps['square']
   variant?: ButtonVariantProps['variant']
 }>()
 </script>

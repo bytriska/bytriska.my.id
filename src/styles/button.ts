@@ -22,14 +22,17 @@ const button = tv({
       link: '',
     },
     size: {
-      xs: 'px-2 py-1 text-xs gap-1',
-      sm: 'px-2.5 py-1.5 text-xs gap-1.5',
-      md: 'px-2.5 py-1.5 text-sm gap-1.5',
-      lg: 'px-3 py-2 text-sm gap-2',
-      xl: 'px-3 py-2 text-base gap-2',
+      xs: 'px-2 py-1 text-xs gap-1 [&_svg]:size-4',
+      sm: 'px-2.5 py-1.5 text-xs gap-1.5 [&_svg]:size-4',
+      md: 'px-2.5 py-1.5 text-sm gap-1.5 [&_svg]:size-5',
+      lg: 'px-3 py-2 text-sm gap-2 [&_svg]:size-5',
+      xl: 'px-3 py-2 text-base gap-2 [&_svg]:size-6',
     },
     block: {
       true: 'w-full justify-center',
+    },
+    square: {
+      true: '',
     },
   },
   compoundVariants: [
@@ -70,6 +73,12 @@ const button = tv({
       class:
         'text-ui-content-inverted bg-ui-error hover:bg-ui-error/75 active:bg-ui-error/75 disabled:bg-ui-error aria-disabled:bg-ui-error focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ui-error',
     },
+    {
+      color: 'stone',
+      variant: 'solid',
+      class:
+        'text-ui-content-inverted bg-ui-surface-inverted hover:bg-ui-surface-inverted/90 active:bg-ui-surface-inverted/90 disabled:bg-ui-surface-inverted aria-disabled:bg-ui-surface-inverted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ui-border-inverted',
+    },
     // Outline variants
     {
       color: 'primary',
@@ -106,6 +115,12 @@ const button = tv({
       variant: 'outline',
       class:
         'ring ring-inset ring-ui-error/50 text-ui-error hover:bg-ui-error/10 active:bg-ui-error/10 disabled:bg-transparent aria-disabled:bg-transparent dark:disabled:bg-transparent dark:aria-disabled:bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-ui-error',
+    },
+    {
+      color: 'stone',
+      variant: 'outline',
+      class:
+        'ring ring-inset ring-ui-border-accented text-ui-content-base bg-ui-surface-base hover:bg-ui-surface-elevated active:bg-ui-surface-elevated disabled:bg-ui-surface-base aria-disabled:bg-ui-surface-base focus:outline-none focus-visible:ring-2 focus-visible:ring-ui-border-inverted',
     },
     // Soft variants
     {
@@ -144,6 +159,12 @@ const button = tv({
       class:
         'text-ui-error bg-ui-error/10 hover:bg-ui-error/15 active:bg-ui-error/15 focus:outline-none focus-visible:bg-ui-error/15 disabled:bg-ui-error/10 aria-disabled:bg-ui-error/10',
     },
+    {
+      color: 'stone',
+      variant: 'soft',
+      class:
+        'text-ui-content-base bg-ui-surface-elevated hover:bg-ui-surface-accented/75 active:bg-ui-surface-accented/75 focus:outline-none focus-visible:bg-ui-surface-accented/75 disabled:bg-ui-surface-elevated aria-disabled:bg-ui-surface-elevated',
+    },
     // Subtle variants
     {
       color: 'primary',
@@ -180,6 +201,12 @@ const button = tv({
       variant: 'subtle',
       class:
         'text-ui-error ring ring-inset ring-ui-error/25 bg-ui-error/10 hover:bg-ui-error/15 active:bg-ui-error/15 disabled:bg-ui-error/10 aria-disabled:bg-ui-error/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-ui-error',
+    },
+    {
+      color: 'stone',
+      variant: 'subtle',
+      class:
+        'ring ring-inset ring-ui-border-accented text-ui-content-base bg-ui-surface-elevated hover:bg-ui-surface-accented/75 active:bg-ui-surface-accented/75 disabled:bg-ui-surface-elevated aria-disabled:bg-ui-surface-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-ui-border-inverted',
     },
     // Ghost variants
     {
@@ -218,6 +245,12 @@ const button = tv({
       class:
         'text-ui-error hover:bg-ui-error/10 active:bg-ui-error/10 focus:outline-none focus-visible:bg-ui-error/10 disabled:bg-transparent aria-disabled:bg-transparent dark:disabled:bg-transparent dark:aria-disabled:bg-transparent',
     },
+    {
+      color: 'stone',
+      variant: 'ghost',
+      class:
+        'text-ui-content-base hover:bg-ui-surface-elevated active:bg-ui-surface-elevated focus:outline-none focus-visible:bg-ui-surface-elevated hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent',
+    },
     // Link variants
     {
       color: 'primary',
@@ -255,42 +288,36 @@ const button = tv({
       class:
         'text-ui-error hover:text-ui-error/75 active:text-ui-error/75 disabled:text-ui-error aria-disabled:text-ui-error focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ui-error',
     },
-    // Stone variants
     {
-      color: 'stone' as const,
-      variant: 'solid' as const,
-      class:
-        'text-ui-content-inverted bg-ui-surface-inverted hover:bg-ui-surface-inverted/90 active:bg-ui-surface-inverted/90 disabled:bg-ui-surface-inverted aria-disabled:bg-ui-surface-inverted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ui-border-inverted',
-    },
-    {
-      color: 'stone' as const,
-      variant: 'outline' as const,
-      class:
-        'ring ring-inset ring-ui-border-accented text-ui-content-base bg-ui-surface-base hover:bg-ui-surface-elevated active:bg-ui-surface-elevated disabled:bg-ui-surface-base aria-disabled:bg-ui-surface-base focus:outline-none focus-visible:ring-2 focus-visible:ring-ui-border-inverted',
-    },
-    {
-      color: 'stone' as const,
-      variant: 'soft' as const,
-      class:
-        'text-ui-content-base bg-ui-surface-elevated hover:bg-ui-surface-accented/75 active:bg-ui-surface-accented/75 focus:outline-none focus-visible:bg-ui-surface-accented/75 disabled:bg-ui-surface-elevated aria-disabled:bg-ui-surface-elevated',
-    },
-    {
-      color: 'stone' as const,
-      variant: 'subtle' as const,
-      class:
-        'ring ring-inset ring-ui-border-accented text-ui-content-base bg-ui-surface-elevated hover:bg-ui-surface-accented/75 active:bg-ui-surface-accented/75 disabled:bg-ui-surface-elevated aria-disabled:bg-ui-surface-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-ui-border-inverted',
-    },
-    {
-      color: 'stone' as const,
-      variant: 'ghost' as const,
-      class:
-        'text-ui-content-base hover:bg-ui-surface-elevated active:bg-ui-surface-elevated focus:outline-none focus-visible:bg-ui-surface-elevated hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent',
-    },
-    {
-      color: 'stone' as const,
-      variant: 'link' as const,
+      color: 'stone',
+      variant: 'link',
       class:
         'text-ui-content-base hover:text-ui-content-inverted active:text-ui-content-inverted disabled:text-ui-content-muted aria-disabled:text-ui-content-muted focus:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ui-border-inverted',
+    },
+    {
+      size: 'xs',
+      square: true,
+      class: 'p-1',
+    },
+    {
+      size: 'sm',
+      square: true,
+      class: 'p-1.5',
+    },
+    {
+      size: 'md',
+      square: true,
+      class: 'p-1.5',
+    },
+    {
+      size: 'lg',
+      square: true,
+      class: 'p-2',
+    },
+    {
+      size: 'xl',
+      square: true,
+      class: 'p-2',
     },
   ],
   defaultVariants: {
@@ -300,5 +327,11 @@ const button = tv({
   },
 })
 
-export interface ButtonVariantProps extends VariantProps<typeof button> {}
+export interface ButtonVariantProps extends VariantProps<typeof button> {
+  color?: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'error' | 'stone'
+  variant?: 'solid' | 'outline' | 'soft' | 'subtle' | 'ghost' | 'link'
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  block?: boolean
+  square?: boolean
+}
 export default button

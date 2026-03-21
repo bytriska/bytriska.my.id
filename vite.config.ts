@@ -1,6 +1,8 @@
 import path from 'node:path'
 import Tailwindcss from '@tailwindcss/vite'
 import Vue from '@vitejs/plugin-vue'
+import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
 import Markdown from 'unplugin-vue-markdown/vite'
 import VueRouter from 'unplugin-vue-router/vite'
@@ -33,7 +35,10 @@ export default defineConfig({
       extensions: ['vue', 'md'],
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       dts: 'src/components.d.ts',
+      resolvers: [IconsResolver()],
     }),
+
+    Icons(),
 
     Vue({ include: [/\.vue$/, /\.md$/] }),
   ],
