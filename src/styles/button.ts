@@ -321,7 +321,7 @@ const button = tv({
     },
   ],
   defaultVariants: {
-    color: 'primary',
+    color: 'stone',
     variant: 'solid',
     size: 'md',
   },
