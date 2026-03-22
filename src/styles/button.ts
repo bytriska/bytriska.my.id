@@ -292,7 +292,7 @@ const button = tv({
       color: 'stone',
       variant: 'link',
       class:
-        'text-ui-content-base hover:text-ui-content-inverted active:text-ui-content-inverted disabled:text-ui-content-muted aria-disabled:text-ui-content-muted focus:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ui-border-inverted',
+        'text-ui-content-base hover:text-ui-content-highlighted active:text-ui-content-highlighted disabled:text-ui-content-muted aria-disabled:text-ui-content-muted focus:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ui-border-default',
     },
     {
       size: 'xs',

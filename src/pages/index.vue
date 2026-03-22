@@ -11,6 +11,7 @@
         <Button color="stone" size="md" variant="outline" square>
           <i-lucide-search />
         </Button>
+        <Link to="/posts"> Posts </Link>
       </div>
     </div>
   </DefaultLayout>

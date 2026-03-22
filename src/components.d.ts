@@ -16,6 +16,7 @@ declare module 'vue' {
     Header: typeof import('./components/Header.vue')['default']
     ILucideMoon: typeof import('~icons/lucide/moon')['default']
     ILucideSearch: typeof import('~icons/lucide/search')['default']
+    Link: typeof import('./components/ui/Link.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
