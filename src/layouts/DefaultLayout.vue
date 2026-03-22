@@ -1,18 +1,22 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const isSidebarOpen = ref<boolean>(false)
+</script>
 
 <template>
   <div class="min-h-dvh w-full flex flex-col">
     <slot name="header">
-      <Header>
-        <RouterLink to="/" class="text-sm underline"> Home </RouterLink>
-        <RouterLink to="/posts" class="text-sm underline"> Posts </RouterLink>
-        <RouterLink to="/posts/example" class="text-sm underline"> Example Post </RouterLink>
+      <Header v-model:sidebar="isSidebarOpen">
+        <Link to="/" class="font-normal! underline"> Home </Link>
+        <Link to="/posts" class="font-normal! underline"> Posts </Link>
+        <Link to="/posts/example" class="font-normal! underline"> Example Post </Link>
 
         <template #sidebar-content>
-          <div class="flex flex-col gap-4">
-            <RouterLink to="/" class="text-sm underline"> Home </RouterLink>
-            <RouterLink to="/posts" class="text-sm underline"> Posts </RouterLink>
-            <RouterLink to="/posts/example" class="text-sm underline"> Example Post </RouterLink>
+          <div class="flex flex-col gap-2">
+            <Link to="/" class="font-normal! underline" block> Home </Link>
+            <Link to="/posts" class="font-normal! underline" block> Posts </Link>
+            <Link to="/posts/example" class="font-normal! underline" block> Example Post </Link>
           </div>
         </template>
       </Header>

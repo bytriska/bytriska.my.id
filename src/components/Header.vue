@@ -1,68 +1,53 @@
 <script setup lang="ts">
-import { createReusableTemplate, useToggle } from '@vueuse/core'
-import { ref } from 'vue'
+import { createReusableTemplate, useDark, useToggle } from '@vueuse/core'
 
 const [DefineLeftTemplate, LeftTemplate] = createReusableTemplate()
 const [DefineRightTemplate, RightTemplate] = createReusableTemplate()
 const [DefineToggleButton, ToggleButton] = createReusableTemplate()
 
-const isSidebarOpen = ref<boolean>(false)
+const isSidebarOpen = defineModel<boolean>('sidebar', { default: false })
 const toggleSidebar = useToggle(isSidebarOpen)
+
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 </script>
 
 <template>
   <DefineToggleButton>
     <slot name="toggle-button" :is-open="isSidebarOpen" @click="toggleSidebar">
-      <button
+      <Button
+        variant="subtle"
+        square
         :title="isSidebarOpen ? 'Hide Sidebar' : 'Show sidebar'"
-        class="flex lg:hidden items-center justify-center size-8 rounded-md text-ui-content-toned transition-colors duration-150 hover:bg-ui-surface-accented/80 hover:text-ui-content-base"
         @click="toggleSidebar()"
       >
-        <!-- Menu icon -->
-        <svg
-          v-if="!isSidebarOpen"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-        >
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
-
-        <!-- Close icon -->
-        <svg
-          v-else
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-        >
-          <line x1="18" y1="6" x2="6" y2="18" />
-          <line x1="6" y1="6" x2="18" y2="18" />
-        </svg>
-      </button>
+        <i-lucide-x v-if="isSidebarOpen" />
+        <i-lucide-menu v-else />
+      </Button>
     </slot>
   </DefineToggleButton>
 
   <DefineLeftTemplate>
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-2">
       <slot name="left">
-        <RouterLink to="/" class="text-sm underline"> bytriska </RouterLink>
+        <Link to="/" class="text-base! font-bold! underline"> bytriska </Link>
       </slot>
     </div>
   </DefineLeftTemplate>
 
   <DefineRightTemplate>
-    <div class="flex items-center justify-end gap-4">
-      <slot name="right" />
+    <div class="flex items-center justify-end gap-2">
+      <slot name="right" :is-dark="isDark" :toggle-dark="toggleDark">
+        <Button
+          variant="subtle"
+          square
+          :title="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+          @click="toggleDark()"
+        >
+          <i-lucide-moon v-if="isDark" />
+          <i-lucide-sun v-else />
+        </Button>
+      </slot>
 
       <ToggleButton />
     </div>
