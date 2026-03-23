@@ -19,7 +19,7 @@ export default defineConfig({
     Markdown({
       wrapperComponent: 'DefaultLayout',
       wrapperClasses:
-        'grow w-full max-w-7xl flex items-center justify-center mx-auto px-4 sm:px-6 lg:px-8',
+        'prose grow w-full max-w-7xl mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:py-16 lg:px-8',
     }),
 
     Tailwindcss(),

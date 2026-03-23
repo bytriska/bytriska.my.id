@@ -1,0 +1,121 @@
+@layer components {
+  .prose {
+    @apply font-body text-base font-normal text-ui-content-base wrap-break-word;
+  }
+
+  .prose :is(h1, h2, h3, h4) {
+    @apply relative text-ui-content-highlighted font-semibold outline-none;
+  }
+
+  .prose :is(h1, h2, h3, h4):first-child {
+    @apply mt-0;
+  }
+
+  .prose h1 {
+    @apply font-display text-3xl tracking-tight mt-12 mb-4;
+  }
+
+  .prose h2 {
+    @apply text-2xl tracking-tight border-t border-ui-border pt-6 mt-12 mb-4;
+  }
+
+  .prose h3 {
+    @apply text-xl mt-8 mb-2;
+  }
+
+  .prose h4 {
+    @apply text-lg mt-6 mb-2;
+  }
+
+  .prose p,
+  .prose img,
+  .prose summary {
+    @apply my-4;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-ui-border text-ui-content-muted pl-4 py-2 my-4 transition-colors;
+  }
+
+  .prose blockquote > p {
+    @apply text-base my-0 transition-colors;
+  }
+
+  .prose a {
+    @apply text-ui-primary hover:text-ui-primary/75 font-medium underline underline-offset-2 transition-colors;
+  }
+
+  .prose strong {
+    @apply font-semibold;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply pl-6 my-4;
+  }
+
+  .prose ul {
+    @apply list-disc;
+  }
+
+  .prose ol {
+    @apply list-decimal;
+  }
+
+  .prose li + li {
+    @apply mt-2;
+  }
+
+  .prose li > ul,
+  .prose li > ol {
+    @apply m-0 mt-2;
+  }
+
+  .prose table {
+    @apply w-full overflow-x-auto table-auto my-6 border-collapse;
+  }
+
+  .prose tr {
+    @apply bg-ui-surface-base border-t border-ui-border transition-colors;
+  }
+
+  .prose tr:nth-child(2n) {
+    @apply bg-ui-surface-muted;
+  }
+
+  .prose td,
+  .prose th {
+    @apply border py-2 px-4;
+  }
+
+  .prose th {
+    @apply text-sm font-semibold text-left bg-ui-surface-elevated text-ui-content-toned;
+  }
+
+  .prose td {
+    @apply text-sm;
+  }
+
+  .prose hr {
+    @apply border-0 border-t border-ui-border my-4;
+  }
+
+  .prose :not(pre, h1, h2, h3, h4) > code {
+    @apply font-code text-sm text-ui-content-toned;
+  }
+
+  .prose :not(pre) > code {
+    @apply bg-ui-surface-muted rounded py-1 px-2 transition-colors;
+  }
+
+  .prose a > code {
+    @apply text-ui-primary hover:text-ui-primary/75;
+  }
+
+  .prose h1 > code,
+  .prose h2 > code,
+  .prose h3 > code,
+  .prose h4 > code {
+    @apply text-[0.9em];
+  }
+}
