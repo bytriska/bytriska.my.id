@@ -1,6 +1,6 @@
 @layer components {
   .prose {
-    @apply font-body text-base font-normal text-ui-content-base wrap-break-word overflow-hidden;
+    @apply font-body text-base font-normal text-ui-content-base wrap-break-word overflow-x-hidden;
   }
 
   .prose :is(h1, h2, h3, h4) {
@@ -108,8 +108,12 @@
     @apply m-0 mt-2;
   }
 
+  .prose .table-wrapper {
+    @apply w-full overflow-x-auto my-6;
+  }
+
   .prose table {
-    @apply w-full overflow-x-auto table-auto my-6 border-collapse;
+    @apply w-full overflow-x-auto table-auto border-collapse;
   }
 
   .prose tr {
