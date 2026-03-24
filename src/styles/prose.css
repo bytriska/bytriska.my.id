@@ -1,6 +1,6 @@
 @layer components {
   .prose {
-    @apply font-body text-base font-normal text-ui-content-base wrap-break-word;
+    @apply font-body text-base font-normal text-ui-content-base wrap-break-word overflow-hidden;
   }
 
   .prose :is(h1, h2, h3, h4) {
@@ -12,19 +12,56 @@
   }
 
   .prose h1 {
-    @apply font-display text-3xl tracking-tight mt-12 mb-4;
+    --scroll-mt: calc(var(--content-mt) + var(--ui-header-height));
+    @apply font-display tracking-tight mt-12 mb-4 scroll-mt-(--scroll-mt) [--content-mt:--spacing(12)];
   }
 
   .prose h2 {
-    @apply text-2xl tracking-tight border-t border-ui-border pt-6 mt-12 mb-4;
+    --scroll-mt: calc(--spacing(2) + var(--ui-header-height));
+    @apply tracking-tight border-t border-ui-border pt-6 mt-12 mb-4 scroll-mt-(--scroll-mt);
   }
 
   .prose h3 {
-    @apply text-xl mt-8 mb-2;
+    --scroll-mt: calc(--spacing(2) + var(--ui-header-height));
+    @apply mt-8 mb-2 scroll-mt-(--scroll-mt);
   }
 
   .prose h4 {
-    @apply text-lg mt-6 mb-2;
+    --scroll-mt: calc(--spacing(2) + var(--ui-header-height));
+    @apply mt-6 mb-2 scroll-mt-(--scroll-mt);
+  }
+
+  .prose h1,
+  .prose h1 + .header-anchor {
+    @apply text-3xl;
+  }
+
+  .prose h2,
+  .prose h2 + .header-anchor {
+    @apply text-2xl;
+  }
+
+  .prose h3,
+  .prose h3 + .header-anchor {
+    @apply text-xl;
+  }
+
+  .prose h4,
+  .prose h4 + .header-anchor {
+    @apply text-lg;
+  }
+
+  .prose .header-anchor {
+    @apply absolute top-0 left-0 font-medium no-underline -ml-[0.875em] opacity-0 transition-opacity;
+  }
+
+  .prose h2 + .header-anchor {
+    @apply top-6 mt-px;
+  }
+
+  .prose .header-anchor-wrapper:hover .header-anchor,
+  .prose .header-anchor:focus {
+    @apply opacity-100;
   }
 
   .prose p,

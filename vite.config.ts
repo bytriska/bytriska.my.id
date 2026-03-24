@@ -7,6 +7,7 @@ import Components from 'unplugin-vue-components/vite'
 import Markdown from 'unplugin-vue-markdown/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
+import { setupMdItRenderer } from './src/lib/markdown'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -19,7 +20,8 @@ export default defineConfig({
     Markdown({
       wrapperComponent: 'DefaultLayout',
       wrapperClasses:
-        'prose grow w-full max-w-7xl mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:py-16 lg:px-8',
+        'prose grow w-full max-w-7xl mx-auto pt-8 px-6 pb-16 md:pt-12 md:px-8 md:pb-24 lg:pb-0',
+      markdownItSetup: md => setupMdItRenderer(md),
     }),
 
     Tailwindcss(),
