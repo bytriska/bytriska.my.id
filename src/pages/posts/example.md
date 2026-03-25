@@ -1,4 +1,7 @@
-<!-- eslint-disable no-dupe-keys -->
+---
+title: Markdown Extensions
+description: Vitepress comes with built in Markdown Extension.
+---
 
 # Markdown Extensions
 

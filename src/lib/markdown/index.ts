@@ -1,8 +1,9 @@
 import type { MarkdownItAsync } from 'markdown-it-async'
 import slugify from '@sindresorhus/slugify'
-import anchor from 'markdown-it-anchor'
-import attrs from 'markdown-it-attrs'
-import { full as emoji } from 'markdown-it-emoji'
+import anchorPlugin from 'markdown-it-anchor'
+import attrsPlugin from 'markdown-it-attrs'
+import { full as emojiPlugin } from 'markdown-it-emoji'
+import { headersPlugin } from './plugins/headers'
 
 export function setupMdItRenderer(md: MarkdownItAsync) {
   const tableOpen =
@@ -18,9 +19,9 @@ export function setupMdItRenderer(md: MarkdownItAsync) {
     return '</table></div>'
   }
 
-  md.use(anchor, {
+  md.use(anchorPlugin, {
     slugify: s => slugify(s),
-    permalink: anchor.permalink.linkAfterHeader({
+    permalink: anchorPlugin.permalink.linkAfterHeader({
       style: 'visually-hidden',
       assistiveText: title => `Permalink to ${title}`,
       visuallyHiddenClass: 'sr-only',
@@ -29,6 +30,7 @@ export function setupMdItRenderer(md: MarkdownItAsync) {
     }),
   })
 
-  md.use(attrs)
-  md.use(emoji)
+  md.use(attrsPlugin)
+  md.use(emojiPlugin)
+  md.use(headersPlugin)
 }

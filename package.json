@@ -21,6 +21,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^7.4.3",
     "@iconify/json": "^2.2.453",
+    "@mdit-vue/plugin-headers": "^3.0.2",
     "@sindresorhus/slugify": "^3.0.0",
     "@tailwindcss/vite": "^4.1.18",
     "@types/markdown-it-attrs": "^4.1.3",

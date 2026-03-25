@@ -29,6 +29,9 @@ importers:
       '@iconify/json':
         specifier: ^2.2.453
         version: 2.2.453
+      '@mdit-vue/plugin-headers':
+        specifier: ^3.0.2
+        version: 3.0.2
       '@sindresorhus/slugify':
         specifier: ^3.0.0
         version: 3.0.0
@@ -671,6 +674,20 @@ packages:
     resolution:
       {
         integrity: sha512-QKKgIva31YtqHgSAz7S7hRcL7cHXiqdog4wxTfxeQCHo+9IP4Oi5/r1Y5E93nTPccpadDWzAwr3A0F+kAEnsVQ==,
+      }
+    engines: { node: '>=20.0.0' }
+
+  '@mdit-vue/plugin-headers@3.0.2':
+    resolution:
+      {
+        integrity: sha512-Z3PpDdwBTO5jlW2r617tQibkwtCc5unTnj/Ew1SCxTQaXjtKgwP9WngdSN+xxriISHoNOYzwpoUw/1CW8ntibA==,
+      }
+    engines: { node: '>=20.0.0' }
+
+  '@mdit-vue/shared@3.0.2':
+    resolution:
+      {
+        integrity: sha512-anFGls154h0iVzUt5O43EaqYvPwzfUxQ34QpNQsUQML7pbEJMhcgkRNvYw9hZBspab+/TP45agdPw5joh6/BBA==,
       }
     engines: { node: '>=20.0.0' }
 
@@ -4223,6 +4240,19 @@ snapshots:
       '@mdit-vue/types': 3.0.2
       '@types/markdown-it': 14.1.2
       gray-matter: 4.0.3
+      markdown-it: 14.1.1
+
+  '@mdit-vue/plugin-headers@3.0.2':
+    dependencies:
+      '@mdit-vue/shared': 3.0.2
+      '@mdit-vue/types': 3.0.2
+      '@types/markdown-it': 14.1.2
+      markdown-it: 14.1.1
+
+  '@mdit-vue/shared@3.0.2':
+    dependencies:
+      '@mdit-vue/types': 3.0.2
+      '@types/markdown-it': 14.1.2
       markdown-it: 14.1.1
 
   '@mdit-vue/types@3.0.2': {}
