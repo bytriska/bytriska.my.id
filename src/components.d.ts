@@ -14,13 +14,17 @@ declare module 'vue' {
     Button: typeof import('./components/ui/Button.vue')['default']
     DefaultLayout: typeof import('./layouts/DefaultLayout.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
+    ILucideAlignLeft: typeof import('~icons/lucide/align-left')['default']
+    ILucideCircleArrowUp: typeof import('~icons/lucide/circle-arrow-up')['default']
     ILucideMenu: typeof import('~icons/lucide/menu')['default']
     ILucideMoon: typeof import('~icons/lucide/moon')['default']
     ILucideSearch: typeof import('~icons/lucide/search')['default']
     ILucideSun: typeof import('~icons/lucide/sun')['default']
     ILucideX: typeof import('~icons/lucide/x')['default']
     Link: typeof import('./components/ui/Link.vue')['default']
+    PostLayout: typeof import('./layouts/PostLayout.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TocTree: typeof import('./components/TocTree.vue')['default']
   }
 }

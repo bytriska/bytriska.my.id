@@ -18,7 +18,7 @@ export default defineConfig({
   },
   plugins: [
     Markdown({
-      wrapperComponent: 'DefaultLayout',
+      wrapperComponent: 'PostLayout',
       wrapperClasses:
         'prose grow w-full max-w-7xl mx-auto pt-8 px-6 pb-16 md:pt-12 md:px-8 md:pb-24 lg:pb-0',
       markdownItSetup: md => setupMdItRenderer(md),
