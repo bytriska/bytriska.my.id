@@ -76,7 +76,7 @@ function scrollToTop() {
     </slot>
 
     <div
-      class="w-full bg-ui-surface-base/75 backdrop-blur sticky top-(--ui-header-height) z-ui-docked"
+      class="w-full bg-ui-surface-base/75 backdrop-blur sticky top-(--ui-header-height) z-ui-sticky"
     >
       <div
         class="w-full max-w-7xl flex items-center justify-between border-b border-dashed border-ui-border mx-auto py-2 px-6 md:px-8"
@@ -121,7 +121,7 @@ function scrollToTop() {
         @click="isTocOpen = false"
       >
         <div
-          class="relative w-full max-w-2xl bg-ui-surface-elevated rounded-md shadow-lg mt-16"
+          class="relative w-full max-w-2xl bg-ui-surface-elevated rounded-md shadow-lg mt-16 z-ui-modal"
           @click.stop
         >
           <div class="flex items-center justify-between px-6 py-4 border-b border-ui-border">

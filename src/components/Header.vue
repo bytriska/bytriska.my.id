@@ -54,7 +54,7 @@ const toggleDark = useToggle(isDark)
   </DefineRightTemplate>
 
   <header
-    class="h-(--ui-header-height) w-full bg-ui-surface-base/75 backdrop-blur border-b border-ui-border sticky top-0 z-ui-docked"
+    class="h-(--ui-header-height) w-full bg-ui-surface-base/75 backdrop-blur border-b border-ui-border sticky top-0 z-ui-sticky"
   >
     <div
       class="@container w-full max-w-7xl flex items-center justify-between gap-4 mx-auto px-4 py-4 sm:px-6 lg:px-8"
@@ -70,18 +70,18 @@ const toggleDark = useToggle(isDark)
   </header>
 
   <slot name="sidebar">
-    <div class="lg:hidden isolate">
+    <div class="lg:hidden">
       <slot name="sidebar-overlay" @close-sidebar="isSidebarOpen = false">
         <div
-          v-show="isSidebarOpen"
-          class="fixed top-(--ui-header-height) left-0 right-0 bottom-0 bg-ui-surface-base/75 backdrop-blur"
+          v-if="isSidebarOpen"
+          class="fixed top-(--ui-header-height) left-0 right-0 bottom-0 bg-ui-surface-base/75 backdrop-blur z-ui-overlay"
           @click="isSidebarOpen = false"
         />
       </slot>
 
       <slot name="sidebar-body">
         <aside
-          class="fixed top-(--ui-header-height) right-0 bottom-0 w-full max-w-sm bg-ui-surface-muted transition-transform duration-150"
+          class="fixed top-(--ui-header-height) right-0 bottom-0 w-full max-w-sm bg-ui-surface-muted transition-transform duration-150 z-ui-slideover"
           :class="isSidebarOpen ? 'translate-x-0' : 'translate-x-full'"
         >
           <div class="w-full h-full px-4 sm:px-6 py-4">

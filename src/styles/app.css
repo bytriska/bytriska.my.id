@@ -106,14 +106,17 @@
   /* ── Z-index ── */
   --z-index-hide: -1;
   --z-index-base: 0;
-  --z-index-docked: 10;
-  --z-index-dropdown: 100;
-  --z-index-popover: 200;
-  --z-index-sidebar: 300;
+  --z-index-raised: 10;
+  --z-index-docked: 100;
+  --z-index-sticky: 200;
+  --z-index-dropdown: 300;
   --z-index-overlay: 400;
   --z-index-modal: 500;
-  --z-index-tooltip: 600;
-  --z-index-toast: 700;
+  --z-index-slideover: 600;
+  --z-index-popover: 700;
+  --z-index-tooltip: 800;
+  --z-index-toast: 900;
+  --z-index-spotlight: 1000;
 }
 
 @utility z-ui-* {
