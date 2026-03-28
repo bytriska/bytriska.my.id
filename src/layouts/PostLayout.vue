@@ -143,9 +143,6 @@ function scrollToTop() {
       </div>
     </Transition>
 
-    <pre>
-    {{ props.frontmatter._headers }}
-    </pre>
     <slot />
 
     <slot name="footer">

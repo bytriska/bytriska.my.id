@@ -1,60 +1,77 @@
 @layer components {
+  /* ── Layout & base typography ── */
+
   .prose {
-    @apply font-body text-base font-normal text-ui-content-base wrap-break-word overflow-x-hidden;
+    @apply grow w-full max-w-7xl mx-auto font-body text-base font-normal
+           text-ui-content-base break-words overflow-x-hidden
+           pt-8 px-6 pb-16
+           md:pt-12 md:px-8 md:pb-24
+           lg:pb-0;
   }
+
+  /* ── Headings ── */
 
   .prose :is(h1, h2, h3, h4) {
-    @apply relative text-ui-content-highlighted font-semibold outline-none;
+    --scroll-mt: calc(--spacing(2) + var(--ui-header-height));
+    @apply relative font-semibold text-ui-content-highlighted outline-none
+           scroll-mt-(--scroll-mt);
   }
 
+  /* Remove top margin when a heading is the very first element */
   .prose :is(h1, h2, h3, h4):first-child {
     @apply mt-0;
   }
 
   .prose h1 {
     --scroll-mt: calc(var(--content-mt) + var(--ui-header-height));
-    @apply font-display tracking-tight mt-12 mb-4 scroll-mt-(--scroll-mt) [--content-mt:--spacing(12)];
+    @apply font-display tracking-tight text-3xl
+           mt-12 mb-4
+           [--content-mt:--spacing(12)];
   }
 
   .prose h2 {
-    --scroll-mt: calc(--spacing(2) + var(--ui-header-height));
-    @apply tracking-tight border-t border-ui-border pt-6 mt-12 mb-4 scroll-mt-(--scroll-mt);
+    @apply tracking-tight text-2xl
+           border-t border-ui-border
+           pt-6 mt-12 mb-4;
   }
 
   .prose h3 {
-    --scroll-mt: calc(--spacing(2) + var(--ui-header-height));
-    @apply mt-8 mb-2 scroll-mt-(--scroll-mt);
+    @apply text-xl mt-8 mb-2;
   }
 
   .prose h4 {
-    --scroll-mt: calc(--spacing(2) + var(--ui-header-height));
-    @apply mt-6 mb-2 scroll-mt-(--scroll-mt);
+    @apply text-lg mt-6 mb-2;
   }
 
-  .prose h1,
+  /* ── Header anchors ── */
+
+  .prose .header-anchor-wrapper {
+    @apply relative;
+  }
+
   .prose h1 + .header-anchor {
     @apply text-3xl;
   }
-
-  .prose h2,
   .prose h2 + .header-anchor {
     @apply text-2xl;
   }
-
-  .prose h3,
   .prose h3 + .header-anchor {
     @apply text-xl;
   }
-
-  .prose h4,
   .prose h4 + .header-anchor {
     @apply text-lg;
   }
 
   .prose .header-anchor {
-    @apply absolute top-0 left-0 font-medium no-underline -ml-[0.875em] opacity-0 transition-opacity;
+    @apply absolute top-0 left-0
+           font-medium no-underline
+           -ml-[0.875em] opacity-0 transition-opacity;
   }
 
+  /*
+   * h2 has `pt-6` from its border-top spacing, so the anchor needs to be
+   * pushed down to stay visually aligned with the heading baseline.
+   */
   .prose h2 + .header-anchor {
     @apply top-6 mt-px;
   }
@@ -64,27 +81,39 @@
     @apply opacity-100;
   }
 
+  /* ── Inline & block text ── */
+
   .prose p,
   .prose img,
   .prose summary {
     @apply my-4;
   }
 
-  .prose blockquote {
-    @apply border-l-4 border-ui-border text-ui-content-muted pl-4 py-2 my-4 transition-colors;
-  }
-
-  .prose blockquote > p {
-    @apply text-base my-0 transition-colors;
-  }
-
-  .prose a {
-    @apply text-ui-primary hover:text-ui-primary/75 font-medium underline underline-offset-2 transition-colors;
-  }
-
   .prose strong {
     @apply font-semibold;
   }
+
+  .prose a {
+    @apply font-medium underline underline-offset-2 transition-colors
+           text-ui-primary hover:text-ui-primary/75;
+  }
+
+  .prose blockquote {
+    @apply my-4 pl-4 py-2
+           border-l-4 border-ui-border
+           text-ui-content-muted;
+  }
+
+  /* Reset paragraph margin inside blockquotes to avoid double spacing */
+  .prose blockquote > p {
+    @apply my-0;
+  }
+
+  .prose hr {
+    @apply my-4 border-0 border-t border-ui-border;
+  }
+
+  /* ── Lists ── */
 
   .prose ul,
   .prose ol {
@@ -103,60 +132,51 @@
     @apply mt-2;
   }
 
+  /* Nested lists: remove vertical margin, keep small top gap */
   .prose li > ul,
   .prose li > ol {
-    @apply m-0 mt-2;
+    @apply mt-2 mb-0;
   }
+
+  /* ── Tables ── */
 
   .prose .table-wrapper {
     @apply w-full overflow-x-auto my-6;
   }
 
   .prose table {
-    @apply w-full overflow-x-auto table-auto border-collapse;
+    @apply w-full table-auto border-collapse;
   }
 
   .prose tr {
-    @apply bg-ui-surface-base border-t border-ui-border transition-colors;
+    @apply border-t border-ui-border bg-ui-surface-base;
   }
 
   .prose tr:nth-child(2n) {
     @apply bg-ui-surface-muted;
   }
 
-  .prose td,
-  .prose th {
-    @apply border py-2 px-4;
-  }
-
-  .prose th {
-    @apply text-sm font-semibold text-left bg-ui-surface-elevated text-ui-content-toned;
-  }
-
+  .prose th,
   .prose td {
-    @apply text-sm;
+    @apply border border-ui-border py-2 px-4 text-sm;
   }
 
-  .prose hr {
-    @apply border-0 border-t border-ui-border my-4;
+  .prose th {
+    @apply font-semibold text-left bg-ui-surface-elevated text-ui-content-toned;
   }
 
-  .prose :not(pre, h1, h2, h3, h4) > code {
-    @apply font-code text-sm text-ui-content-toned;
-  }
+  /* ── Code ── */
 
   .prose :not(pre) > code {
-    @apply bg-ui-surface-muted rounded py-1 px-2 transition-colors;
+    @apply font-code text-sm text-ui-content-toned
+           bg-ui-surface-muted rounded px-2 py-1;
+  }
+
+  .prose :is(h1, h2, h3, h4) > code {
+    @apply text-[0.9em] bg-transparent p-0;
   }
 
   .prose a > code {
     @apply text-ui-primary hover:text-ui-primary/75;
-  }
-
-  .prose h1 > code,
-  .prose h2 > code,
-  .prose h3 > code,
-  .prose h4 > code {
-    @apply text-[0.9em];
   }
 }

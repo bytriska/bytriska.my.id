@@ -26,7 +26,7 @@ export function setupMdItRenderer(md: MarkdownItAsync) {
       assistiveText: title => `Permalink to ${title}`,
       visuallyHiddenClass: 'sr-only',
       placement: 'before',
-      wrapper: ['<div class="header-anchor-wrapper group relative">', '</div>'],
+      wrapper: ['<div class="header-anchor-wrapper">', '</div>'],
     }),
   })
 
