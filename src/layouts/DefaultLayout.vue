@@ -13,7 +13,7 @@ const isSidebarOpen = ref<boolean>(false)
         <Link to="/posts/example" class="font-normal! underline"> Example Post </Link>
 
         <template #sidebar-content>
-          <div class="flex flex-col gap-2">
+          <div class="w-full h-full flex flex-col gap-2 px-6 py-8">
             <Link to="/" class="font-normal! underline" block> Home </Link>
             <Link to="/posts" class="font-normal! underline" block> Posts </Link>
             <Link to="/posts/example" class="font-normal! underline" block> Example Post </Link>

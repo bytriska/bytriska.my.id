@@ -3,6 +3,7 @@ import { createReusableTemplate, useDark, useToggle } from '@vueuse/core'
 
 const [DefineLeftTemplate, LeftTemplate] = createReusableTemplate()
 const [DefineRightTemplate, RightTemplate] = createReusableTemplate()
+const [DefineSidebarTemplate, SidebarTemplate] = createReusableTemplate()
 const [DefineToggleButton, ToggleButton] = createReusableTemplate()
 
 const isSidebarOpen = defineModel<boolean>('sidebar', { default: false })
@@ -26,6 +27,32 @@ const toggleDark = useToggle(isDark)
       </Button>
     </slot>
   </DefineToggleButton>
+
+  <DefineSidebarTemplate>
+    <slot name="sidebar">
+      <Transition
+        enter-active-class="transition duration-150 ease-out"
+        enter-from-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="transition duration-100 ease-in"
+        leave-from-class="opacity-100"
+        leave-to-class="opacity-0"
+      >
+        <div
+          v-if="isSidebarOpen"
+          class="fixed inset-0 top-(--ui-header-nav-height) bg-ui-surface-base/75 backdrop-blur-md z-ui-overlay overscroll-contain"
+          @click="isSidebarOpen = false"
+        >
+          <div
+            class="absolute right-0 h-full w-full max-w-2xl bg-ui-surface-elevated z-ui-slideover"
+            @click.stop
+          >
+            <slot name="sidebar-content" />
+          </div>
+        </div>
+      </Transition>
+    </slot>
+  </DefineSidebarTemplate>
 
   <DefineLeftTemplate>
     <div class="flex items-center gap-2">
@@ -53,42 +80,27 @@ const toggleDark = useToggle(isDark)
     </div>
   </DefineRightTemplate>
 
-  <header
-    class="h-(--ui-header-height) w-full bg-ui-surface-base/75 backdrop-blur border-b border-ui-border sticky top-0 z-ui-sticky"
-  >
-    <div
-      class="@container w-full max-w-7xl flex items-center justify-between gap-4 mx-auto px-4 py-4 sm:px-6 lg:px-8"
+  <div class="sticky top-0 h-(--ui-header-height) w-full z-ui-sticky" v-bind="$attrs">
+    <slot name="top" />
+
+    <header
+      class="h-(--ui-header-nav-height) w-full bg-ui-surface-base/75 backdrop-blur-sm border-b border-ui-border"
     >
-      <LeftTemplate />
+      <div
+        class="@container w-full h-full max-w-7xl flex items-center justify-between gap-4 mx-auto px-6 md:px-8"
+      >
+        <LeftTemplate />
 
-      <div class="hidden lg:flex items-center">
-        <slot />
+        <div class="hidden lg:flex items-center">
+          <slot />
+        </div>
+
+        <RightTemplate />
       </div>
+    </header>
 
-      <RightTemplate />
-    </div>
-  </header>
+    <slot name="bottom" />
 
-  <slot name="sidebar">
-    <div class="lg:hidden">
-      <slot name="sidebar-overlay" @close-sidebar="isSidebarOpen = false">
-        <div
-          v-if="isSidebarOpen"
-          class="fixed top-(--ui-header-height) left-0 right-0 bottom-0 bg-ui-surface-base/75 backdrop-blur z-ui-overlay"
-          @click="isSidebarOpen = false"
-        />
-      </slot>
-
-      <slot name="sidebar-body">
-        <aside
-          class="fixed top-(--ui-header-height) right-0 bottom-0 w-full max-w-sm bg-ui-surface-muted transition-transform duration-150 z-ui-slideover"
-          :class="isSidebarOpen ? 'translate-x-0' : 'translate-x-full'"
-        >
-          <div class="w-full h-full px-4 sm:px-6 py-4">
-            <slot name="sidebar-content" />
-          </div>
-        </aside>
-      </slot>
-    </div>
-  </slot>
+    <SidebarTemplate />
+  </div>
 </template>
