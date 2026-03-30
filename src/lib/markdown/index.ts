@@ -1,11 +1,20 @@
 import type { MarkdownItAsync } from 'markdown-it-async'
+import shikiPlugin from '@shikijs/markdown-it'
+import {
+  transformerMetaHighlight,
+  transformerNotationDiff,
+  transformerNotationErrorLevel,
+  transformerNotationFocus,
+  transformerNotationHighlight,
+} from '@shikijs/transformers'
 import slugify from '@sindresorhus/slugify'
 import anchorPlugin from 'markdown-it-anchor'
 import attrsPlugin from 'markdown-it-attrs'
 import { full as emojiPlugin } from 'markdown-it-emoji'
 import { headersPlugin } from './plugins/headers'
+import { lineNumberPlugin } from './plugins/line-number'
 
-export function setupMdItRenderer(md: MarkdownItAsync) {
+export async function setupMdItRenderer(md: MarkdownItAsync) {
   const tableOpen =
     md.renderer.rules.table_open ||
     function (tokens, idx, options, _env, self) {
@@ -30,7 +39,27 @@ export function setupMdItRenderer(md: MarkdownItAsync) {
     }),
   })
 
+  md.use(
+    await shikiPlugin({
+      themes: {
+        light: 'vitesse-light',
+        dark: 'vitesse-dark',
+      },
+      transformers: [
+        transformerMetaHighlight(),
+        transformerNotationDiff(),
+        transformerNotationFocus({
+          classActiveLine: 'has-focus',
+          classActivePre: 'has-focused-lines',
+        }),
+        transformerNotationHighlight(),
+        transformerNotationErrorLevel(),
+      ],
+    })
+  )
+
   md.use(attrsPlugin)
   md.use(emojiPlugin)
   md.use(headersPlugin)
+  md.use(lineNumberPlugin)
 }

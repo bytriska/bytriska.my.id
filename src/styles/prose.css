@@ -179,4 +179,27 @@
   .prose a > code {
     @apply text-ui-primary hover:text-ui-primary/75;
   }
+
+  .prose pre.shiki {
+    @apply relative overflow-x-auto md:rounded-md py-4 my-4 -mx-6 md:mx-auto;
+  }
+  .prose pre.shiki code {
+    @apply block min-w-full w-fit px-6 py-0;
+  }
+
+  .prose pre.shiki,
+  .prose pre.shiki code {
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+  }
+}
+
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
 }
