@@ -7,7 +7,7 @@ import Components from 'unplugin-vue-components/vite'
 import Markdown from 'unplugin-vue-markdown/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
-import { setupMdItRenderer } from './src/lib/markdown'
+import { cleanupMdItRenderer, setupMdItRenderer } from './src/lib/markdown'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -17,6 +17,17 @@ export default defineConfig({
     },
   },
   plugins: [
+    // IMPORTANT: cleanup must come before markdown plugin.
+    {
+      name: 'markdown-it-cleanup',
+      closeBundle() {
+        cleanupMdItRenderer()
+      },
+      configureServer(server) {
+        server.httpServer?.on('close', cleanupMdItRenderer)
+      },
+    },
+
     Markdown({
       wrapperComponent: 'PostLayout',
       wrapperClasses: 'prose',

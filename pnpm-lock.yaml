@@ -32,9 +32,6 @@ importers:
       '@mdit-vue/plugin-headers':
         specifier: ^3.0.2
         version: 3.0.2
-      '@shikijs/markdown-it':
-        specifier: ^4.0.2
-        version: 4.0.2(markdown-it-async@2.2.0)
       '@shikijs/transformers':
         specifier: ^4.0.2
         version: 4.0.2
@@ -80,6 +77,9 @@ importers:
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
+      shiki:
+        specifier: ^4.0.2
+        version: 4.0.2
       simple-git-hooks:
         specifier: ^2.13.1
         version: 2.13.1
@@ -957,18 +957,6 @@ packages:
         integrity: sha512-KaXby5dvoeuZzN0rYQiPMjFoUrz4hgwIE+D6Du9owcHcl6/g16/yT5BQxSW5cGt2MZBz6Hl0YuRqf12omRfUUg==,
       }
     engines: { node: '>=20' }
-
-  '@shikijs/markdown-it@4.0.2':
-    resolution:
-      {
-        integrity: sha512-7DDEhknj/mXTN7ME8CjKWBv5O/4YgOiJBZLgs/NbUFMC7Ik1x/VEhaK+aBjX60bJdok0E2mxEYan/GzJ2xRx+A==,
-      }
-    engines: { node: '>=20' }
-    peerDependencies:
-      markdown-it-async: ^2.2.0
-    peerDependenciesMeta:
-      markdown-it-async:
-        optional: true
 
   '@shikijs/primitive@4.0.2':
     resolution:
@@ -4571,13 +4559,6 @@ snapshots:
   '@shikijs/langs@4.0.2':
     dependencies:
       '@shikijs/types': 4.0.2
-
-  '@shikijs/markdown-it@4.0.2(markdown-it-async@2.2.0)':
-    dependencies:
-      markdown-it: 14.1.1
-      shiki: 4.0.2
-    optionalDependencies:
-      markdown-it-async: 2.2.0
 
   '@shikijs/primitive@4.0.2':
     dependencies:
