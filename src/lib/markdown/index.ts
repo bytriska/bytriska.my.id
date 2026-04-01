@@ -6,25 +6,13 @@ import { full as emojiPlugin } from 'markdown-it-emoji'
 import { headersPlugin } from './plugins/headers'
 import { clearHighlighter, highlighterPlugin } from './plugins/highlighter'
 import { lineNumberPlugin } from './plugins/line-number'
+import { tableWrapperPlugin } from './plugins/table-wrapper'
 
 export function cleanupMdItRenderer() {
   clearHighlighter()
 }
 
 export async function setupMdItRenderer(md: MarkdownItAsync) {
-  const tableOpen =
-    md.renderer.rules.table_open ||
-    function (tokens, idx, options, _env, self) {
-      return self.renderToken(tokens, idx, options)
-    }
-
-  md.renderer.rules.table_open = function (tokens, idx, options, env, self) {
-    return `<div class="table-wrapper">${tableOpen(tokens, idx, options, env, self)}`
-  }
-  md.renderer.rules.table_close = function () {
-    return '</table></div>'
-  }
-
   md.use(anchorPlugin, {
     slugify: s => slugify(s),
     permalink: anchorPlugin.permalink.linkAfterHeader({
@@ -36,9 +24,10 @@ export async function setupMdItRenderer(md: MarkdownItAsync) {
     }),
   })
 
-  md.use(highlighterPlugin)
   md.use(attrsPlugin)
   md.use(emojiPlugin)
   md.use(headersPlugin)
+  md.use(highlighterPlugin)
   md.use(lineNumberPlugin)
+  md.use(tableWrapperPlugin)
 }
