@@ -25,6 +25,7 @@ export type HighlighterOptions = Partial<Pick<CodeOptionsMultipleThemes<BuiltinT
     defaultLang?: LanguageInput | BuiltinLanguage | SpecialLanguage
   }
 
+const langRE = /^[\w-]+/
 let _highlighter: Highlighter | null
 
 export async function getHighlighter(opts: HighlighterOptions) {
@@ -58,6 +59,10 @@ export async function highlighterPlugin(md: MarkdownItAsync, opts: HighlighterOp
   md.options.highlight = async (code, lang, attrs) => {
     lang ||= opts.defaultLang as string
 
+    const { lang: normalizedLang, attrs: normalizedAttrs } = normalizeHighlightLang(lang)
+    lang = normalizedLang
+    attrs = `${normalizedAttrs} ${attrs}`.trim()
+
     const transformers: ShikiTransformer[] = []
 
     transformers.push(transformerMetaHighlight())
@@ -87,4 +92,17 @@ export async function highlighterPlugin(md: MarkdownItAsync, opts: HighlighterOp
       meta: { __raw: attrs },
     })
   }
+}
+
+function normalizeHighlightLang(lang: string): { lang: string; attrs: string } {
+  let attrs = ''
+  const match = langRE.exec(lang)
+  if (match) {
+    const orig = lang
+    lang = match[0].toLowerCase()
+    attrs = orig.slice(lang.length).replace(/(?<!=)\{/g, ' {')
+    attrs = attrs.trim().replace(/\s+/g, ' ')
+  }
+
+  return { lang, attrs }
 }
