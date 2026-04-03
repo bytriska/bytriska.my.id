@@ -25,7 +25,8 @@ export type HighlighterOptions = Partial<Pick<CodeOptionsMultipleThemes<BuiltinT
     defaultLang?: LanguageInput | BuiltinLanguage | SpecialLanguage
   }
 
-const langRE = /^[\w-]+/
+export const langRE = /^[\w-]+/
+
 let _highlighter: Highlighter | null
 
 export async function getHighlighter(opts: HighlighterOptions) {

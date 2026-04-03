@@ -5,6 +5,7 @@ import attrsPlugin from 'markdown-it-attrs'
 import { full as emojiPlugin } from 'markdown-it-emoji'
 import { headersPlugin } from './plugins/headers'
 import { clearHighlighter, highlighterPlugin } from './plugins/highlighter'
+import { preWrapperPlugin } from './plugins/pre-wrapper'
 import { tableWrapperPlugin } from './plugins/table-wrapper'
 
 export function cleanupMdItRenderer() {
@@ -28,5 +29,6 @@ export async function setupMdItRenderer(md: MarkdownItAsync) {
   md.use(headersPlugin)
   md.use(highlighterPlugin)
   // md.use(lineNumberPlugin)
+  md.use(preWrapperPlugin)
   md.use(tableWrapperPlugin)
 }

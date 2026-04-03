@@ -180,18 +180,57 @@
     @apply text-ui-primary hover:text-ui-primary/75;
   }
 
-  .prose pre.shiki {
-    @apply relative overflow-x-auto md:rounded-md py-4 my-4 -mx-6 md:mx-auto;
-  }
-  .prose pre.shiki code {
-    @apply block min-w-full w-fit px-6 py-0;
+  /* ── Code blocks ── */
+
+  .prose div[class*='language-'] {
+    @apply relative overflow-x-auto md:rounded-md my-4 -mx-6 md:mx-auto transition-colors;
   }
 
-  .prose pre.shiki,
-  .prose pre.shiki code {
+  .prose li div[class*='language-'] {
+    @apply max-md:rounded-l-md;
+  }
+
+  .prose div[class*='language-'] pre {
+    @apply overflow-x-auto py-4;
+  }
+
+  .prose div[class*='language-'] code {
+    @apply block min-w-full w-fit text-sm px-6 py-0;
+  }
+
+  .prose div[class*='language-'] pre,
+  .prose div[class*='language-'] code {
     -moz-tab-size: 4;
     -o-tab-size: 4;
     tab-size: 4;
+  }
+
+  .prose div[class*='language-'] > button.copy-button {
+    @apply absolute icon-copy top-0 right-0 mx-2.5 my-2.5 z-3 bg-ui-surface-elevated p-2 opacity-0 transition-opacity ring ring-inset ring-ui-border-accented text-ui-content-base bg-ui-surface-elevated hover:bg-ui-surface-accented/75 active:bg-ui-surface-accented/75 disabled:bg-ui-surface-elevated aria-disabled:bg-ui-surface-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-ui-border-inverted rounded-md font-medium inline-flex items-center disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors;
+  }
+
+  .prose div[class*='language-'] > span.label {
+    @apply absolute select-none top-0 right-0 text-xs font-medium text-ui-content-muted tracking-wide mx-2.5 my-2.5 z-2 transition-opacity;
+  }
+
+  .prose div[class*='language-']:hover > button.copy-button,
+  .prose div[class*='language-'] > button.copy-button:focus {
+    @apply opacity-100;
+  }
+
+  .prose div[class*='language-']:hover > button.copy-button + span.label,
+  .prose div[class*='language-'] > button.copy-button:focus + span.label {
+    @apply opacity-0;
+  }
+}
+
+@utility icon-copy {
+  &::after {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3C!-- Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE --%3E%3Cg fill='none' stroke='%23888888' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Crect width='14' height='14' x='8' y='8' rx='2' ry='2'/%3E%3Cpath d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/%3E%3C/g%3E%3C/svg%3E"); /* Your SVG here */
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
   }
 }
 
