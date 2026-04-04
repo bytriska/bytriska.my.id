@@ -19,11 +19,7 @@ const tocHeaders = computed(() => props.frontmatter._headers || [])
 
 function navigateTo(link: string) {
   isTocOpen.value = false
-
-  router.push({ hash: link }).then(() => {
-    const el = document.getElementById(link.replace(/^#/, ''))
-    el?.scrollIntoView({ behavior: 'smooth' })
-  })
+  router.push({ hash: link })
 }
 
 function scrollToTop() {
@@ -32,7 +28,7 @@ function scrollToTop() {
 </script>
 
 <template>
-  <div class="min-h-dvh w-full flex flex-col [--ui-header-bottom-height:--spacing(10)]">
+  <div class="min-h-dvh w-full flex flex-col">
     <slot name="header">
       <Header v-model:sidebar="isSidebarOpen">
         <Link to="/" class="font-normal! underline"> Home </Link>
@@ -126,3 +122,9 @@ function scrollToTop() {
     </slot>
   </div>
 </template>
+
+<style scoped>
+:global(:root) {
+  --ui-header-bottom-height: 2.5rem;
+}
+</style>

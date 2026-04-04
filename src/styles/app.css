@@ -127,9 +127,9 @@
 
 @layer base {
   :root {
-    --ui-header-top-height: 0;
-    --ui-header-nav-height: --spacing(16);
-    --ui-header-bottom-height: 0;
+    --ui-header-top-height: 0px;
+    --ui-header-nav-height: 4rem;
+    --ui-header-bottom-height: 0px;
     --ui-header-height: calc(
       var(--ui-header-top-height) + var(--ui-header-nav-height) + var(--ui-header-bottom-height)
     );
