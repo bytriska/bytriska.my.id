@@ -169,13 +169,13 @@
 
   .prose div[class*='language-'] {
     @apply relative overflow-x-auto my-4
-           -mx-6 md:mx-auto md:rounded-md
+           -mx-6 md:mx-auto md:rounded-md border-y md:border-x border-ui-border
            transition-colors;
   }
 
   /* On mobile, round the left edge when nested in a list */
   .prose li div[class*='language-'] {
-    @apply max-md:rounded-l-md;
+    @apply max-md:rounded-l-md border-l;
   }
 
   .prose div[class*='language-'] pre {
@@ -193,28 +193,40 @@
     tab-size: 4;
   }
 
-  /* Copy button */
   .prose div[class*='language-'] > button.copy-button {
-    /* Layout & position */
     @apply absolute top-0 right-0 z-3 m-2.5
-           inline-flex items-center p-2
-           rounded-md font-medium;
+           inline-flex items-center p-1.5 gap-1.5
+           rounded-md font-medium shadow-sm;
 
-    /* Colors & surface */
     @apply bg-ui-surface-elevated text-ui-content-base
            hover:bg-ui-surface-accented/75
            active:bg-ui-surface-accented/75;
 
-    /* Ring / border */
     @apply ring ring-inset ring-ui-border-accented
            focus:outline-none focus-visible:ring-2 focus-visible:ring-ui-border-inverted;
 
-    /* Disabled state */
     @apply disabled:cursor-not-allowed disabled:opacity-75 disabled:bg-ui-surface-elevated
            aria-disabled:cursor-not-allowed aria-disabled:opacity-75 aria-disabled:bg-ui-surface-elevated;
 
-    /* Visibility & transitions */
-    @apply opacity-0 transition-[opacity,colors] icon-copy;
+    @apply opacity-0 transition-[opacity,colors];
+
+    &::before {
+      @apply content-[''] block size-4 bg-current mask-contain mask-no-repeat;
+
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3C!-- Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE --%3E%3Cg fill='none' stroke='%23888888' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Crect width='14' height='14' x='8' y='8' rx='2' ry='2'/%3E%3Cpath d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/%3E%3C/g%3E%3C/svg%3E");
+    }
+  }
+
+  .prose div[class*='language-'] > button.copy-button.copied {
+    @apply opacity-100 px-2.5;
+
+    &::before {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3C!-- Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE --%3E%3Cpath fill='none' stroke='%23888888' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");
+    }
+
+    &::after {
+      @apply content-['Copied'] text-xs;
+    }
   }
 
   /* Language label */
@@ -233,18 +245,6 @@
   .prose div[class*='language-']:hover > button.copy-button + span.label,
   .prose div[class*='language-'] > button.copy-button:focus + span.label {
     @apply opacity-0;
-  }
-}
-
-/* ── Copy icon ── */
-
-@utility icon-copy {
-  &::after {
-    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3C!-- Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE --%3E%3Cg fill='none' stroke='%23888888' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Crect width='14' height='14' x='8' y='8' rx='2' ry='2'/%3E%3Cpath d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/%3E%3C/g%3E%3C/svg%3E");
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    vertical-align: middle;
   }
 }
 

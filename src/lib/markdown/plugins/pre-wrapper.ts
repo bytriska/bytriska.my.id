@@ -14,11 +14,11 @@ export function preWrapperPlugin(md: MarkdownItAsync) {
 
     return (
       // eslint-disable-next-line prefer-template
-      `<div class="language-${lang}">` +
-      `<button class="copy-button" data-lang="${lang}"><span class="sr-only">Copy</span></button>` +
-      `<span class="label">${label}</span>` +
-      fence(...args) +
-      `</div>`
+      `<div class="language-${lang}">`
+      + `<button class="copy-button" data-lang="${lang}"><span class="sr-only">Copy</span></button>`
+      + `<span class="label">${label}</span>`
+      + fence(...args)
+      + `</div>`
     )
   }
 }

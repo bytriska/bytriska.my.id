@@ -2,6 +2,7 @@
 import type { MarkdownItHeader } from '@/types'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useCopyCode } from '@/composables/copy-code'
 
 const props = defineProps<{
   frontmatter: {
@@ -10,6 +11,8 @@ const props = defineProps<{
     _headers?: MarkdownItHeader[]
   }
 }>()
+
+useCopyCode()
 
 const router = useRouter()
 const isSidebarOpen = ref(false)
