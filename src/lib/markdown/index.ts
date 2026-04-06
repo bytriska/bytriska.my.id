@@ -1,7 +1,6 @@
 import type { MarkdownItAsync } from 'markdown-it-async'
 import slugify from '@sindresorhus/slugify'
 import anchorPlugin from 'markdown-it-anchor'
-import attrsPlugin from 'markdown-it-attrs'
 import { full as emojiPlugin } from 'markdown-it-emoji'
 import { headersPlugin } from './plugins/headers'
 import { clearHighlighter, highlighterPlugin } from './plugins/highlighter'
@@ -24,7 +23,7 @@ export async function setupMdItRenderer(md: MarkdownItAsync) {
     }),
   })
 
-  md.use(attrsPlugin)
+  // md.use(attrsPlugin) // there a conflict with shiki transformer highlight
   md.use(emojiPlugin)
   md.use(headersPlugin)
   md.use(highlighterPlugin)

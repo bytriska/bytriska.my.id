@@ -69,12 +69,7 @@ export async function highlighterPlugin(md: MarkdownItAsync, opts: HighlighterOp
     transformers.push(transformerMetaHighlight())
     transformers.push(transformerNotationDiff())
     transformers.push(transformerNotationErrorLevel())
-    transformers.push(
-      transformerNotationFocus({
-        classActiveLine: 'has-focus',
-        classActivePre: 'has-focused-lines',
-      })
-    )
+    transformers.push(transformerNotationFocus())
     transformers.push(transformerNotationHighlight())
 
     try {

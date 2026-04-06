@@ -248,6 +248,54 @@
   .prose div[class*='language-'] > button.copy-button:focus + span.label {
     @apply opacity-0;
   }
+
+  .prose div[class*='language-'] .line.highlighted {
+    @apply inline-block -mx-6 px-6 bg-ui-info/10;
+
+    width: calc(100% + 2 * --spacing(6));
+  }
+
+  .prose div[class*='language-'] .line.highlighted.warning {
+    @apply bg-ui-warning/10;
+  }
+
+  .prose div[class*='language-'] .line.highlighted.error {
+    @apply bg-ui-error/10;
+  }
+
+  .prose div[class*='language-'] .has-focused .line:not(.focused) {
+    @apply blur-[2px] opacity-70 transition-[filter,opacity];
+  }
+
+  .prose div[class*='language-']:hover .has-focused .line:not(.focused) {
+    @apply blur-none opacity-100;
+  }
+
+  .prose div[class*='language-'] .line.diff {
+    @apply relative w-full inline-block -mx-6 px-6 transition-colors;
+
+    width: calc(100% + 2 * --spacing(6));
+
+    &:before {
+      @apply absolute left-2;
+    }
+  }
+
+  .prose div[class*='language-'] .line.diff.remove {
+    @apply bg-ui-error/10;
+
+    &:before {
+      @apply content-['-'] text-ui-error;
+    }
+  }
+
+  .prose div[class*='language-'] .line.diff.add {
+    @apply bg-ui-success/10;
+
+    &:before {
+      @apply content-['+'] text-ui-success;
+    }
+  }
 }
 
 /* ── Shiki dark mode ── */
