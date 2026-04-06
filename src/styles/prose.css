@@ -152,10 +152,9 @@
   /* ── Inline code ── */
 
   .prose :not(pre) > code {
-    @apply font-code text-sm text-ui-content-toned bg-ui-surface-muted rounded px-2 py-1;
+    @apply font-code text-sm text-ui-content-toned bg-ui-surface-accented rounded px-2 py-1;
   }
 
-  /* Heading code: match heading size, no background */
   .prose :is(h1, h2, h3, h4) > code {
     @apply text-[0.9em] bg-transparent p-0;
   }
@@ -168,8 +167,9 @@
   /* ── Code blocks ── */
 
   .prose div[class*='language-'] {
-    @apply relative overflow-x-auto my-4
-           -mx-6 md:mx-auto md:rounded-md border-y md:border-x border-ui-border
+    @apply relative overflow-x-auto my-4 -mx-6 md:mx-auto md:rounded-md
+           bg-ui-surface-muted
+           border-y md:border-x border-ui-border
            transition-colors;
   }
 
@@ -188,6 +188,8 @@
 
   .prose div[class*='language-'] pre,
   .prose div[class*='language-'] code {
+    @apply bg-inherit;
+
     -moz-tab-size: 4;
     -o-tab-size: 4;
     tab-size: 4;
@@ -198,7 +200,7 @@
            inline-flex items-center p-1.5 gap-1.5
            rounded-md font-medium shadow-sm;
 
-    @apply bg-ui-surface-elevated text-ui-content-base
+    @apply bg-ui-surface-accented text-ui-content-base
            hover:bg-ui-surface-accented/75
            active:bg-ui-surface-accented/75;
 
@@ -250,11 +252,16 @@
 
 /* ── Shiki dark mode ── */
 
-.dark .shiki,
+.dark .skiki,
 .dark .shiki span {
-  color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
-  font-style: var(--shiki-dark-font-style) !important;
-  font-weight: var(--shiki-dark-font-weight) !important;
-  text-decoration: var(--shiki-dark-text-decoration) !important;
+  color: var(--shiki-dark, inherit);
+  text-decoration: var(--shiki-dark-text-decoration, inherit);
+  font-weight: var(--shiki-dark-font-weight, inherit);
+}
+
+html:not(.dark) .shiki,
+html:not(.dark) .shiki span {
+  color: var(--shiki-light, inherit);
+  text-decoration: var(--shiki-light-text-decoration, inherit);
+  font-weight: var(--shiki-light-font-weight, inherit);
 }

@@ -91,6 +91,7 @@ export async function highlighterPlugin(md: MarkdownItAsync, opts: HighlighterOp
       themes: opts.themes!,
       transformers,
       meta: { __raw: attrs },
+      defaultColor: false,
     })
   }
 }
