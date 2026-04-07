@@ -46,12 +46,15 @@
   .prose h1 + .header-anchor {
     @apply text-3xl;
   }
+
   .prose h2 + .header-anchor {
     @apply text-2xl top-6 mt-px;
   }
+
   .prose h3 + .header-anchor {
     @apply text-xl;
   }
+
   .prose h4 + .header-anchor {
     @apply text-lg;
   }
@@ -88,7 +91,6 @@
     @apply my-4 pl-4 py-2 border-l-4 border-ui-border text-ui-content-muted;
   }
 
-  /* Reset paragraph margin inside blockquotes to avoid double spacing */
   .prose blockquote > p {
     @apply my-0;
   }
@@ -116,7 +118,6 @@
     @apply mt-2;
   }
 
-  /* Nested lists: tighten vertical spacing */
   .prose li > ul,
   .prose li > ol {
     @apply mt-2 mb-0;
@@ -159,7 +160,6 @@
     @apply text-[0.9em] bg-transparent p-0;
   }
 
-  /* Link code: inherit link color */
   .prose a > code {
     @apply text-ui-primary hover:text-ui-primary/75;
   }
@@ -173,7 +173,6 @@
            transition-colors;
   }
 
-  /* On mobile, round the left edge when nested in a list */
   .prose li div[class*='language-'] {
     @apply max-md:rounded-l-md border-l;
   }
@@ -231,14 +230,12 @@
     }
   }
 
-  /* Language label */
   .prose div[class*='language-'] > span.label {
     @apply absolute top-0 right-0 z-2 m-2.5
            select-none text-xs font-medium tracking-wide
            text-ui-content-muted transition-opacity;
   }
 
-  /* Show copy button, hide label on hover/focus */
   .prose div[class*='language-']:hover > button.copy-button,
   .prose div[class*='language-'] > button.copy-button:focus {
     @apply opacity-100;
@@ -295,6 +292,45 @@
     &:before {
       @apply content-['+'] text-ui-success;
     }
+  }
+
+  /* ── Containers ── */
+
+  .prose .alert {
+    @apply text-sm/6 px-4 py-2 my-4 rounded-md
+           text-ui-content-toned;
+  }
+
+  .prose .alert .alert-title {
+    @apply font-semibold my-2;
+  }
+
+  .prose .alert p {
+    @apply my-2;
+
+    &:first-child {
+      @apply m-0;
+    }
+  }
+
+  .prose .alert div[class*='language-'] {
+    @apply border my-2 mx-0 rounded-md;
+  }
+
+  .prose .alert.tip {
+    @apply bg-ui-surface-elevated;
+  }
+
+  .prose .alert.info {
+    @apply bg-ui-info/10;
+  }
+
+  .prose .alert.warning {
+    @apply bg-ui-warning/10;
+  }
+
+  .prose .alert.danger {
+    @apply bg-ui-error/10;
   }
 }
 
