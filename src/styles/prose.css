@@ -336,6 +336,31 @@
   .prose .alert.danger {
     @apply bg-ui-error/10;
   }
+
+  .prose details.details {
+    @apply text-sm/6 p-4 my-4 rounded-md
+           text-ui-content-toned bg-ui-surface-elevated;
+
+    & > *:first-child {
+      @apply mt-0!;
+    }
+
+    & > *:last-child {
+      @apply mb-0!;
+    }
+  }
+
+  .prose details.details summary {
+    @apply my-0;
+  }
+  .prose details.details p,
+  .prose details.details div[class*='language-'] {
+    @apply my-2;
+  }
+
+  .prose details.details div[class*='language-'] {
+    @apply border mx-0 rounded-md;
+  }
 }
 
 /* ── Shiki dark mode ── */

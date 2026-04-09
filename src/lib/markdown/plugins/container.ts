@@ -7,6 +7,7 @@ export function containerPlugin(md: MarkdownItAsync) {
   md.use(_containerPlugin, createAlertContainerOptions('info', md))
   md.use(_containerPlugin, createAlertContainerOptions('warning', md))
   md.use(_containerPlugin, createAlertContainerOptions('danger', md))
+  md.use(_containerPlugin, createDetailsContainerOptions(md))
 }
 
 function createAlertContainerOptions(
@@ -24,5 +25,23 @@ function createAlertContainerOptions(
 
       return `<div ${attrs}><div class="alert-title">${md.renderInline(title)}</div>`
     },
+  }
+}
+
+function createDetailsContainerOptions(md: MarkdownItAsync): MarkdownItContainerOptions {
+  const name = 'details'
+
+  return {
+    name,
+    openRender: (tokens, idx, _opts, _env, self) => {
+      const token = tokens[idx]!
+
+      token.attrJoin('class', 'details')
+      const attrs = self.renderAttrs(token)
+      const title = token.info.trim().slice(name.length).trim() || name.toUpperCase()
+
+      return `<details ${attrs}><summary>${md.renderInline(title)}</summary>`
+    },
+    closeRender: () => '</details>',
   }
 }
