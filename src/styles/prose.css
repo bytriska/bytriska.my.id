@@ -296,7 +296,7 @@
 
   /* ── Containers ── */
 
-  .prose .alert {
+  .prose div.alert {
     @apply text-sm/6 p-4 my-4 rounded-md
            text-ui-content-toned;
 
@@ -309,31 +309,31 @@
     }
   }
 
-  .prose .alert .alert-title {
+  .prose div.alert .alert-title {
     @apply font-semibold my-2;
   }
 
-  .prose .alert p {
+  .prose div.alert p {
     @apply my-2;
   }
 
-  .prose .alert div[class*='language-'] {
+  .prose div.alert div[class*='language-'] {
     @apply border my-2 mx-0 rounded-md;
   }
 
-  .prose .alert.tip {
+  .prose div.alert.tip {
     @apply bg-ui-surface-elevated;
   }
 
-  .prose .alert.info {
+  .prose div.alert.info {
     @apply bg-ui-info/10;
   }
 
-  .prose .alert.warning {
+  .prose div.alert.warning {
     @apply bg-ui-warning/10;
   }
 
-  .prose .alert.danger {
+  .prose div.alert.danger {
     @apply bg-ui-error/10;
   }
 
