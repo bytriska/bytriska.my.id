@@ -361,6 +361,42 @@
   .prose details.details div[class*='language-'] {
     @apply border mx-0 rounded-md;
   }
+
+  /* ── Code group ── */
+
+  .prose .code-group {
+    @apply my-4;
+  }
+
+  .prose .code-group .tabs {
+    @apply relative flex overflow-x-auto overflow-y-hidden px-3 -mx-6 md:mx-auto md:rounded-t-md
+           bg-ui-surface-muted
+           border-t md:border-x border-ui-border
+           transition-colors;
+  }
+
+  .prose .code-group .tabs input {
+    @apply fixed opacity-0 pointer-events-none;
+
+    &:checked + label {
+      @apply border-ui-success;
+    }
+  }
+
+  .prose .code-group .tabs label {
+    @apply relative inline-block px-3 text-sm/12 font-medium whitespace-nowrap
+           text-ui-content-toned
+           border-b-2 border-transparent
+           cursor-pointer transition-colors;
+  }
+
+  .prose .code-group div[class*='language-'] {
+    @apply hidden mt-0 rounded-t-none;
+
+    &.active {
+      @apply block;
+    }
+  }
 }
 
 /* ── Shiki dark mode ── */

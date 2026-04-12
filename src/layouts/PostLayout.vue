@@ -2,6 +2,7 @@
 import type { MarkdownItHeader } from '@/types'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useCodeGroupNav } from '@/composables/code-group-nav'
 import { useCopyCode } from '@/composables/copy-code'
 
 const props = defineProps<{
@@ -13,6 +14,7 @@ const props = defineProps<{
 }>()
 
 useCopyCode()
+useCodeGroupNav()
 
 const router = useRouter()
 const isSidebarOpen = ref(false)
