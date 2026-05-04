@@ -1,33 +1,18 @@
 import type { MarkdownItAsync } from 'markdown-it-async'
-import { extractFenceActive } from '../utils'
-import { langRE } from './highlighter'
+import { extractFenceActive, extractFenceLanguage } from '../utils'
 
 export function preWrapperPlugin(md: MarkdownItAsync) {
   const fence = md.renderer.rules.fence!
-  md.renderer.rules.fence = (...args) => {
-    const [tokens, idx] = args
+
+  md.renderer.rules.fence = (tokens, idx, ...rest) => {
     const token = tokens[idx]!
 
-    const active = extractFenceActive(token.info) ? ' active' : ''
+    const active = extractFenceActive(token.info)
+    const lang = extractFenceLanguage(token.info)
 
-    token.info = token.info.replace(/\[.*\]/, '')
+    const copyEl = `<button class="copy-button" data-lang="${lang}"><span class="sr-only">Copy</span></button>`
+    const labelEl = `<span class="label">${lang.toUpperCase()}</span>`
 
-    const lang = extractLang(token.info)
-    const label = lang.replace(/_/g, ' ').toLocaleUpperCase()
-
-    return (
-      // eslint-disable-next-line prefer-template
-      `<div class="language-${lang}${active}">` +
-      `<button class="copy-button" data-lang="${lang}"><span class="sr-only">Copy</span></button>` +
-      `<span class="label">${label}</span>` +
-      fence(...args) +
-      `</div>`
-    )
+    return `<div class="language-${lang} ${active}">${copyEl}${labelEl}${fence(tokens, idx, ...rest)}</div>`
   }
-}
-
-function extractLang(info: string) {
-  const match = info.match(langRE)
-
-  return match?.[0].toLowerCase() ?? ''
 }
