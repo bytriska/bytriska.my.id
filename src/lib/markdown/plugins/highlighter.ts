@@ -17,6 +17,9 @@ import {
   transformerNotationHighlight,
 } from '@shikijs/transformers'
 import { createHighlighter, isSpecialLang } from 'shiki'
+import { extractFenceLanguage, HIGHLIGHTER_DEFAULT_LANGUAGE } from '../utils'
+
+let _highlighter: Highlighter | null
 
 export type HighlighterOptions = Partial<Pick<CodeOptionsMultipleThemes<BuiltinTheme>, 'themes'>> &
   TransformerOptions & {
@@ -25,18 +28,14 @@ export type HighlighterOptions = Partial<Pick<CodeOptionsMultipleThemes<BuiltinT
     defaultLang?: LanguageInput | BuiltinLanguage | SpecialLanguage
   }
 
-export const langRE = /^[\w-]+/
-
-let _highlighter: Highlighter | null
-
 export async function getHighlighter(opts: HighlighterOptions) {
-  const themes = Object.values(opts.themes || {}).filter(Boolean) as BuiltinTheme[]
+  const themes = Object.values(opts.themes ?? {}).filter(Boolean) as BuiltinTheme[]
 
   if (!_highlighter) {
     _highlighter = await createHighlighter({
       themes,
-      langs: opts.langs || [],
-      langAlias: opts.langAlias || {},
+      langs: opts.langs ?? [],
+      langAlias: opts.langAlias ?? {},
     })
   }
 
@@ -51,9 +50,9 @@ export function clearHighlighter() {
 }
 
 export async function highlighterPlugin(md: MarkdownItAsync, opts: HighlighterOptions = {}) {
-  opts.langAlias ||= {}
-  opts.defaultLang ||= 'txt'
-  opts.themes ||= { light: 'vitesse-light', dark: 'vitesse-dark' }
+  opts.defaultLang ??= HIGHLIGHTER_DEFAULT_LANGUAGE
+  opts.langAlias ??= {}
+  opts.themes ??= { light: 'vitesse-light', dark: 'vitesse-dark' }
 
   const highlighter = await getHighlighter(opts)
 
@@ -93,10 +92,11 @@ export async function highlighterPlugin(md: MarkdownItAsync, opts: HighlighterOp
 
 function normalizeHighlightLang(lang: string): { lang: string; attrs: string } {
   let attrs = ''
-  const match = langRE.exec(lang)
+
+  const match = extractFenceLanguage(lang)
   if (match) {
     const orig = lang
-    lang = match[0].toLowerCase()
+    lang = match
     attrs = orig.slice(lang.length).replace(/(?<!=)\{/g, ' {')
     attrs = attrs.trim().replace(/\s+/g, ' ')
   }

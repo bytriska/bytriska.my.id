@@ -5,13 +5,13 @@ export const RE_FENCE_LANGUAGE = /^(\w[\w-]*)/
 export const RE_FENCE_TITLE = /\[((?:[^[\]]|\[[^[\]]*\])*)\]/
 
 export function extractFenceActive(tokenInfo: string): string {
-  return tokenInfo.match(RE_FENCE_ACTIVE)?.[0] || ''
+  return tokenInfo.match(RE_FENCE_ACTIVE)?.[0] ?? ''
 }
 
 export function extractFenceLanguage(tokenInfo: string): string {
-  return tokenInfo.match(RE_FENCE_LANGUAGE)?.[1] || HIGHLIGHTER_DEFAULT_LANGUAGE
+  return tokenInfo.match(RE_FENCE_LANGUAGE)?.[1]?.toLowerCase() ?? ''
 }
 
 export function extractFenceTitle(tokenInfo: string): string {
-  return tokenInfo.match(RE_FENCE_TITLE)?.[1] || ''
+  return tokenInfo.match(RE_FENCE_TITLE)?.[1] ?? ''
 }
