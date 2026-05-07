@@ -4,13 +4,10 @@ import anchorPlugin from 'markdown-it-anchor'
 import { full as emojiPlugin } from 'markdown-it-emoji'
 import { containerPlugin } from './plugins/container'
 import { headersPlugin } from './plugins/headers'
-import { clearHighlighter, highlighterPlugin } from './plugins/highlighter'
 import { preWrapperPlugin } from './plugins/pre-wrapper'
 import { tableWrapperPlugin } from './plugins/table-wrapper'
 
-export function cleanupMdItRenderer() {
-  clearHighlighter()
-}
+export * from './highlighter'
 
 export async function setupMdItRenderer(md: MarkdownItAsync) {
   md.use(anchorPlugin, {
@@ -27,15 +24,11 @@ export async function setupMdItRenderer(md: MarkdownItAsync) {
   md.use(preWrapperPlugin)
   md.use(tableWrapperPlugin)
 
-  md.use(highlighterPlugin)
-
   md.use(attrsPlugin, {
     left: '[[',
     right: ']]',
-    // rule: ["inline" ,"table" , "list","heading" , "hr","softbreak" ,"block"]
   })
 
   md.use(containerPlugin)
   md.use(emojiPlugin)
-  // md.use(lineNumberPlugin)
 }

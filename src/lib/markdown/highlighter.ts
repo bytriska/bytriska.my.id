@@ -1,4 +1,3 @@
-import type { MarkdownItAsync } from 'markdown-it-async'
 import type {
   BuiltinLanguage,
   BuiltinTheme,
@@ -16,8 +15,8 @@ import {
   transformerNotationFocus,
   transformerNotationHighlight,
 } from '@shikijs/transformers'
-import { createHighlighter, isSpecialLang } from 'shiki'
-import { extractFenceLanguage, HIGHLIGHTER_DEFAULT_LANGUAGE } from '../utils'
+import { isSpecialLang, createHighlighter as sCreateHighlighter } from 'shiki'
+import { extractFenceLanguage, HIGHLIGHTER_DEFAULT_LANGUAGE } from './utils'
 
 let _highlighter: Highlighter | null
 
@@ -32,7 +31,7 @@ export async function getHighlighter(opts: HighlighterOptions) {
   const themes = Object.values(opts.themes ?? {}).filter(Boolean) as BuiltinTheme[]
 
   if (!_highlighter) {
-    _highlighter = await createHighlighter({
+    _highlighter = await sCreateHighlighter({
       themes,
       langs: opts.langs ?? [],
       langAlias: opts.langAlias ?? {},
@@ -49,17 +48,17 @@ export function clearHighlighter() {
   }
 }
 
-export async function highlighterPlugin(md: MarkdownItAsync, opts: HighlighterOptions = {}) {
+export async function createHighlighter(opts: HighlighterOptions = {}) {
   opts.defaultLang ??= HIGHLIGHTER_DEFAULT_LANGUAGE
   opts.langAlias ??= {}
   opts.themes ??= { light: 'vitesse-light', dark: 'vitesse-dark' }
 
   const highlighter = await getHighlighter(opts)
 
-  md.options.highlight = async (code, lang, attrs) => {
+  return async (code: string, lang: string, attrs: string) => {
     lang ||= opts.defaultLang as string
 
-    const { lang: normalizedLang, attrs: normalizedAttrs } = normalizeHighlightLang(lang)
+    const { lang: normalizedLang, attrs: normalizedAttrs } = normalizeLang(lang)
     lang = normalizedLang
     attrs = `${normalizedAttrs} ${attrs}`.trim()
 
@@ -90,7 +89,7 @@ export async function highlighterPlugin(md: MarkdownItAsync, opts: HighlighterOp
   }
 }
 
-function normalizeHighlightLang(lang: string): { lang: string; attrs: string } {
+function normalizeLang(lang: string): { lang: string; attrs: string } {
   let attrs = ''
 
   const match = extractFenceLanguage(lang)
