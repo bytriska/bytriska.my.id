@@ -1,5 +1,5 @@
 import type { MarkdownItAsync } from 'markdown-it-async'
-import slugify from '@sindresorhus/slugify'
+import { attrs as attrsPlugin } from '@mdit/plugin-attrs'
 import anchorPlugin from 'markdown-it-anchor'
 import { full as emojiPlugin } from 'markdown-it-emoji'
 import { containerPlugin } from './plugins/container'
@@ -14,22 +14,28 @@ export function cleanupMdItRenderer() {
 
 export async function setupMdItRenderer(md: MarkdownItAsync) {
   md.use(anchorPlugin, {
-    slugify: s => slugify(s),
     permalink: anchorPlugin.permalink.linkAfterHeader({
-      style: 'visually-hidden',
-      assistiveText: title => `Permalink to ${title}`,
-      visuallyHiddenClass: 'sr-only',
       placement: 'before',
       wrapper: ['<div class="header-anchor-wrapper">', '</div>'],
+      visuallyHiddenClass: 'sr-only',
+      assistiveText: title => `Permalink to ${title}`,
     }),
   })
 
-  // md.use(attrsPlugin) // there a conflict with shiki transformer highlight
-  md.use(containerPlugin)
-  md.use(emojiPlugin)
   md.use(headersPlugin)
-  md.use(highlighterPlugin)
-  // md.use(lineNumberPlugin)
+
   md.use(preWrapperPlugin)
   md.use(tableWrapperPlugin)
+
+  md.use(highlighterPlugin)
+
+  md.use(attrsPlugin, {
+    left: '[[',
+    right: ']]',
+    // rule: ["inline" ,"table" , "list","heading" , "hr","softbreak" ,"block"]
+  })
+
+  md.use(containerPlugin)
+  md.use(emojiPlugin)
+  // md.use(lineNumberPlugin)
 }

@@ -9,14 +9,14 @@ VitePress comes with built in Markdown Extensions.
 
 ## Header Anchors
 
-Headers automatically get anchor links applied. Rendering of anchors can be configured using the `markdown.anchor` option.
+Headers automatically get anchor links applied. Rendering of anchors can be configured using the `markdown.anchor`[[bg-red-100]] option.
 
 ### Custom anchors
 
 To specify a custom anchor tag for a heading instead of using the auto-generated one, add a suffix to the heading:
 
 ```
-# Using custom anchors {#my-anchor}
+# Using custom anchors [[#my-anchor]]
 ```
 
 This allows you to link to the heading as `#my-anchor` instead of the default `#using-custom-anchors`.
@@ -115,20 +115,6 @@ For more details, see [Frontmatter](../reference/frontmatter-config).
 
 A [list of all emojis](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.mjs) is available.
 
-## Table of Contents
-
-**Input**
-
-```
-[[toc]]
-```
-
-**Output**
-
-[[toc]]
-
-Rendering of the TOC can be configured using the `markdown.toc` option.
-
 ## Custom Containers
 
 Custom containers can be defined by their types, titles, and contents.
@@ -177,7 +163,7 @@ This is a warning.
 This is a dangerous warning.
 :::
 
-::: details
+::: details [[class="bg-purple-100"]]
 This is a details block.
 :::
 
@@ -241,7 +227,7 @@ You can add additional attributes to the custom containers. We use [markdown-it-
 **Input**
 
 ````md
-::: details Click me to toggle the code {open}
+::: details Click me to toggle the code [[open]]
 
 ```js
 console.log('Hello, VitePress!')
@@ -252,7 +238,7 @@ console.log('Hello, VitePress!')
 
 **Output**
 
-::: details Click me to toggle the code {open}
+::: details Click me to toggle the code [[open]]
 
 ```js
 console.log('Hello, VitePress!')
