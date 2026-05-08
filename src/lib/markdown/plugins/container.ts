@@ -1,13 +1,13 @@
 import type { MarkdownItContainerOptions } from '@mdit/plugin-container'
 import type { MarkdownItAsync } from 'markdown-it-async'
 import { container as _containerPlugin } from '@mdit/plugin-container'
-import { extractFenceTitle } from '../utils'
+import { ALERT_TYPES, extractFenceTitle } from '../utils'
 
 export function containerPlugin(md: MarkdownItAsync) {
-  md.use(_containerPlugin, createAlertContainerOptions('tip', md))
-  md.use(_containerPlugin, createAlertContainerOptions('info', md))
-  md.use(_containerPlugin, createAlertContainerOptions('warning', md))
-  md.use(_containerPlugin, createAlertContainerOptions('danger', md))
+  for (const name of ALERT_TYPES) {
+    md.use(_containerPlugin, createAlertContainerOptions(name, md))
+  }
+
   md.use(_containerPlugin, createDetailsContainerOptions(md))
   md.use(_containerPlugin, createCodeGroupContainerOptions(md))
 }

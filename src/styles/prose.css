@@ -321,11 +321,16 @@
     @apply border my-2 mx-0 rounded-md;
   }
 
+  .prose div.alert.note,
   .prose div.alert.tip {
     @apply bg-ui-surface-elevated;
   }
 
-  .prose div.alert.info {
+  .prose div.alert.note {
+    @apply border border-dashed border-ui-border-accented;
+  }
+
+  .prose div.alert.important {
     @apply bg-ui-info/10;
   }
 
@@ -333,7 +338,7 @@
     @apply bg-ui-warning/10;
   }
 
-  .prose div.alert.danger {
+  .prose div.alert.caution {
     @apply bg-ui-error/10;
   }
 

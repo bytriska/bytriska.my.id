@@ -3,6 +3,7 @@ import { attrs as attrsPlugin } from '@mdit/plugin-attrs'
 import anchorPlugin from 'markdown-it-anchor'
 import { full as emojiPlugin } from 'markdown-it-emoji'
 import { containerPlugin } from './plugins/container'
+import { gfmAlertPlugin } from './plugins/gfm-alert'
 import { headersPlugin } from './plugins/headers'
 import { preWrapperPlugin } from './plugins/pre-wrapper'
 import { tableWrapperPlugin } from './plugins/table-wrapper'
@@ -29,6 +30,7 @@ export async function setupMdItRenderer(md: MarkdownItAsync) {
     right: ']]',
   })
 
+  md.use(gfmAlertPlugin)
   md.use(containerPlugin)
   md.use(emojiPlugin)
 }

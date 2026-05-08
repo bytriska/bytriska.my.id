@@ -124,8 +124,8 @@ Custom containers can be defined by their types, titles, and contents.
 **Input**
 
 ```md
-::: info
-This is an info box.
+::: important
+This is an important note.
 :::
 
 ::: tip
@@ -136,8 +136,8 @@ This is a tip.
 This is a warning.
 :::
 
-::: danger
-This is a dangerous warning.
+::: caution
+This is a cautionary note.
 :::
 
 ::: details
@@ -147,8 +147,8 @@ This is a details block.
 
 **Output**
 
-::: info
-This is an info box.
+::: important
+This is an important note.
 :::
 
 ::: tip
@@ -159,8 +159,8 @@ This is a tip.
 This is a warning.
 :::
 
-::: danger
-This is a dangerous warning.
+::: caution
+This is a cautionary note.
 :::
 
 ::: details [[class="bg-purple-100"]]
@@ -174,7 +174,7 @@ You may set custom title by appending the text right after the "type" of the con
 **Input**
 
 ````md
-::: danger STOP
+::: caution STOP
 Danger zone, do not proceed
 :::
 
@@ -189,7 +189,7 @@ console.log('Hello, VitePress!')
 
 **Output**
 
-::: danger STOP
+::: caution STOP
 Danger zone, do not proceed
 :::
 
