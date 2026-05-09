@@ -1,7 +1,9 @@
 import type { ViteDevServer } from 'vite'
+import fs from 'node:fs'
 import path from 'node:path'
 import Tailwindcss from '@tailwindcss/vite'
 import Vue from '@vitejs/plugin-vue'
+import matter from 'gray-matter'
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -21,7 +23,6 @@ export default defineConfig(async () => {
       },
     },
     plugins: [
-      // IMPORTANT: cleanup must come before markdown plugin.
       {
         name: 'markdown-it-cleanup',
         closeBundle() {
@@ -45,6 +46,13 @@ export default defineConfig(async () => {
         routesFolder: 'src/pages',
         extensions: ['.vue', '.md'],
         dts: 'src/typed-router.d.ts',
+        extendRoute(route) {
+          const src = route.component
+          if (!src || !src.endsWith('.md')) return
+
+          const frontmatter = matter(fs.readFileSync(src, 'utf-8'))
+          route.addToMeta(frontmatter.data)
+        },
       }),
 
       Components({

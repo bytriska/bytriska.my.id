@@ -62,6 +62,9 @@ importers:
       eslint:
         specifier: ^10.0.0
         version: 10.0.0(jiti@2.6.1)
+      gray-matter:
+        specifier: ^4.0.3
+        version: 4.0.3
       lint-staged:
         specifier: ^16.2.7
         version: 16.2.7

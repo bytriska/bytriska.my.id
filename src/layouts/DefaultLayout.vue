@@ -10,13 +10,15 @@ const isSidebarOpen = ref<boolean>(false)
       <Header v-model:sidebar="isSidebarOpen">
         <Link to="/" class="font-normal! underline"> Home </Link>
         <Link to="/posts" class="font-normal! underline"> Posts </Link>
-        <Link to="/posts/example" class="font-normal! underline"> Example Post </Link>
+        <Link to="/posts/writing-guide" class="font-normal! underline"> Writing Guide </Link>
 
         <template #sidebar-content>
           <div class="w-full h-full flex flex-col gap-2 px-6 py-8">
             <Link to="/" class="font-normal! underline" block> Home </Link>
             <Link to="/posts" class="font-normal! underline" block> Posts </Link>
-            <Link to="/posts/example" class="font-normal! underline" block> Example Post </Link>
+            <Link to="/posts/writing-guide" class="font-normal! underline" block>
+              Writing Guide
+            </Link>
           </div>
         </template>
       </Header>

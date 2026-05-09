@@ -1,9 +1,13 @@
 ---
-title: Markdown Extensions
+title: Writing Guide
+slug: writing-guide
 description: Vitepress comes with built in Markdown Extension.
+author: Triska Mahfud Khoiri
+publishedAt: 2026-05-09
+category: Docs
 ---
 
-# Markdown Extensions
+# Writing Guide
 
 VitePress comes with built in Markdown Extensions.
 

@@ -32,6 +32,7 @@
     "@vitejs/plugin-vue": "^6.0.2",
     "@vue/tsconfig": "^0.8.1",
     "eslint": "^10.0.0",
+    "gray-matter": "^4.0.3",
     "lint-staged": "^16.2.7",
     "markdown-it-anchor": "^9.2.0",
     "markdown-it-async": "^2.2.0",
