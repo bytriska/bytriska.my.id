@@ -17,7 +17,6 @@ useCopyCode()
 useCodeGroupNav()
 
 const router = useRouter()
-const isSidebarOpen = ref(false)
 const isTocOpen = ref(false)
 
 const tocHeaders = computed(() => props.frontmatter._headers || [])
@@ -35,21 +34,7 @@ function scrollToTop() {
 <template>
   <div class="min-h-dvh w-full flex flex-col">
     <slot name="header">
-      <Header v-model:sidebar="isSidebarOpen">
-        <Link to="/" class="font-normal! underline"> Home </Link>
-        <Link to="/posts" class="font-normal! underline"> Posts </Link>
-        <Link to="/posts/writing-guide" class="font-normal! underline"> Writing Guide </Link>
-
-        <template #sidebar-content>
-          <div class="w-full h-full flex flex-col gap-2 px-6 py-8">
-            <Link to="/" class="font-normal! underline" block> Home </Link>
-            <Link to="/posts" class="font-normal! underline" block> Posts </Link>
-            <Link to="/posts/writing-guide" class="font-normal! underline" block>
-              Writing Guide
-            </Link>
-          </div>
-        </template>
-
+      <Header>
         <template #bottom>
           <div class="w-full h-(--ui-header-bottom-height) bg-ui-surface-base/75 backdrop-blur-sm">
             <div

@@ -14,6 +14,7 @@ declare module 'vue' {
     Button: typeof import('./components/ui/Button.vue')['default']
     DefaultLayout: typeof import('./layouts/DefaultLayout.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
+    HeaderNavigation: typeof import('./components/HeaderNavigation.vue')['default']
     ILucideAlignLeft: typeof import('~icons/lucide/align-left')['default']
     ILucideCircleArrowUp: typeof import('~icons/lucide/circle-arrow-up')['default']
     ILucideMenu: typeof import('~icons/lucide/menu')['default']
@@ -25,6 +26,7 @@ declare module 'vue' {
     PostLayout: typeof import('./layouts/PostLayout.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SidebarNavigation: typeof import('./components/SidebarNavigation.vue')['default']
     TocTree: typeof import('./components/TocTree.vue')['default']
   }
 }

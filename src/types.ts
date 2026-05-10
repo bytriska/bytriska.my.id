@@ -25,6 +25,11 @@ export interface Post {
   meta: PostFrontmatter
 }
 
+export interface NavigationItem {
+  title: string
+  path: string
+}
+
 export interface MarkdownItHeader {
   level: number
   title: string

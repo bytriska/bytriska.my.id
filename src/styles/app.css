@@ -133,9 +133,14 @@
     --ui-header-height: calc(
       var(--ui-header-top-height) + var(--ui-header-nav-height) + var(--ui-header-bottom-height)
     );
+    --ui-sidebar-width: 16rem;
+  }
+
+  * {
+    @apply border-ui-border;
   }
 
   body {
-    @apply antialiased text-ui-content-base bg-ui-surface-base border-ui-border scheme-light dark:scheme-dark;
+    @apply antialiased text-ui-content-base bg-ui-surface-base scheme-light dark:scheme-dark;
   }
 }
