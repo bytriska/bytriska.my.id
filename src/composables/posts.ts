@@ -95,7 +95,7 @@ function isPostRoute(route: RouteRecord): route is RouteRecord & { meta: PostFro
     route.path !== '/posts/' &&
     typeof meta.title === 'string' &&
     typeof meta.publishedAt === 'string' &&
-    typeof meta.draft === 'boolean' &&
-    !meta.draft
+    !meta.draft &&
+    !meta.noIndex
   )
 }
