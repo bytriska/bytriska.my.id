@@ -1,7 +1,29 @@
-export interface PostFrontmatter {
+export interface BaseMeta {
+  /** page <title> tag */
   title: string
-  slug: string
+
+  /** 150-160 characters for SEO */
   description: string
+
+  /** social share image, 1200x630 pixels */
+  ogImage?: string
+
+  /** adds <meta name="robots" content="noindex" /> */
+  noIndex?: boolean
+
+  /** canonical URL for SEO */
+  canonicalUrl?: string
+
+  /** false = visible, true = draft */
+  draft: boolean
+}
+
+export interface PageFrontmatter extends BaseMeta {
+  layout?: 'default' | 'blank' | 'centered'
+}
+
+export interface PostFrontmatter extends BaseMeta {
+  slug: string
   author: string
   publishedAt: string
   updatedAt?: string
@@ -11,13 +33,9 @@ export interface PostFrontmatter {
   seriesOrder?: number
   coverImage?: string
   coverImageAlt?: string
-  ogImage?: string
   readingTime?: number
   difficulty?: 'beginner' | 'intermediate' | 'advanced'
-  draft?: boolean
   featured?: boolean
-  noIndex?: boolean
-  canonicalUrl?: string
 }
 
 export interface Post {

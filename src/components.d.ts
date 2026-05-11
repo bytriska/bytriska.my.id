@@ -23,6 +23,7 @@ declare module 'vue' {
     ILucideSun: typeof import('~icons/lucide/sun')['default']
     ILucideX: typeof import('~icons/lucide/x')['default']
     Link: typeof import('./components/ui/Link.vue')['default']
+    PageLayout: typeof import('./layouts/PageLayout.vue')['default']
     PostLayout: typeof import('./layouts/PostLayout.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

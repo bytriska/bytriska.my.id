@@ -34,8 +34,7 @@ export default defineConfig(async () => {
       },
 
       Markdown({
-        wrapperComponent: 'PostLayout',
-        wrapperClasses: 'prose',
+        wrapperComponent: id => (id.includes('/posts/') ? 'PostLayout' : 'PageLayout'),
         markdownItOptions: { highlight: highlighter },
         markdownItSetup: setupMdItRenderer,
       }),

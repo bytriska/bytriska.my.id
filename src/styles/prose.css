@@ -16,25 +16,29 @@
     scroll-margin-top: calc(var(--spacing, 0.25rem) * 2 + var(--ui-header-height));
   }
 
-  .prose :is(h1, h2, h3, h4):first-child {
+  .prose div:first-child > :is(h1, h2, h3, h4) {
     @apply mt-0;
   }
 
   .prose h1 {
-    @apply font-display tracking-tight text-3xl mt-12 mb-4;
+    @apply font-display tracking-tight text-3xl my-4;
     scroll-margin-top: calc(var(--spacing, 0.25rem) * 12 + var(--ui-header-height));
   }
 
   .prose h2 {
-    @apply tracking-tight text-2xl border-t border-ui-border pt-6 mt-12 mb-4;
+    @apply tracking-tight text-2xl border-t border-ui-border pt-6 my-4;
+  }
+
+  .prose div:first-child > h2 {
+    @apply border-none;
   }
 
   .prose h3 {
-    @apply text-xl mt-8 mb-2;
+    @apply text-xl my-2;
   }
 
   .prose h4 {
-    @apply text-lg mt-6 mb-2;
+    @apply text-lg my-2;
   }
 
   /* ── Header anchors ── */

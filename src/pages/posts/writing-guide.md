@@ -1,15 +1,12 @@
 ---
 title: Writing Guide
-slug: writing-guide
 description: Vitepress comes with built in Markdown Extension.
+draft: false
+slug: writing-guide
 author: Triska Mahfud Khoiri
 publishedAt: 2026-05-09
 category: Docs
 ---
-
-# Writing Guide
-
-VitePress comes with built in Markdown Extensions.
 
 ## Header Anchors
 

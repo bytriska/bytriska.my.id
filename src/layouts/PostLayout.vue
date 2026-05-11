@@ -105,7 +105,17 @@ function scrollToTop() {
       </Header>
     </slot>
 
-    <slot />
+    <main class="prose">
+      <slot name="title">
+        <h1>{{ props.frontmatter.title }}</h1>
+      </slot>
+      <slot name="description">
+        <p>{{ props.frontmatter.description }}</p>
+      </slot>
+      <hr />
+
+      <slot />
+    </main>
 
     <slot name="footer">
       <footer class="w-full max-w-7xl flex flex-col items-center mx-auto py-4 px-6 md:py-8 md:px-8">
