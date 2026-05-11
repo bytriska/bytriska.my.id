@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { BaseMeta } from '@/types'
+import PostCard from '@/components/PostCard.vue'
 import { usePosts } from '@/composables/posts'
 
 const meta: Partial<BaseMeta> = {
@@ -7,21 +8,13 @@ const meta: Partial<BaseMeta> = {
   description: 'A collection of all my posts.',
 }
 
-const { allPosts, allCategories, allTags, allSeries, featuredPosts } = usePosts()
+const { allPosts } = usePosts()
 </script>
 
 <template>
   <DefaultLayout v-bind="meta">
-    <div
-      class="grow w-full max-w-7xl flex flex-col items-center justify-center mx-auto px-4 sm:px-6 lg:px-8"
-    >
-      <h1>Greetings from posts</h1>
-
-      <div>{{ allPosts }}</div>
-      <div>{{ allCategories }}</div>
-      <div>{{ allTags }}</div>
-      <div>{{ allSeries }}</div>
-      <div>{{ featuredPosts }}</div>
+    <div>
+      <PostCard v-for="post in allPosts" :key="post.path" v-bind="post" />
     </div>
   </DefaultLayout>
 </template>
