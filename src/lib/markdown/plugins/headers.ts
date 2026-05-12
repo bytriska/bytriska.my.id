@@ -45,14 +45,14 @@ function normalizeHeaders(headers: MarkdownItHeader[]): MarkdownItHeader[] {
   for (const hdr of headers) {
     const node: MarkdownItHeader = { ...hdr, children: [] }
 
-    while (stack.length && stack[stack.length - 1]!.level >= node.level) {
+    while (stack.length && stack.at(-1)!.level >= node.level) {
       stack.pop()
     }
 
     if (!stack.length) {
       root.push(node)
     } else {
-      stack[stack.length - 1]!.children!.push(node)
+      stack.at(-1)!.children!.push(node)
     }
 
     stack.push(node)

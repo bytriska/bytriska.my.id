@@ -1,6 +1,7 @@
 import { onMounted, onUnmounted } from 'vue'
 import { inBrowser } from '@/lib/utils'
 
+const RE_LINE_ENDINGS = /\n+/g
 const ignoredNodes: string[] = ['.div.remove']
 
 export function useCopyCode() {
@@ -19,7 +20,7 @@ export function useCopyCode() {
         const clone = code.cloneNode(true) as HTMLElement
 
         clone.querySelectorAll(ignoredNodes.join(',')).forEach(node => node.remove())
-        clone.innerHTML = clone.innerHTML.replace(/\n+/g, '\n')
+        clone.innerHTML = clone.innerHTML.replace(RE_LINE_ENDINGS, '\n')
 
         const text = clone.textContent || ''
         function copiedCallback() {

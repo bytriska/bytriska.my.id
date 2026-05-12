@@ -19,7 +19,6 @@ declare module 'vue' {
     ILucideCircleArrowUp: typeof import('~icons/lucide/circle-arrow-up')['default']
     ILucideMenu: typeof import('~icons/lucide/menu')['default']
     ILucideMoon: typeof import('~icons/lucide/moon')['default']
-    ILucideSearch: typeof import('~icons/lucide/search')['default']
     ILucideSun: typeof import('~icons/lucide/sun')['default']
     ILucideUser: typeof import('~icons/lucide/user')['default']
     ILucideX: typeof import('~icons/lucide/x')['default']

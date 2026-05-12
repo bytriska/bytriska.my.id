@@ -26,9 +26,9 @@ export function usePosts() {
       counts.set(category, (counts.get(category) ?? 0) + 1)
     }
 
-    return [...counts.entries()]
-      .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => b.count - a.count)
+    return Array.from(counts.entries(), ([name, count]) => ({ name, count })).sort(
+      (a, b) => b.count - a.count
+    )
   })
 
   const allTags = computed(() => {
@@ -39,9 +39,9 @@ export function usePosts() {
       }
     }
 
-    return [...counts.entries()]
-      .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => b.count - a.count)
+    return Array.from(counts.entries(), ([name, count]) => ({ name, count })).sort(
+      (a, b) => b.count - a.count
+    )
   })
 
   const allSeries = computed(() => {
@@ -53,7 +53,7 @@ export function usePosts() {
       map.set(post.meta.series, [...(existing ?? []), post])
     }
 
-    return [...map.entries()].map(([name, posts]) => ({
+    return Array.from(map.entries(), ([name, posts]) => ({
       name,
       count: posts.length,
       posts: posts.sort((a, b) => (a.meta.seriesOrder ?? 0) - (b.meta.seriesOrder ?? 0)),

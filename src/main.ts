@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import { routes } from 'vue-router/auto-routes'
+import { handleHotUpdate, routes } from 'vue-router/auto-routes'
 import App from '@/app.vue'
 import '@/styles/app.css'
 
@@ -25,5 +25,9 @@ const router = createRouter({
     return savedPosition || { top: 0 }
   },
 })
+
+if (import.meta.hot) {
+  handleHotUpdate(router)
+}
 
 createApp(App).use(router).mount('#app')
