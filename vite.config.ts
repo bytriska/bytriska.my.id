@@ -28,6 +28,21 @@ export default defineConfig(async () => {
       },
     },
     plugins: [
+      VueRouter({
+        routesFolder: 'src/pages',
+        extensions: ['.vue', '.md'],
+        dts: 'src/typed-router.d.ts',
+        extendRoute(route) {
+          const src = route.component
+          if (!src || !src.endsWith('.md')) return
+
+          const frontmatter = matter(fs.readFileSync(src, 'utf-8'))
+          route.addToMeta(frontmatter.data)
+        },
+      }),
+
+      Tailwindcss(),
+
       {
         name: 'markdown-it-cleanup',
         closeBundle() {
@@ -42,21 +57,6 @@ export default defineConfig(async () => {
         wrapperComponent: id => (id.includes('/posts/') ? 'PostLayout' : 'PageLayout'),
         markdownItOptions: { highlight: highlighter },
         markdownItSetup: setupMdItRenderer,
-      }),
-
-      Tailwindcss(),
-
-      VueRouter({
-        routesFolder: 'src/pages',
-        extensions: ['.vue', '.md'],
-        dts: 'src/typed-router.d.ts',
-        extendRoute(route) {
-          const src = route.component
-          if (!src || !src.endsWith('.md')) return
-
-          const frontmatter = matter(fs.readFileSync(src, 'utf-8'))
-          route.addToMeta(frontmatter.data)
-        },
       }),
 
       Components({
