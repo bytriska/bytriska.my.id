@@ -12,8 +12,10 @@ import { defineConfig } from 'vite'
 import VueRouter from 'vue-router/vite'
 import { clearHighlighter, createHighlighter, setupMdItRenderer } from './src/lib/markdown'
 
-const RE_MARKDOWN_EXT = /\.md$/
-const RE_VUE_EXT = /\.vue$/
+const RE_MARKDOWN = /\.md$/
+const RE_VUE_SFC = /\.vue$/
+const RE_VUE_SUBREQUEST = /\.vue\?vue/
+const RE_VUE_X_SUBREQUEST = /\.vue\.[jt]sx?\?vue/
 
 // https://vite.dev/config/
 export default defineConfig(async () => {
@@ -59,14 +61,15 @@ export default defineConfig(async () => {
 
       Components({
         dirs: ['src/components', 'src/layouts'],
-        extensions: ['vue', 'md'],
+        extensions: ['vue'],
+        include: [RE_VUE_SFC, RE_VUE_SUBREQUEST, RE_VUE_X_SUBREQUEST, RE_MARKDOWN],
         dts: 'src/components.d.ts',
         resolvers: [IconsResolver()],
       }),
 
       Icons(),
 
-      Vue({ include: [RE_VUE_EXT, RE_MARKDOWN_EXT] }),
+      Vue({ include: [RE_VUE_SFC, RE_MARKDOWN] }),
     ],
   }
 })
