@@ -1,21 +1,18 @@
 import type { MarkdownItContainerOptions } from '@mdit/plugin-container'
-import type { MarkdownItAsync } from 'markdown-it-async'
+import type { MarkdownExit } from 'markdown-exit'
 import { container as _containerPlugin } from '@mdit/plugin-container'
 import { ALERT_TYPES, extractFenceTitle } from '../utils'
 
-export function containerPlugin(md: MarkdownItAsync) {
+export function containerPlugin(md: MarkdownExit) {
   for (const name of ALERT_TYPES) {
-    md.use(_containerPlugin, createAlertContainerOptions(name, md))
+    md.use(md => _containerPlugin(md as any, createAlertContainerOptions(name, md)))
   }
 
-  md.use(_containerPlugin, createDetailsContainerOptions(md))
-  md.use(_containerPlugin, createCodeGroupContainerOptions(md))
+  md.use(md => _containerPlugin(md as any, createDetailsContainerOptions(md)))
+  md.use(md => _containerPlugin(md as any, createCodeGroupContainerOptions(md)))
 }
 
-function createAlertContainerOptions(
-  name: string,
-  md: MarkdownItAsync
-): MarkdownItContainerOptions {
+function createAlertContainerOptions(name: string, md: MarkdownExit): MarkdownItContainerOptions {
   return {
     name,
     openRender: (tokens, idx, _opts, _env, self) => {
@@ -30,7 +27,7 @@ function createAlertContainerOptions(
   }
 }
 
-function createDetailsContainerOptions(md: MarkdownItAsync): MarkdownItContainerOptions {
+function createDetailsContainerOptions(md: MarkdownExit): MarkdownItContainerOptions {
   const name = 'details'
 
   return {
@@ -48,7 +45,7 @@ function createDetailsContainerOptions(md: MarkdownItAsync): MarkdownItContainer
   }
 }
 
-function createCodeGroupContainerOptions(md: MarkdownItAsync): MarkdownItContainerOptions {
+function createCodeGroupContainerOptions(md: MarkdownExit): MarkdownItContainerOptions {
   const name = 'code-group'
   return {
     name,

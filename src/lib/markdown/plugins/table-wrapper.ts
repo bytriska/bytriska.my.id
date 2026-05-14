@@ -1,6 +1,6 @@
-import type { MarkdownItAsync } from 'markdown-it-async'
+import type { MarkdownExit } from 'markdown-exit'
 
-export function tableWrapperPlugin(md: MarkdownItAsync) {
+export function tableWrapperPlugin(md: MarkdownExit) {
   md.renderer.rules.table_open = function (tokens, idx, options, _env, self) {
     return `<div class="table-wrapper">${self.renderToken(tokens, idx, options)}`
   }

@@ -1,9 +1,9 @@
 import type { MarkdownItAlertOptions } from '@mdit/plugin-alert'
-import type { MarkdownItAsync } from 'markdown-it-async'
+import type { MarkdownExit } from 'markdown-exit'
 import { alert as alertPlugin } from '@mdit/plugin-alert'
 import { ALERT_TYPES } from '../utils'
 
-export function gfmAlertPlugin(md: MarkdownItAsync) {
+export function gfmAlertPlugin(md: MarkdownExit) {
   const options: MarkdownItAlertOptions = {
     alertNames: [...ALERT_TYPES],
     openRender: (tokens, idx, _opts, _env, self) => {
@@ -25,5 +25,5 @@ export function gfmAlertPlugin(md: MarkdownItAsync) {
     },
   }
 
-  md.use(alertPlugin, options)
+  md.use(md => alertPlugin(md as any, options))
 }

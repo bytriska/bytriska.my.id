@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import type { MarkdownItHeader } from '@/types'
+import type { PostFrontmatter } from '@/types'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCodeGroupNav } from '@/composables/code-group-nav'
 import { useCopyCode } from '@/composables/copy-code'
 
 const props = defineProps<{
-  frontmatter: {
-    title: string
-    description: string
-    _headers?: MarkdownItHeader[]
-  }
+  frontmatter: PostFrontmatter
 }>()
 
 useCopyCode()
@@ -19,7 +15,7 @@ useCodeGroupNav()
 const router = useRouter()
 const isTocOpen = ref(false)
 
-const tocHeaders = computed(() => props.frontmatter._headers || [])
+const toc = computed(() => props.frontmatter.toc || [])
 
 function navigateTo(link: string) {
   isTocOpen.value = false
@@ -91,11 +87,7 @@ function scrollToTop() {
                 </div>
 
                 <div class="px-6 py-4">
-                  <TocTree
-                    v-if="tocHeaders.length"
-                    :headers="tocHeaders"
-                    @navigate="link => navigateTo(link)"
-                  />
+                  <TocTree v-if="toc.length" :toc="toc" @navigate="link => navigateTo(link)" />
                   <p v-else class="text-sm text-ui-content-muted">No headers found on this page.</p>
                 </div>
               </div>

@@ -36,6 +36,7 @@ export interface PostFrontmatter extends BaseMeta {
   readingTime?: number
   difficulty?: 'beginner' | 'intermediate' | 'advanced'
   featured?: boolean
+  toc?: MarkdownHeading[]
 }
 
 export interface Post {
@@ -48,10 +49,10 @@ export interface NavigationItem {
   path: string
 }
 
-export interface MarkdownItHeader {
+export interface MarkdownHeading {
   level: number
   title: string
   slug: string
-  link: string
-  children?: MarkdownItHeader[]
+  path: string
+  children: MarkdownHeading[]
 }

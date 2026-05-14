@@ -10,7 +10,7 @@ import Components from 'unplugin-vue-components/vite'
 import Markdown from 'unplugin-vue-markdown/vite'
 import { defineConfig } from 'vite'
 import VueRouter from 'vue-router/vite'
-import { clearHighlighter, createHighlighter, setupMdItRenderer } from './src/lib/markdown'
+import { clearHighlighter, createHighlighter, markdown } from './src/lib/markdown'
 
 const RE_MARKDOWN = /\.md$/
 const RE_VUE_SFC = /\.vue$/
@@ -55,8 +55,8 @@ export default defineConfig(async () => {
 
       Markdown({
         wrapperComponent: id => (id.includes('/posts/') ? 'PostLayout' : 'PageLayout'),
-        markdownItOptions: { highlight: highlighter },
-        markdownItSetup: setupMdItRenderer,
+        markdownOptions: { highlight: highlighter },
+        markdownSetup: markdown,
       }),
 
       Components({

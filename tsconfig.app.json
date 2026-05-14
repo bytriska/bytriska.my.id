@@ -24,6 +24,7 @@
     "src/typed-router.d.ts",
     "src/components.d.ts"
   ],
+  "exclude": ["src/lib/markdown/**/*.ts"],
   "vueCompilerOptions": {
     "plugins": ["vue-router/volar/sfc-route-blocks", "vue-router/volar/sfc-typed-router"]
   }
