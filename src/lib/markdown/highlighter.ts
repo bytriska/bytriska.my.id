@@ -89,8 +89,8 @@ export async function createHighlighter(opts: HighlighterOptions = {}) {
   }
 }
 
-const RE_ATTRS = /(?<!=)\{/g
-const RE_WHITESPACE = /^\s+|\s+$/g
+const ATTRS_RE = /(?<!=)\{/g
+const WHITESPACE_RE = /^\s+|\s+$/g
 
 function normalizeLang(lang: string): { lang: string; attrs: string } {
   let attrs = ''
@@ -99,8 +99,8 @@ function normalizeLang(lang: string): { lang: string; attrs: string } {
   if (match) {
     const orig = lang
     lang = match
-    attrs = orig.slice(lang.length).replace(RE_ATTRS, ' {')
-    attrs = attrs.trim().replace(RE_WHITESPACE, ' ')
+    attrs = orig.slice(lang.length).replace(ATTRS_RE, ' {')
+    attrs = attrs.trim().replace(WHITESPACE_RE, ' ')
   }
 
   return { lang, attrs }

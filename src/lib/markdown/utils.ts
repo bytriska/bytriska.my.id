@@ -2,20 +2,20 @@ export const HIGHLIGHTER_DEFAULT_LANGUAGE = 'txt'
 
 export const ALERT_TYPES = ['note', 'tip', 'important', 'warning', 'caution'] as const
 
-export const RE_FENCE_ACTIVE = /\bactive\b/
-export const RE_FENCE_LANGUAGE = /^(\w[\w-]*)/
-export const RE_FENCE_TITLE = /\[((?:[^[\]]|\[[^[\]]*\])*)\]/
+export const FENCE_ACTIVE_RE = /\bactive\b/
+export const FENCE_LANGUAGE_RE = /^(\w[\w-]*)/
+export const FENCE_TITLE_RE = /\[((?:[^[\]]|\[[^[\]]*\])*)\]/
 
 export function extractFenceActive(tokenInfo: string): string {
-  return tokenInfo.match(RE_FENCE_ACTIVE)?.[0] ?? ''
+  return tokenInfo.match(FENCE_ACTIVE_RE)?.[0] ?? ''
 }
 
 export function extractFenceLanguage(tokenInfo: string): string {
-  return tokenInfo.match(RE_FENCE_LANGUAGE)?.[1]?.toLowerCase() ?? ''
+  return tokenInfo.match(FENCE_LANGUAGE_RE)?.[1]?.toLowerCase() ?? ''
 }
 
 export function extractFenceTitle(tokenInfo: string): string {
-  return tokenInfo.match(RE_FENCE_TITLE)?.[1] ?? ''
+  return tokenInfo.match(FENCE_TITLE_RE)?.[1] ?? ''
 }
 
 const HTML_ESCAPE_TEST_RE = /[&<>'"]/
