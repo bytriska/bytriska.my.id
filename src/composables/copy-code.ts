@@ -1,11 +1,10 @@
 import { onMounted, onUnmounted } from 'vue'
-import { inBrowser } from '@/lib/utils'
 
 const LINE_ENDINGS_RE = /\n+/g
 const ignoredNodes: string[] = ['.div.remove']
 
 export function useCopyCode() {
-  if (inBrowser) {
+  if (typeof window !== 'undefined') {
     const timeoutIds: WeakMap<HTMLElement, number> = new WeakMap()
 
     function copyCodeHandler(ev: MouseEvent) {

@@ -1,8 +1,7 @@
 import { onMounted, onUnmounted } from 'vue'
-import { inBrowser } from '@/lib/utils'
 
 export function useCodeGroupNav() {
-  if (inBrowser) {
+  if (typeof window !== 'undefined') {
     function codeGroupNavHandler(ev: MouseEvent) {
       const target = ev.target as HTMLElement
 
