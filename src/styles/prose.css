@@ -253,7 +253,7 @@
   .prose div[class*='language-'] .line.highlighted {
     @apply inline-block -mx-6 px-6 bg-ui-info/10;
 
-    width: calc(100% + 2 * --spacing(6));
+    width: calc(100% + --spacing(6) + --spacing(12));
   }
 
   .prose div[class*='language-'] .line.highlighted.warning {
@@ -265,7 +265,7 @@
   }
 
   .prose div[class*='language-'] .has-focused .line:not(.focused) {
-    @apply blur-[2px] opacity-70 transition-[filter,opacity];
+    @apply blur-sm opacity-70 transition-[filter,opacity];
   }
 
   .prose div[class*='language-']:hover .has-focused .line:not(.focused) {
@@ -275,7 +275,7 @@
   .prose div[class*='language-'] .line.diff {
     @apply relative w-full inline-block -mx-6 px-6 transition-colors;
 
-    width: calc(100% + 2 * --spacing(6));
+    width: calc(100% + --spacing(6) + --spacing(12));
 
     &:before {
       @apply absolute left-2;
