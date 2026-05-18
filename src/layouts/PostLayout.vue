@@ -72,15 +72,15 @@ function scrollToTop() {
           >
             <div
               v-if="isTocOpen"
-              class="fixed inset-0 bg-ui-surface-base/75 backdrop-blur-md z-ui-overlay overflow-y-auto overscroll-contain p-6 flex items-start justify-center"
+              class="fixed inset-0 bg-ui-surface-base/75 backdrop-blur-sm z-ui-overlay overflow-y-auto overscroll-contain p-4 flex items-start justify-start"
               @click="isTocOpen = false"
             >
               <div
-                class="relative w-full max-w-2xl bg-ui-surface-elevated rounded-md shadow-lg mt-16 z-ui-modal"
+                class="relative w-full max-w-xs bg-ui-surface-elevated rounded border border-ui-border z-ui-modal"
                 @click.stop
               >
                 <div class="flex items-center justify-between px-6 py-4 border-b border-ui-border">
-                  <h3 class="text-xl font-bold leading-none">Table of Contents</h3>
+                  <h3 class="text-lg font-semibold leading-none">Table of Contents</h3>
                   <Button variant="subtle" size="sm" square @click="isTocOpen = false">
                     <i-lucide-x />
                   </Button>

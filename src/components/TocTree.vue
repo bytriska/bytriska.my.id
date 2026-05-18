@@ -13,7 +13,7 @@ const emit = defineEmits<{ navigate: [link: string] }>()
     <li v-for="heading in toc" :key="heading.slug">
       <a
         :href="heading.path"
-        class="block text-ui-content-base hover:text-ui-content-highlighted transition-colors"
+        class="block text-ui-content-base hover:text-ui-content-highlighted transition-colors truncate"
         @click.prevent="emit('navigate', heading.path)"
       >
         {{ heading.title }}
