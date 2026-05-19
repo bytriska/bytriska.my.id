@@ -1,11 +1,10 @@
-import { createApp } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import type { RouterOptions } from 'vite-ssg'
+import { ViteSSG } from 'vite-ssg'
 import { handleHotUpdate, routes } from 'vue-router/auto-routes'
 import App from '@/app.vue'
 import '@/styles/app.css'
 
-const router = createRouter({
-  history: createWebHistory(),
+const routerOptions: RouterOptions = {
   routes,
   scrollBehavior(to, _from, savedPosition) {
     if (!to.hash) return savedPosition || { top: 0 }
@@ -24,10 +23,8 @@ const router = createRouter({
 
     return savedPosition || { top: 0 }
   },
-})
-
-if (import.meta.hot) {
-  handleHotUpdate(router)
 }
 
-createApp(App).use(router).mount('#app')
+export const createApp = ViteSSG(App, routerOptions, ctx => {
+  if (import.meta.hot) handleHotUpdate(ctx.router)
+})
