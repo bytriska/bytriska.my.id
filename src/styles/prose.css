@@ -13,7 +13,7 @@
 
   .prose :is(h1, h2, h3, h4) {
     @apply relative font-semibold text-ui-content-highlighted outline-none;
-    scroll-margin-top: calc(var(--spacing, 0.25rem) * 2 + var(--ui-header-height));
+    scroll-margin-top: calc(--spacing(2) + var(--ui-header-height));
   }
 
   .prose div:first-child > :is(h1, h2, h3, h4) {
@@ -22,11 +22,12 @@
 
   .prose h1 {
     @apply font-display tracking-tight text-3xl my-4;
-    scroll-margin-top: calc(var(--spacing, 0.25rem) * 12 + var(--ui-header-height));
+    scroll-margin-top: calc(--spacing(12) + var(--ui-header-height));
   }
 
   .prose h2 {
     @apply tracking-tight text-2xl border-t border-ui-border pt-6 my-4;
+    scroll-margin-top: calc(var(--ui-header-height) - 1px);
   }
 
   .prose div:first-child > h2 {
@@ -101,6 +102,10 @@
 
   .prose hr {
     @apply my-4 border-0 border-t border-ui-border;
+  }
+
+  .prose hr + div > h2 {
+    @apply border-none;
   }
 
   /* ── Lists ── */
