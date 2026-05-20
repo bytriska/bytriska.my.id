@@ -55,9 +55,14 @@ export default defineConfig(async () => {
 
       Markdown({
         wrapperDiv: false,
+        headEnabled: true,
         wrapperComponent: id => (id.includes('/posts/') ? 'PostLayout' : 'PageLayout'),
         markdownOptions: { highlight: highlighter },
         markdownSetup: markdown,
+        frontmatterPreprocess(frontmatter, options, _id, defaultHead) {
+          const head = defaultHead(frontmatter, options)
+          return { frontmatter, head }
+        },
       }),
 
       Components({
