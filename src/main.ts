@@ -1,30 +1,9 @@
-import type { RouterOptions } from 'vite-ssg'
-import { ViteSSG } from 'vite-ssg'
-import { handleHotUpdate, routes } from 'vue-router/auto-routes'
+import { createSSRApp } from 'vue'
 import App from '@/app.vue'
-import '@/styles/app.css'
+import { router } from '@/router'
 
-const routerOptions: RouterOptions = {
-  routes,
-  scrollBehavior(to, _from, savedPosition) {
-    if (!to.hash) return savedPosition || { top: 0 }
-
-    const el = document.querySelector(to.hash)
-
-    if (el) {
-      const scrollMarginTop = Number.parseFloat(getComputedStyle(el).scrollMarginTop)
-
-      return {
-        el,
-        behavior: 'smooth',
-        top: scrollMarginTop,
-      }
-    }
-
-    return savedPosition || { top: 0 }
-  },
+export function createApp() {
+  const app = createSSRApp(App)
+  app.use(router)
+  return { app, router }
 }
-
-export const createApp = ViteSSG(App, routerOptions, ctx => {
-  if (import.meta.hot) handleHotUpdate(ctx.router)
-})

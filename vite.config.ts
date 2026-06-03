@@ -2,6 +2,7 @@ import type { ViteDevServer } from 'vite'
 import fs from 'node:fs'
 import path from 'node:path'
 import Tailwindcss from '@tailwindcss/vite'
+import { Unhead } from '@unhead/vue/vite'
 import Vue from '@vitejs/plugin-vue'
 import matter from 'gray-matter'
 import IconsResolver from 'unplugin-icons/resolver'
@@ -76,6 +77,8 @@ export default defineConfig(async () => {
       Icons(),
 
       Vue({ include: [VUE_SFC_RE, MARKDOWN_RE] }),
+
+      Unhead({ streaming: true }),
     ],
   }
 })
