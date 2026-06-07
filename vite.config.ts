@@ -1,7 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import tailwindcss from '@tailwindcss/vite'
-import { Unhead as unhead } from '@unhead/vue/vite'
 import vue from '@vitejs/plugin-vue'
 import matter from 'gray-matter'
 import iconsResolver from 'unplugin-icons/resolver'
@@ -42,7 +41,6 @@ export default defineConfig({
     }),
     icons(),
     vue({ include: [VUE_SFC_RE, MARKDOWN_RE] }),
-    unhead({ streaming: true }),
   ],
   resolve: {
     alias: {

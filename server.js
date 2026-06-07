@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises'
 import process from 'node:process'
+import { transformHtmlTemplate } from '@unhead/vue/server'
 import express from 'express'
 
 // Constants
@@ -48,14 +49,13 @@ async function createServer() {
         render = (await import('./dist/server/entry-server.js')).render
       }
 
-      const { stream } = await render(url, template)
+      const rendered = await render(url)
+      const html = await transformHtmlTemplate(
+        rendered.head,
+        template.replace('<!--app-html-->', rendered.html ?? '')
+      )
 
-      res.status(200).set({ 'Content-Type': 'text/html' })
-      for await (const chunk of stream) {
-        if (res.closed) break
-        res.write(chunk)
-      }
-      res.end()
+      res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
     } catch (e) {
       vite?.ssrFixStacktrace(e)
       // eslint-disable-next-line no-console
