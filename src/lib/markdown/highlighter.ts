@@ -2,12 +2,13 @@ import type {
   BuiltinLanguage,
   BuiltinTheme,
   CodeOptionsMultipleThemes,
-  Highlighter,
   LanguageInput,
+  Highlighter as ShikiHighlighter,
   ShikiTransformer,
   SpecialLanguage,
   TransformerOptions,
 } from 'shiki'
+import type { MarkdownExit } from 'unplugin-vue-markdown/types'
 import {
   transformerMetaHighlight,
   transformerNotationDiff,
@@ -16,9 +17,7 @@ import {
   transformerNotationHighlight,
 } from '@shikijs/transformers'
 import { isSpecialLang, createHighlighter as sCreateHighlighter } from 'shiki'
-import { extractFenceLanguage, HIGHLIGHTER_DEFAULT_LANGUAGE } from './utils'
-
-let _highlighter: Highlighter | null
+import { extractFenceLanguage, FENCE_DEFAULT_LANG, FENCE_DEFAULT_THEMES } from './utils'
 
 export type HighlighterOptions = Partial<Pick<CodeOptionsMultipleThemes<BuiltinTheme>, 'themes'>> &
   TransformerOptions & {
@@ -27,65 +26,78 @@ export type HighlighterOptions = Partial<Pick<CodeOptionsMultipleThemes<BuiltinT
     defaultLang?: LanguageInput | BuiltinLanguage | SpecialLanguage
   }
 
-export async function getHighlighter(opts: HighlighterOptions) {
-  const themes = Object.values(opts.themes ?? {}).filter(Boolean) as BuiltinTheme[]
-
-  if (!_highlighter) {
-    _highlighter = await sCreateHighlighter({
-      themes,
-      langs: opts.langs ?? [],
-      langAlias: opts.langAlias ?? {},
-    })
-  }
-
-  return _highlighter
+export function createHighlighter(opts?: HighlighterOptions) {
+  return new Highlighter(opts ?? {})
 }
 
-export function clearHighlighter() {
-  if (_highlighter) {
-    _highlighter.dispose()
-    _highlighter = null
+export class Highlighter {
+  private highlighter: ShikiHighlighter | null
+  private options: Parameters<typeof sCreateHighlighter>[0]
+
+  defaultLang = FENCE_DEFAULT_LANG
+  defaultThemes = FENCE_DEFAULT_THEMES
+
+  constructor(opts: HighlighterOptions) {
+    this.highlighter = null
+    this.options = this.resolveOptions(opts)
   }
-}
 
-export async function createHighlighter(opts: HighlighterOptions = {}) {
-  opts.defaultLang ??= HIGHLIGHTER_DEFAULT_LANGUAGE
-  opts.langAlias ??= {}
-  opts.themes ??= { light: 'vitesse-light', dark: 'vitesse-dark' }
-
-  const highlighter = await getHighlighter(opts)
-
-  return async (code: string, lang: string, attrs: string) => {
-    lang ||= opts.defaultLang as string
-
-    const { lang: normalizedLang, attrs: normalizedAttrs } = normalizeLang(lang)
-    lang = normalizedLang
-    attrs = `${normalizedAttrs} ${attrs}`.trim()
-
-    const transformers: ShikiTransformer[] = []
-
-    transformers.push(transformerMetaHighlight())
-    transformers.push(transformerNotationDiff())
-    transformers.push(transformerNotationErrorLevel())
-    transformers.push(transformerNotationFocus())
-    transformers.push(transformerNotationHighlight())
-
-    try {
-      if (!isSpecialLang(lang) && !highlighter.getLoadedLanguages().includes(lang)) {
-        await highlighter.loadLanguage(lang as BuiltinLanguage)
-      }
-    } catch {
-      console.warn(`\nLanguage "${lang}" not found, using default language`)
-      lang = opts.defaultLang as string
+  async getHighlighter() {
+    if (!this.highlighter) {
+      this.highlighter = await sCreateHighlighter(this.options)
     }
 
-    return highlighter.codeToHtml(code, {
-      lang,
-      themes: opts.themes!,
-      transformers,
-      meta: { __raw: attrs },
-      defaultColor: false,
-    })
+    return this.highlighter
+  }
+
+  clearHighlighter() {
+    if (this.highlighter) {
+      this.highlighter.dispose()
+      this.highlighter = null
+    }
+  }
+
+  async highlighterPlugin(md: MarkdownExit) {
+    const highlighter = await this.getHighlighter()
+
+    md.options.highlight = async (code: string, lang: string, attrs: string) => {
+      const { lang: normalizedLang, attrs: normalizedAttrs } = normalizeLang(lang)
+      lang = normalizedLang
+      attrs = `${normalizedAttrs} ${attrs}`.trim()
+
+      const transformers: ShikiTransformer[] = []
+
+      transformers.push(transformerMetaHighlight())
+      transformers.push(transformerNotationDiff())
+      transformers.push(transformerNotationErrorLevel())
+      transformers.push(transformerNotationFocus())
+      transformers.push(transformerNotationHighlight())
+
+      try {
+        if (!isSpecialLang(lang) && !highlighter.getLoadedLanguages().includes(lang)) {
+          await highlighter.loadLanguage(lang as BuiltinLanguage)
+        }
+      } catch {
+        console.warn(`\nLanguage "${lang}" not found, using default language`)
+        lang = this.defaultLang
+      }
+
+      return highlighter.codeToHtml(code, {
+        themes: this.defaultThemes,
+        defaultColor: false,
+        meta: { __raw: attrs },
+        lang,
+        transformers,
+      })
+    }
+  }
+
+  private resolveOptions(opts: HighlighterOptions): Parameters<typeof sCreateHighlighter>[0] {
+    return {
+      themes: Object.values(opts.themes ?? this.defaultThemes).filter(Boolean) as BuiltinTheme[],
+      langs: opts.langs ?? [],
+      langAlias: opts.langAlias ?? {},
+    }
   }
 }
 
