@@ -9,6 +9,7 @@ import components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import vueRouter from 'vue-router/vite'
 import markdown from './src/lib/markdown/vite'
+import ssr from './src/lib/ssr/vite'
 
 const MARKDOWN_RE = /\.md$/
 const VUE_SFC_RE = /\.vue$/
@@ -41,6 +42,7 @@ export default defineConfig({
     }),
     icons(),
     vue({ include: [VUE_SFC_RE, MARKDOWN_RE] }),
+    ssr(),
   ],
   resolve: {
     alias: {

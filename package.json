@@ -5,11 +5,12 @@
   "private": true,
   "scripts": {
     "postinstall": "simple-git-hooks",
-    "dev": "node server",
+    "dev": "vite",
+    "dev:ssr": "cross-env NODE_ENV=production vite",
     "build": "vue-tsc -b && npm run build:client && npm run build:server",
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.ts --outDir dist/server",
-    "preview": "cross-env NODE_ENV=production node server",
+    "preview": "cross-env NODE_ENV=production vite preview",
     "lint": "eslint --cache . && prettier --cache --check .",
     "lint:fix": "eslint --cache --fix . && prettier --cache --write ."
   },
@@ -33,6 +34,7 @@
     "@shikijs/transformers": "^4.0.2",
     "@sindresorhus/slugify": "^3.0.0",
     "@tailwindcss/vite": "^4.3.0",
+    "@types/compression": "^1.8.1",
     "@types/express": "^5.0.6",
     "@types/markdown-it-emoji": "^3.0.1",
     "@types/node": "^24.12.4",
