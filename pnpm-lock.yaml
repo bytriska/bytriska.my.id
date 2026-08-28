@@ -1,3 +1,128 @@
+---
+lockfileVersion: '9.0'
+
+importers:
+  .:
+    configDependencies: {}
+    packageManagerDependencies:
+      pnpm:
+        specifier: 12.0.0
+        version: 12.0.0
+
+packages:
+  '@pnpm/exe.darwin-arm64@12.0.0':
+    resolution:
+      {
+        integrity: sha512-sqeoPfVMIfQhbwzDrKraXY2ynyuWClFqzvfImzAS/yczEru1m5SGvQ9kgFPDvQzJZ9AetedgJeDZC6qYvH8/tQ==,
+      }
+    cpu: [arm64]
+    os: [darwin]
+
+  '@pnpm/exe.darwin-x64@12.0.0':
+    resolution:
+      {
+        integrity: sha512-Quc3J6c9cGTy+LDgz1cLVgCNOU9IERuyAlDoEj0DCilKqvo50Jx1GV8k74iwn4J9fFSKkm8JrwNvtTDj3uWnUA==,
+      }
+    cpu: [x64]
+    os: [darwin]
+
+  '@pnpm/exe.linux-arm64-musl@12.0.0':
+    resolution:
+      {
+        integrity: sha512-EVWd3OTmgsMFhXx69b5JxIzoabG9Ma7m4OeTaf0ZKBzMnfYi8u21NDQo92ToMrdYL5dYDDCHsyYIjXzk+d0HhA==,
+      }
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+
+  '@pnpm/exe.linux-arm64@12.0.0':
+    resolution:
+      {
+        integrity: sha512-cXHHW8M4rAPsYNkKZO9WVcpLLK55i9EaIsZPfIqUuY2eopd5LqnFyBge54HCh1GC0yCX8ySn0hYIi+4OyAEoDg==,
+      }
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+
+  '@pnpm/exe.linux-x64-musl@12.0.0':
+    resolution:
+      {
+        integrity: sha512-UcXwMdFjly0mpddkGigHKTxe27IMv2fUK4IWW/MHmJ3yMguxXmkwNlEI4aE+G1HO2TLo20uNEUWD4ymLe/DaCQ==,
+      }
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+
+  '@pnpm/exe.linux-x64@12.0.0':
+    resolution:
+      {
+        integrity: sha512-6Rsl+zEWMOmus7v7/9J3OE8EMvHyNAfxYmDfmhQG4J0985OuT3G3Ho9NSGHjkBn4aU4bgklWifRhe1HX8dUSyw==,
+      }
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+
+  '@pnpm/exe.win32-arm64@12.0.0':
+    resolution:
+      {
+        integrity: sha512-O5F76A4oVFrpDGdFxEszRIThOSBfjHdH5c006gR+7UTCfiXrukr1XfqPungUI1DXcSR5gb9jBsPQqQZOAoOOxw==,
+      }
+    cpu: [arm64]
+    os: [win32]
+
+  '@pnpm/exe.win32-x64@12.0.0':
+    resolution:
+      {
+        integrity: sha512-5dKFajIEWJ1ai+KHXFJvskY6vchbunmLwSUV2ywbLymcmJjfY5XJVpgzPCyIoVCMVG0zHorr66+hM8h8b3aRfQ==,
+      }
+    cpu: [x64]
+    os: [win32]
+
+  pnpm@12.0.0:
+    resolution:
+      {
+        integrity: sha512-ni49w5EZlYaNyUuBdcIXwn6VQI+gO0oidJd48rNPdzt3zdOznt6BcbIvzVO+ajU0Lp+smUimjvWN9kiM6Jp+Zw==,
+      }
+    engines: { node: '>=18.*' }
+    hasBin: true
+
+snapshots:
+  '@pnpm/exe.darwin-arm64@12.0.0':
+    optional: true
+
+  '@pnpm/exe.darwin-x64@12.0.0':
+    optional: true
+
+  '@pnpm/exe.linux-arm64-musl@12.0.0':
+    optional: true
+
+  '@pnpm/exe.linux-arm64@12.0.0':
+    optional: true
+
+  '@pnpm/exe.linux-x64-musl@12.0.0':
+    optional: true
+
+  '@pnpm/exe.linux-x64@12.0.0':
+    optional: true
+
+  '@pnpm/exe.win32-arm64@12.0.0':
+    optional: true
+
+  '@pnpm/exe.win32-x64@12.0.0':
+    optional: true
+
+  pnpm@12.0.0:
+    optionalDependencies:
+      '@pnpm/exe.darwin-arm64': 12.0.0
+      '@pnpm/exe.darwin-x64': 12.0.0
+      '@pnpm/exe.linux-arm64': 12.0.0
+      '@pnpm/exe.linux-arm64-musl': 12.0.0
+      '@pnpm/exe.linux-x64': 12.0.0
+      '@pnpm/exe.linux-x64-musl': 12.0.0
+      '@pnpm/exe.win32-arm64': 12.0.0
+      '@pnpm/exe.win32-x64': 12.0.0
+
+---
 lockfileVersion: '9.0'
 
 settings:
@@ -101,6 +226,9 @@ importers:
       markdown-it-emoji:
         specifier: ^3.0.0
         version: 3.0.0
+      node:
+        specifier: runtime:^22.0.0
+        version: runtime:22.23.2
       prettier:
         specifier: ^3.8.3
         version: 3.8.3
@@ -4861,6 +4989,148 @@ packages:
         integrity: sha512-5WUyunoPMsvvEhS8AxHtRzP+oA8UCkJ7YRxatWKjngndhDGLiqEVAQKWjFAiAiuL8zMRGzGSJxFnLetoa43qGQ==,
       }
 
+  node@runtime:22.23.2:
+    resolution:
+      type: variations
+      variants:
+        - resolution:
+            archive: tarball
+            bin:
+              node: bin/node
+            integrity: sha256-d8YwMv1KuOmOCufbnXnjlmWeBK+Vpe344cqGnkJsBKU=
+            type: binary
+            url: https://nodejs.org/download/release/v22.23.2/node-v22.23.2-aix-ppc64.tar.gz
+          targets:
+            - cpu: ppc64
+              os: aix
+        - resolution:
+            archive: tarball
+            bin:
+              node: bin/node
+            integrity: sha256-YRMPOUwWMNIR3VCuzENT03lIDzbTrJE82F27oa7VhcY=
+            type: binary
+            url: https://nodejs.org/download/release/v22.23.2/node-v22.23.2-darwin-arm64.tar.gz
+          targets:
+            - cpu: arm64
+              os: darwin
+        - resolution:
+            archive: tarball
+            bin:
+              node: bin/node
+            integrity: sha256-WOmQIsL/iTlVdsx/1NmM6iS7aAgUddX4i4Ae6HKfsCY=
+            type: binary
+            url: https://nodejs.org/download/release/v22.23.2/node-v22.23.2-darwin-x64.tar.gz
+          targets:
+            - cpu: x64
+              os: darwin
+        - resolution:
+            archive: tarball
+            bin:
+              node: bin/node
+            integrity: sha256-ATtZz9KBlwOm9KFKuJH8RvwqTj9bzZLeP7SSm0PjWzA=
+            type: binary
+            url: https://nodejs.org/download/release/v22.23.2/node-v22.23.2-linux-arm64.tar.gz
+          targets:
+            - cpu: arm64
+              os: linux
+        - resolution:
+            archive: tarball
+            bin:
+              node: bin/node
+            integrity: sha256-Ki9Z64/Z3sJ7O+4XxykTHR/T5tmUPUefEVbOOK+M1Zk=
+            type: binary
+            url: https://nodejs.org/download/release/v22.23.2/node-v22.23.2-linux-armv7l.tar.gz
+          targets:
+            - cpu: armv7l
+              os: linux
+        - resolution:
+            archive: tarball
+            bin:
+              node: bin/node
+            integrity: sha256-ZciqnmRxlvMNNWS7ayATBrG1IPcvDdMnjaMmAUoBg3k=
+            type: binary
+            url: https://nodejs.org/download/release/v22.23.2/node-v22.23.2-linux-ppc64le.tar.gz
+          targets:
+            - cpu: ppc64le
+              os: linux
+        - resolution:
+            archive: tarball
+            bin:
+              node: bin/node
+            integrity: sha256-mGuEQbHRoBxw7XELqyAXQf0NGW0wKn5DOP79XhwQ5h4=
+            type: binary
+            url: https://nodejs.org/download/release/v22.23.2/node-v22.23.2-linux-s390x.tar.gz
+          targets:
+            - cpu: s390x
+              os: linux
+        - resolution:
+            archive: tarball
+            bin:
+              node: bin/node
+            integrity: sha256-spSlVuY51kM4gjkg5YZsIcAnQXQtLhUp7hoiXB7JJSo=
+            type: binary
+            url: https://nodejs.org/download/release/v22.23.2/node-v22.23.2-linux-x64.tar.gz
+          targets:
+            - cpu: x64
+              os: linux
+        - resolution:
+            archive: zip
+            bin:
+              node: node.exe
+            integrity: sha256-/sAlptoxdX47avhMWhYo6dOEQsqZohYQkdePL8+jXvM=
+            prefix: node-v22.23.2-win-arm64
+            type: binary
+            url: https://nodejs.org/download/release/v22.23.2/node-v22.23.2-win-arm64.zip
+          targets:
+            - cpu: arm64
+              os: win32
+        - resolution:
+            archive: zip
+            bin:
+              node: node.exe
+            integrity: sha256-EXe0E3ulrapWNUrkDxCAx0UOiuCc7LR9pFnRxSrJn5c=
+            prefix: node-v22.23.2-win-x64
+            type: binary
+            url: https://nodejs.org/download/release/v22.23.2/node-v22.23.2-win-x64.zip
+          targets:
+            - cpu: x64
+              os: win32
+        - resolution:
+            archive: zip
+            bin:
+              node: node.exe
+            integrity: sha256-clyeK90cIBa0HJlagfT6Ns5OLuVlt0Vdj4iRgnJ99kc=
+            prefix: node-v22.23.2-win-x86
+            type: binary
+            url: https://nodejs.org/download/release/v22.23.2/node-v22.23.2-win-x86.zip
+          targets:
+            - cpu: x86
+              os: win32
+        - resolution:
+            archive: tarball
+            bin:
+              node: bin/node
+            integrity: sha256-t6GiscfHbkdVDxd2RnaTmEDgpktNBL3TdaSsFLzKqNg=
+            type: binary
+            url: https://unofficial-builds.nodejs.org/download/release/v22.23.2/node-v22.23.2-linux-arm64-musl.tar.gz
+          targets:
+            - cpu: arm64
+              os: linux
+              libc: musl
+        - resolution:
+            archive: tarball
+            bin:
+              node: bin/node
+            integrity: sha256-OW4R7mCesuXLmQ8EXE0DeqR7LCR/POywHFwWLjP/qa8=
+            type: binary
+            url: https://unofficial-builds.nodejs.org/download/release/v22.23.2/node-v22.23.2-linux-x64-musl.tar.gz
+          targets:
+            - cpu: x64
+              os: linux
+              libc: musl
+    version: 22.23.2
+    hasBin: true
+
   nth-check@2.1.1:
     resolution:
       {
@@ -7240,7 +7510,7 @@ snapshots:
       eslint: 10.3.0(jiti@2.7.0)(supports-color@10.2.2)
       json-stable-stringify-without-jsonify: 1.0.1
       lodash.merge: 4.6.2
-      semver: 7.8.0
+      semver: 7.8.5
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
@@ -8939,6 +9209,8 @@ snapshots:
   negotiator@1.0.0: {}
 
   node-releases@2.0.44: {}
+
+  node@runtime:22.23.2: {}
 
   nth-check@2.1.1:
     dependencies:
