@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { cloudflare } from '@cloudflare/vite-plugin'
 import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
 import matter from 'gray-matter'
@@ -9,7 +10,7 @@ import components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import vueRouter from 'vue-router/vite'
 import markdown from './src/lib/markdown/vite'
-import ssr from './src/lib/ssr/vite'
+import virtualIndexHtml from './src/lib/virtual-index-html/vite'
 
 const MARKDOWN_RE = /\.md$/
 const VUE_SFC_RE = /\.vue$/
@@ -42,11 +43,18 @@ export default defineConfig({
     }),
     icons(),
     vue({ include: [VUE_SFC_RE, MARKDOWN_RE] }),
-    ssr(),
+    virtualIndexHtml(),
+    cloudflare({ viteEnvironment: { name: 'ssr' } }),
   ],
   resolve: {
     alias: {
       '@/': `${path.resolve(__dirname, 'src')}/`,
+    },
+  },
+  builder: {
+    async buildApp(builder) {
+      await builder.build(builder.environments.client)
+      await builder.build(builder.environments.ssr)
     },
   },
 })

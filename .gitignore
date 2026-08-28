@@ -26,6 +26,7 @@ Thumbs.db
 .env.development.local
 .env.test.local
 .env.production.local
+.dev.vars*
 
 # Logs
 logs/
@@ -41,6 +42,7 @@ temp/
 # Cache
 .cache/
 .eslintcache
+.wrangler
 
 # Miscellaneous
 *.tgz
