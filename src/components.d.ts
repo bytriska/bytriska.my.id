@@ -17,6 +17,7 @@ declare module 'vue' {
     HeaderNavigation: typeof import('./components/HeaderNavigation.vue')['default']
     ILucideAlignLeft: typeof import('~icons/lucide/align-left')['default']
     ILucideCircleArrowUp: typeof import('~icons/lucide/circle-arrow-up')['default']
+    ILucideDot: typeof import('~icons/lucide/dot')['default']
     ILucideMenu: typeof import('~icons/lucide/menu')['default']
     ILucideMoon: typeof import('~icons/lucide/moon')['default']
     ILucideSun: typeof import('~icons/lucide/sun')['default']

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createReusableTemplate, useDark, useToggle } from '@vueuse/core'
+import { createReusableTemplate, useDark, useMounted, useToggle } from '@vueuse/core'
 import { ref } from 'vue'
 
 const [DefineLeftTemplate, LeftTemplate] = createReusableTemplate()
@@ -10,6 +10,7 @@ const [DefineToggleButton, ToggleButton] = createReusableTemplate()
 const sidebarOpen = ref<boolean>(false)
 const toggleSidebar = useToggle(sidebarOpen)
 
+const isMounted = useMounted()
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 </script>
@@ -50,11 +51,13 @@ const toggleDark = useToggle(isDark)
         <Button
           variant="subtle"
           square
+          :disabled="!isMounted"
           :title="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
           @click="toggleDark()"
         >
-          <i-lucide-moon v-if="isDark" />
-          <i-lucide-sun v-else />
+          <i-lucide-moon v-if="isMounted && isDark" />
+          <i-lucide-sun v-if="isMounted && !isDark" />
+          <i-lucide-dot v-if="!isMounted" />
         </Button>
       </slot>
 
