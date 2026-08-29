@@ -18,7 +18,9 @@ import type { _ExtractParamParserType } from 'vue-router/experimental'
 
 declare module 'vue-router' {
   interface TypesConfig {
-    ParamParsers: never
+    _ParamParsers: {}
+    RouteNamedMap: import('vue-router/auto-routes').RouteNamedMap
+    _RouteFileInfoMap: import('vue-router/auto-routes')._RouteFileInfoMap
   }
 }
 
@@ -58,14 +60,17 @@ declare module 'vue-router/auto-routes' {
     'src/pages/index.md': {
       routes: '/'
       views: never
+      pathParamNames: never
     }
     'src/pages/posts/index.vue': {
       routes: '/posts/'
       views: never
+      pathParamNames: never
     }
     'src/pages/posts/writing-guide.md': {
       routes: '/posts/writing-guide'
       views: never
+      pathParamNames: never
     }
   }
 
