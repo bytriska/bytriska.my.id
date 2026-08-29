@@ -164,7 +164,7 @@ This is a warning.
 This is a cautionary note.
 :::
 
-::: details [[class="bg-purple-100"]]
+::: details
 This is a details block.
 :::
 
