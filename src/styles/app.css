@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import './font.css';
 @import 'tailwindcss';
 
 :root,
@@ -70,9 +70,9 @@
 
 @theme inline {
   /* ── Custom Fonts ── */
-  --font-display: 'Instrument Serif', ui-serif, Georgia, Cambria, serif;
-  --font-body: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-code: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+  --font-display: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-code: 'Geist Mono', ui-monospace, monospace;
 
   /* ── Surfaces ── */
   --color-ui-surface-base: var(--ui-surface-base);
