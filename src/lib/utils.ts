@@ -39,3 +39,69 @@ export function isViteAsset(id: string): boolean {
     ASSETS_EXT_RE.test(id)
   )
 }
+
+class SafeHtml {
+  readonly __safeHtml = true as const
+  private readonly __value: string
+
+  constructor(value: string) {
+    this.__value = value
+  }
+
+  render() {
+    return this.__value
+  }
+}
+
+export function unsafeHtml(value: string): SafeHtml {
+  return new SafeHtml(value)
+}
+
+export function isSafeHtml(value: unknown): value is SafeHtml {
+  return value instanceof SafeHtml
+}
+
+const HTML_ESCAPE_RE = /[&<>"']/g
+export function escapeHtml(value: unknown): string {
+  if (value == null || value === false) return ''
+  if (isSafeHtml(value)) return value.render()
+
+  const str = String(value)
+  return str.replace(HTML_ESCAPE_RE, char => {
+    switch (char) {
+      case '&':
+        return '&amp;'
+      case '<':
+        return '&lt;'
+      case '>':
+        return '&gt;'
+      case "'":
+        return '&#39;'
+      case '"':
+        return '&quot;'
+      default:
+        return char
+    }
+  })
+}
+
+type Interpolated = string | number | boolean | null | undefined | SafeHtml | Interpolated[]
+
+function renderValue(value: Interpolated): string {
+  if (Array.isArray(value)) return value.map(renderValue).join('')
+  return escapeHtml(value)
+}
+
+export function html(strings: TemplateStringsArray, ...values: Interpolated[]): SafeHtml {
+  const rendered = strings.reduce((result, str, i) => result + renderValue(values[i - 1]) + str)
+  return new SafeHtml(rendered)
+}
+
+export function truncate(value: string, max: number) {
+  return value.length > max ? `${value.slice(0, max - 1)}...` : value
+}
+
+export function parseIntOr(value: string | null, fallback: number) {
+  const n = value ? Number.parseInt(value, 10) : Number.NaN
+  return Number.isFinite(n) ? n : fallback
+}

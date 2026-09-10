@@ -12,13 +12,14 @@
     }
   },
   "scripts": {
-    "postinstall": "simple-git-hooks",
+    "postinstall": "simple-git-hooks && pnpm types:generate",
     "dev": "vite",
     "build": "vite build",
     "preview": "pnpm build && vite preview",
     "depoy": "pnpm build && wrangler deploy",
     "lint": "eslint --cache . && prettier --cache --check .",
-    "lint:fix": "eslint --cache --fix . && prettier --cache --write ."
+    "lint:fix": "eslint --cache --fix . && prettier --cache --write .",
+    "types:generate": "wrangler types ./src/worker-configuration.d.ts"
   },
   "dependencies": {
     "@vueuse/core": "^14.4.0",
@@ -58,6 +59,7 @@
     "shiki": "^4.4.3",
     "simple-git-hooks": "^2.13.1",
     "tailwindcss": "^4.3.3",
+    "takumi-js": "^2.13.3",
     "typescript": "~5.9.3",
     "unplugin-icons": "^23.0.1",
     "unplugin-vue-components": "^31.1.0",

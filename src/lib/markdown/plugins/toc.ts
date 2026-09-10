@@ -1,7 +1,7 @@
 import type { MarkdownExit, Token } from 'markdown-exit'
 import type { MarkdownHeading } from '../../../types'
 import strSlugify from '@sindresorhus/slugify'
-import { escapeHtml } from '../utils'
+import { escapeHtml } from '../../utils'
 
 export interface RenderTitleOptions {
   shouldAllowHtml: boolean

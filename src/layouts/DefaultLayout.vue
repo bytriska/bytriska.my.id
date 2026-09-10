@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { BaseMeta } from '@/types'
+import { useSeo } from '@/composables/seo'
 
-const props = defineProps<Partial<BaseMeta>>()
+const props = defineProps<{ meta: BaseMeta }>()
+
+useSeo(props.meta)
 </script>
 
 <template>
@@ -11,19 +14,19 @@ const props = defineProps<Partial<BaseMeta>>()
     </slot>
 
     <main
-      class="grow w-full max-w-7xl mx-auto font-body text-base font-normal text-ui-content-base break-words overflow-x-hidden pt-8 px-6 pb-16 md:pt-12 md:px-8 md:pb-24 lg:pb-0"
+      class="grow w-full max-w-7xl mx-auto font-body text-base font-normal text-ui-content-base wrap-break-word overflow-x-hidden pt-8 px-6 pb-16 md:pt-12 md:px-8 md:pb-24 lg:pb-0"
     >
       <slot name="title">
         <h1
-          v-if="props.title"
+          v-if="props.meta.title"
           class="relative font-semibold text-ui-content-highlighted outline-none font-display tracking-tight text-3xl text-center text-pretty my-4"
         >
-          {{ props.title }}
+          {{ props.meta.title }}
         </h1>
       </slot>
       <slot name="description">
-        <p v-if="props.description" class="my-4 text-center text-pretty">
-          {{ props.description }}
+        <p v-if="props.meta.description" class="my-4 text-center text-pretty">
+          {{ props.meta.description }}
         </p>
       </slot>
       <hr class="my-4 border-0 border-t" />

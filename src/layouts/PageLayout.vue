@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import type { PageFrontmatter } from '@/types'
+import { useSeo } from '@/composables/seo'
 
 const props = defineProps<{
   frontmatter: PageFrontmatter
 }>()
+
+useSeo(props.frontmatter)
 </script>
 
 <template>

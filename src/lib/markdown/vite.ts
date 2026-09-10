@@ -19,7 +19,7 @@ export default function markdown(userOpts?: Options): Plugin<any> {
 
   const defaultMarkdownPluginOptions: Options = {
     wrapperDiv: false,
-    headEnabled: true,
+    headEnabled: false,
     wrapperComponent: resolveLayoutNameByPath,
     markdownSetup: async md => {
       highlighter = createHighlighter()

@@ -4,6 +4,7 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCodeGroupNav } from '@/composables/code-group-nav'
 import { useCopyCode } from '@/composables/copy-code'
+import { useSeo } from '@/composables/seo'
 
 const props = defineProps<{
   frontmatter: PostFrontmatter
@@ -11,6 +12,7 @@ const props = defineProps<{
 
 useCopyCode()
 useCodeGroupNav()
+useSeo(props.frontmatter)
 
 const router = useRouter()
 const isTocOpen = ref(false)

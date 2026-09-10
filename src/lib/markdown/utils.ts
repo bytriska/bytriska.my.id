@@ -21,26 +21,6 @@ export function extractFenceTitle(tokenInfo: string): string {
   return tokenInfo.match(FENCE_TITLE_RE)?.[1] ?? ''
 }
 
-const HTML_ESCAPE_TEST_RE = /[&<>'"]/
-const HTML_ESCAPE_REPLACE_RE = /[&<>'"]/g
-const HTML_REPLACEMENTS: Record<string, string> = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  "'": '&#39;',
-  '"': '&quot;',
-}
-
-function replaceUnsafeChar(ch: string): string {
-  return HTML_REPLACEMENTS[ch]!
-}
-
-export function escapeHtml(str: string): string {
-  if (HTML_ESCAPE_TEST_RE.test(str)) return str.replace(HTML_ESCAPE_REPLACE_RE, replaceUnsafeChar)
-
-  return str
-}
-
 export function resolveLayoutNameByPath(id: string): string {
   return id.includes('/posts/') ? 'PostLayout' : 'PageLayout'
 }

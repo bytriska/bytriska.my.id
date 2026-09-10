@@ -56,3 +56,9 @@ export interface MarkdownHeading {
   path: string
   children: MarkdownHeading[]
 }
+
+export interface OgSize {
+  width: number
+  height: number
+}
+export type OgSizeKey = string

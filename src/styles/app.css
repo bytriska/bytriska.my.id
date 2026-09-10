@@ -1,5 +1,6 @@
 @import './font.css';
 @import 'tailwindcss';
+@import './prose.css';
 
 :root,
 :host,
@@ -122,8 +123,6 @@
 @utility z-ui-* {
   z-index: --value(--z-index-*);
 }
-
-@import './prose.css';
 
 @layer base {
   :root {
