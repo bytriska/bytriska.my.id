@@ -17,7 +17,14 @@ import {
   transformerNotationHighlight,
 } from '@shikijs/transformers'
 import { isSpecialLang, createHighlighter as sCreateHighlighter } from 'shiki'
-import { extractFenceLanguage, FENCE_DEFAULT_LANG, FENCE_DEFAULT_THEMES } from './utils'
+
+export const FENCE_DEFAULT_THEMES = { light: 'vitesse-light', dark: 'vitesse-dark' }
+export const FENCE_LANGUAGE_RE = /^(\w[\w-]*)/
+export const FENCE_DEFAULT_LANG = 'txt'
+
+export function extractFenceLanguage(tokenInfo: string): string {
+  return tokenInfo.match(FENCE_LANGUAGE_RE)?.[1]?.toLowerCase() ?? ''
+}
 
 export type HighlighterOptions = Partial<Pick<CodeOptionsMultipleThemes<BuiltinTheme>, 'themes'>> &
   TransformerOptions & {

@@ -1,7 +1,13 @@
 import type { ImageResponseOptions } from 'takumi-js/response'
 import type { FontLoader } from 'takumi-js/wasm'
-import type { OgSize, OgSizeKey } from '@/types'
-import { OG_IMAGE_FORMAT, OG_IMAGE_SIZES, SITE_NAME } from '@/constants'
+import type { BaseMeta, OgSize, OgSizeKey } from '@/types'
+import {
+  OG_IMAGE_FORMAT,
+  OG_IMAGE_SIZES,
+  OG_IMAGE_URL_PATHNAME,
+  SITE_NAME,
+  SITE_URL,
+} from '@/constants'
 import { html, parseIntOr } from '@/lib/utils'
 import appcss from '@/styles/app.css?inline'
 
@@ -65,4 +71,18 @@ export function defaultOgTemplate(props: OgTemplateProps): string {
 `
 
   return template.render()
+}
+
+export interface GetOgUrlOptions {
+  size?: OgSizeKey
+}
+
+export function getOgUrl(
+  meta: Pick<BaseMeta, 'title' | 'description'>,
+  options: GetOgUrlOptions = {}
+) {
+  const params = new URLSearchParams({ title: meta.title, description: meta.description })
+  if (options.size) params.append('size', options.size)
+
+  return `${SITE_URL}${OG_IMAGE_URL_PATHNAME}?${params.toString()}`
 }

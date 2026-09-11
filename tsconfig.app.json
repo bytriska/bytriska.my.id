@@ -18,7 +18,7 @@
     "noUncheckedSideEffectImports": true
   },
   "include": ["src/**/*.ts", "src/**/*.vue"],
-  "exclude": ["src/lib/markdown/**/*.ts", "src/lib/ssr/**/*.ts"],
+  "exclude": ["scripts/**/*.ts"],
   "vueCompilerOptions": {
     "plugins": ["vue-router/volar/sfc-route-blocks", "vue-router/volar/sfc-typed-router"]
   }

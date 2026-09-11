@@ -1,7 +1,13 @@
 import type { MarkdownItContainerOptions } from '@mdit/plugin-container'
 import type { MarkdownExit } from 'markdown-exit'
 import { container as _containerPlugin } from '@mdit/plugin-container'
-import { ALERT_TYPES, extractFenceTitle } from '../utils'
+
+const ALERT_TYPES = ['note', 'tip', 'important', 'warning', 'caution'] as const
+const FENCE_TITLE_RE = /\[((?:[^[\]]|\[[^[\]]*\])*)\]/
+
+function extractFenceTitle(tokenInfo: string): string {
+  return tokenInfo.match(FENCE_TITLE_RE)?.[1] ?? ''
+}
 
 export function containerPlugin(md: MarkdownExit) {
   for (const name of ALERT_TYPES) {

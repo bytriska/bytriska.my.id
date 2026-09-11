@@ -1,6 +1,11 @@
 import type { MarkdownExit } from 'markdown-exit'
-import { isPromise } from '../../utils'
-import { extractFenceActive, extractFenceLanguage, FENCE_DEFAULT_LANG } from '../utils'
+import { isPromise } from '../../../src/lib/utils'
+import { extractFenceLanguage, FENCE_DEFAULT_LANG } from '../highlighter'
+
+const FENCE_ACTIVE_RE = /\bactive\b/
+function extractFenceActive(tokenInfo: string): string {
+  return tokenInfo.match(FENCE_ACTIVE_RE)?.[0] ?? ''
+}
 
 export function preWrapperPlugin(md: MarkdownExit) {
   const fence = md.renderer.rules.fence!

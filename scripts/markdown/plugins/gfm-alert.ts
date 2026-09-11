@@ -1,7 +1,8 @@
 import type { MarkdownItAlertOptions } from '@mdit/plugin-alert'
 import type { MarkdownExit } from 'markdown-exit'
 import { alert as alertPlugin } from '@mdit/plugin-alert'
-import { ALERT_TYPES } from '../utils'
+
+const ALERT_TYPES = ['note', 'tip', 'important', 'warning', 'caution'] as const
 
 export function gfmAlertPlugin(md: MarkdownExit) {
   const options: MarkdownItAlertOptions = {

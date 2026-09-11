@@ -6,13 +6,13 @@ import slugify from '@sindresorhus/slugify'
 import anchorPlugin from 'markdown-it-anchor'
 import { full as emojiPlugin } from 'markdown-it-emoji'
 import originalMarkdownPlugin from 'unplugin-vue-markdown/vite'
+import { isObject } from '../../src/lib/utils'
 import { createHighlighter } from './highlighter'
 import { containerPlugin } from './plugins/container'
 import { gfmAlertPlugin } from './plugins/gfm-alert'
 import { preWrapperPlugin } from './plugins/pre-wrapper'
 import { tableWrapperPlugin } from './plugins/table-wrapper'
 import { tocPlugin } from './plugins/toc'
-import { mergeConfig, resolveLayoutNameByPath } from './utils'
 
 export default function markdown(userOpts?: Options): Plugin<any> {
   let highlighter: Highlighter
@@ -69,4 +69,48 @@ export default function markdown(userOpts?: Options): Plugin<any> {
       server.httpServer?.on('close', () => highlighter.clearHighlighter())
     },
   }
+}
+
+function resolveLayoutNameByPath(id: string): string {
+  return id.includes('/posts/') ? 'PostLayout' : 'PageLayout'
+}
+
+function mergeConfig(defaults: Options, overrides: Options): Options {
+  const merged: Partial<Options> = { ...defaults }
+
+  function isMarkdownSetupFn(value: unknown): value is Options['markdownSetup'] {
+    return typeof value === 'function'
+  }
+
+  for (const key of Object.keys(overrides) as Array<keyof Options>) {
+    const value = overrides[key]
+    if (typeof value === 'undefined') continue
+
+    const existing = merged[key]
+    if (typeof existing === 'undefined') {
+      merged[key] = value as any
+      continue
+    }
+
+    if (key === 'markdownSetup' && isMarkdownSetupFn(existing) && isMarkdownSetupFn(value)) {
+      merged[key] = md => {
+        existing(md)
+        value(md)
+      }
+    }
+
+    if (Array.isArray(existing) && Array.isArray(value)) {
+      merged[key] = [...existing, ...value] as any
+      continue
+    }
+
+    if (isObject(existing) && isObject(value)) {
+      merged[key] = { ...existing, ...value } as any
+      continue
+    }
+
+    merged[key] = value as any
+  }
+
+  return merged as Options
 }

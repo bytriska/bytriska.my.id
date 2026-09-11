@@ -2,11 +2,11 @@ import type { BaseMeta } from '@/types'
 import { useSeoMeta } from '@unhead/vue'
 import { toValue } from 'vue'
 import { OG_IMAGE_FORMAT, OG_IMAGE_SIZES, SITE_TITLE, SITE_TITLE_TEMPLATE } from '@/constants'
-import { useOgImageUrl } from './ogImageUrl'
+import { getOgUrl } from '@/lib/og'
 
 export function useSeo(meta: BaseMeta) {
   const title = SITE_TITLE_TEMPLATE.replace('%s', meta.title ?? SITE_TITLE)
-  const ogImageUrl = useOgImageUrl({ title: meta.title, description: meta.description })
+  const ogImageUrl = getOgUrl(meta)
 
   useSeoMeta({
     title,
