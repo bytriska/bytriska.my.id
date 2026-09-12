@@ -1,14 +1,19 @@
-<script setup lang="ts">
+<script lang="ts">
 import type { ButtonVariantProps } from '@/styles/button'
+</script>
+
+<script setup lang="ts">
 import button from '@/styles/button'
 
-const props = defineProps<{
+export interface ButtonProps {
   block?: ButtonVariantProps['block']
   color?: ButtonVariantProps['color']
   size?: ButtonVariantProps['size']
   square?: ButtonVariantProps['square']
   variant?: ButtonVariantProps['variant']
-}>()
+}
+
+const props = defineProps<ButtonProps>()
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 import type { MarkdownItContainerOptions } from '@mdit/plugin-container'
-import type { MarkdownExit } from 'markdown-exit'
+import type { MarkdownExit, RenderRule } from 'markdown-exit'
 import { container as _containerPlugin } from '@mdit/plugin-container'
 
 const ALERT_TYPES = ['note', 'tip', 'important', 'warning', 'caution'] as const
@@ -18,10 +18,15 @@ export function containerPlugin(md: MarkdownExit) {
   md.use(md => _containerPlugin(md as any, createCodeGroupContainerOptions(md)))
 }
 
-function createAlertContainerOptions(name: string, md: MarkdownExit): MarkdownItContainerOptions {
+interface AlertContainerOptions extends MarkdownItContainerOptions {
+  openRenderer?: RenderRule
+  closeRenderer?: RenderRule
+}
+
+function createAlertContainerOptions(name: string, md: MarkdownExit): AlertContainerOptions {
   return {
     name,
-    openRender: (tokens, idx, _opts, _env, self) => {
+    openRenderer: (tokens, idx, _opts, _env, self) => {
       const token = tokens[idx]!
 
       token.attrJoin('class', `alert ${name}`)
@@ -33,12 +38,12 @@ function createAlertContainerOptions(name: string, md: MarkdownExit): MarkdownIt
   }
 }
 
-function createDetailsContainerOptions(md: MarkdownExit): MarkdownItContainerOptions {
+function createDetailsContainerOptions(md: MarkdownExit): AlertContainerOptions {
   const name = 'details'
 
   return {
     name,
-    openRender: (tokens, idx, _opts, _env, self) => {
+    openRenderer: (tokens, idx, _opts, _env, self) => {
       const token = tokens[idx]!
 
       token.attrJoin('class', 'details')
@@ -47,15 +52,15 @@ function createDetailsContainerOptions(md: MarkdownExit): MarkdownItContainerOpt
 
       return `<details ${attrs}><summary>${md.renderInline(title)}</summary>`
     },
-    closeRender: () => '</details>',
+    closeRenderer: () => '</details>',
   }
 }
 
-function createCodeGroupContainerOptions(md: MarkdownExit): MarkdownItContainerOptions {
+function createCodeGroupContainerOptions(md: MarkdownExit): AlertContainerOptions {
   const name = 'code-group'
   return {
     name,
-    openRender: (tokens, idx, _opts, _env, self) => {
+    openRenderer: (tokens, idx, _opts, _env, self) => {
       const token = tokens[idx]!
 
       let tabs: string = ''
@@ -81,6 +86,6 @@ function createCodeGroupContainerOptions(md: MarkdownExit): MarkdownItContainerO
 
       return `<div ${attrs}><div class="blocks">`
     },
-    closeRender: () => '</div></div>',
+    closeRenderer: () => '</div></div>',
   }
 }

@@ -1,6 +1,6 @@
 import type { MarkdownExit } from 'markdown-exit'
-import { isPromise } from '../../../src/lib/utils'
-import { extractFenceLanguage, FENCE_DEFAULT_LANG } from '../highlighter'
+import { isPromise } from '../../../src/lib/utils.ts'
+import { extractFenceLanguage, FENCE_DEFAULT_LANG } from '../highlighter.ts'
 
 const FENCE_ACTIVE_RE = /\bactive\b/
 function extractFenceActive(tokenInfo: string): string {

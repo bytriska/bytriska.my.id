@@ -9,8 +9,8 @@ import icons from 'unplugin-icons/vite'
 import components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import vueRouter from 'vue-router/vite'
-import markdown from './scripts/markdown/vite'
-import virtualIndexHtml from './scripts/virtual-index-html/vite'
+import markdown from './scripts/markdown/vite.ts'
+import virtualIndexHtml from './scripts/virtual-index-html/vite.ts'
 
 const MARKDOWN_RE = /\.md$/
 const VUE_SFC_RE = /\.vue$/
@@ -48,7 +48,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@/': `${path.resolve(__dirname, 'src')}/`,
+      '@/': `${path.resolve(import.meta.dirname, 'src')}/`,
     },
   },
   builder: {

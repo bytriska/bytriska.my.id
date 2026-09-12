@@ -1,18 +1,22 @@
-<script setup lang="ts">
+<script lang="ts">
 import type { RouterLinkProps } from 'vue-router'
 import type { LinkVariantProps } from '@/styles/link'
+</script>
+
+<script setup lang="ts">
 import { computed } from 'vue'
 import link from '@/styles/link'
 
-const props = defineProps<
-  RouterLinkProps & {
-    block?: LinkVariantProps['block']
-    color?: LinkVariantProps['color']
-    size?: LinkVariantProps['size']
-    square?: LinkVariantProps['square']
-    variant?: LinkVariantProps['variant']
-  }
->()
+// TODO: fix this type error
+export interface LinkProps extends /** @vue-ignore */ RouterLinkProps {
+  block?: LinkVariantProps['block']
+  color?: LinkVariantProps['color']
+  size?: LinkVariantProps['size']
+  square?: LinkVariantProps['square']
+  variant?: LinkVariantProps['variant']
+}
+
+const props = defineProps<LinkProps>()
 
 const isExternal = computed(() => {
   return props.to && typeof props.to === 'string' && props.to.startsWith('http')

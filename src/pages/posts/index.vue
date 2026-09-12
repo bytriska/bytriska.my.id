@@ -14,7 +14,7 @@ const { allPosts } = usePosts()
 <template>
   <DefaultLayout v-bind="{ meta }">
     <div>
-      <PostCard v-for="post in allPosts" :key="post.path" v-bind="post" />
+      <PostCard v-for="post in allPosts" :key="post.path" :post="post" />
     </div>
   </DefaultLayout>
 </template>

@@ -1,9 +1,13 @@
-<script setup lang="ts">
+<script lang="ts">
 import type { MarkdownHeading } from '@/types'
 
-defineProps<{
+export interface TocTreeProps {
   toc: MarkdownHeading[]
-}>()
+}
+</script>
+
+<script setup lang="ts">
+defineProps<TocTreeProps>()
 
 const emit = defineEmits<{ navigate: [link: string] }>()
 </script>

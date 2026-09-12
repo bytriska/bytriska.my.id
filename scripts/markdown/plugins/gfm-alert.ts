@@ -1,13 +1,19 @@
 import type { MarkdownItAlertOptions } from '@mdit/plugin-alert'
-import type { MarkdownExit } from 'markdown-exit'
+import type { MarkdownExit, RenderRule } from 'markdown-exit'
 import { alert as alertPlugin } from '@mdit/plugin-alert'
 
 const ALERT_TYPES = ['note', 'tip', 'important', 'warning', 'caution'] as const
 
+interface AlertOptions extends MarkdownItAlertOptions {
+  openRenderer?: RenderRule
+  closeRenderer?: RenderRule
+  titleRenderer?: RenderRule
+}
+
 export function gfmAlertPlugin(md: MarkdownExit) {
-  const options: MarkdownItAlertOptions = {
+  const options: AlertOptions = {
     alertNames: [...ALERT_TYPES],
-    openRender: (tokens, idx, _opts, _env, self) => {
+    openRenderer: (tokens, idx, _opts, _env, self) => {
       const token = tokens[idx]!
 
       token.attrJoin('class', `alert ${token.markup}`)
@@ -15,8 +21,8 @@ export function gfmAlertPlugin(md: MarkdownExit) {
 
       return `<div ${attrs}>`
     },
-    closeRender: () => '</div>',
-    titleRender: (tokens, idx, _opts, _env, self) => {
+    closeRenderer: () => '</div>',
+    titleRenderer: (tokens, idx, _opts, _env, self) => {
       const token = tokens[idx]!
 
       token.attrJoin('class', 'alert-title')

@@ -1,7 +1,11 @@
+minimumReleaseAgeExcludePrune: true
+trustPolicy: no-downgrade
+shellEmulator: true
+
+overrides:
+  markdown-it@: 15.0.1
+
 allowBuilds:
   esbuild: true
   simple-git-hooks: true
   workerd: true
-
-shellEmulator: true
-trustPolicy: no-downgrade
