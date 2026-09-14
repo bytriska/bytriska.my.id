@@ -1,5 +1,6 @@
 @import './font.css';
 @import 'tailwindcss';
+@import './theme.css';
 @import './prose.css';
 
 :root,
@@ -141,5 +142,18 @@
 
   body {
     @apply antialiased text-ui-content-base bg-ui-surface-base scheme-light dark:scheme-dark;
+  }
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  .new-theme,
+  .new-theme * {
+    @apply border-border outline-ring/50;
+  }
+
+  body .new-theme {
+    @apply bg-background text-foreground;
   }
 }
