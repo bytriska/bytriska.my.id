@@ -12,6 +12,7 @@
     }
   },
   "scripts": {
+    "preinstall": "mkdir -p .types",
     "postinstall": "simple-git-hooks && pnpm types:generate",
     "dev": "vite",
     "build": "vite build",
