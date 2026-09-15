@@ -10,9 +10,7 @@ build/
 
 # TypeScript
 *.tsbuildinfo
-src/typed-router.d.ts
-src/components.d.ts
-src/worker-configuration.d.ts
+.types/
 
 # IDE and editor files
 .idea/

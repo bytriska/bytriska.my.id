@@ -25,7 +25,7 @@ export default defineConfig({
     vueRouter({
       routesFolder: 'src/pages',
       extensions: ['.vue', '.md'],
-      dts: 'src/typed-router.d.ts',
+      dts: '.types/typed-router.d.ts',
       extendRoute(route) {
         const src = route.component
         if (!src || !src.endsWith('.md')) return
@@ -38,7 +38,7 @@ export default defineConfig({
       dirs: ['src/components'],
       extensions: ['vue'],
       include: [VUE_SFC_RE, VUE_SUBREQUEST_RE, VUE_X_SUBREQUEST_RE, MARKDOWN_RE],
-      dts: 'src/components.d.ts',
+      dts: '.types/components.d.ts',
       resolvers: [iconsResolver()],
     }),
     icons(),
@@ -55,6 +55,11 @@ export default defineConfig({
     async buildApp(builder) {
       await builder.build(builder.environments.client)
       await builder.build(builder.environments.ssr)
+    },
+  },
+  server: {
+    watch: {
+      ignored: ['**/.types/*.d.ts', '**/.wrangler/**'],
     },
   },
 })

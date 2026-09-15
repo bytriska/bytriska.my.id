@@ -19,7 +19,7 @@
     "depoy": "pnpm build && wrangler deploy",
     "lint": "eslint --cache . && prettier --cache --check .",
     "lint:fix": "eslint --cache --fix . && prettier --cache --write .",
-    "types:generate": "wrangler types ./src/worker-configuration.d.ts"
+    "types:generate": "wrangler types .types/worker-configuration.d.ts"
   },
   "dependencies": {
     "@vueuse/core": "^14.4.0",
