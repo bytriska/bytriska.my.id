@@ -5,7 +5,7 @@ import type { ButtonVariantProps } from '@/styles/button'
 <script setup lang="ts">
 import button from '@/styles/button'
 
-export interface ButtonProps {
+export interface LegacyButtonProps {
   block?: ButtonVariantProps['block']
   color?: ButtonVariantProps['color']
   size?: ButtonVariantProps['size']
@@ -13,7 +13,7 @@ export interface ButtonProps {
   variant?: ButtonVariantProps['variant']
 }
 
-const props = defineProps<ButtonProps>()
+const props = defineProps<LegacyButtonProps>()
 </script>
 
 <template>

@@ -1,3 +1,7 @@
+import type { ClassValue } from 'clsx'
+import { clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
 export function isPromise<T = unknown>(value: unknown): value is Promise<T> {
   return (
     value instanceof Promise ||
@@ -104,4 +108,8 @@ export function truncate(value: string, max: number) {
 export function parseIntOr(value: string | null, fallback: number) {
   const n = value ? Number.parseInt(value, 10) : Number.NaN
   return Number.isFinite(n) ? n : fallback
+}
+
+export function cn(...input: ClassValue[]) {
+  return twMerge(clsx(input))
 }

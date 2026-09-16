@@ -138,7 +138,7 @@
 
   /* --- extension: cspell --- */
   "cSpell.allowCompoundWords": true,
-  "cSpell.words": ["bytriska"],
+  "cSpell.words": ["bytriska", "lucide", "Reka", "vueuse"],
 
   /* --- extension: copilot --- */
   "github.copilot.nextEditSuggestions.extendedRange": true,

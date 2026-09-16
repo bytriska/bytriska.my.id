@@ -38,7 +38,7 @@ function scrollToTop() {
             <div
               class="w-full h-full max-w-7xl flex items-center justify-between border-b border-dashed border-ui-border mx-auto px-6 md:px-8"
             >
-              <Button
+              <LegacyButton
                 variant="ghost"
                 size="xs"
                 class="space-x-1 -ml-2 text-ui-content-muted"
@@ -48,9 +48,9 @@ function scrollToTop() {
                   <i-lucide-align-left />
                 </template>
                 Table of Contents
-              </Button>
+              </LegacyButton>
 
-              <Button
+              <LegacyButton
                 variant="ghost"
                 size="xs"
                 class="space-x-1 -mr-2 text-ui-content-muted"
@@ -60,7 +60,7 @@ function scrollToTop() {
                   <i-lucide-circle-arrow-up />
                 </template>
                 Back to top
-              </Button>
+              </LegacyButton>
             </div>
           </div>
 
@@ -83,9 +83,9 @@ function scrollToTop() {
               >
                 <div class="flex items-center justify-between px-6 py-4 border-b border-ui-border">
                   <h3 class="text-lg font-semibold leading-none">Table of Contents</h3>
-                  <Button variant="subtle" size="sm" square @click="isTocOpen = false">
+                  <LegacyButton variant="subtle" size="sm" square @click="isTocOpen = false">
                     <i-lucide-x />
-                  </Button>
+                  </LegacyButton>
                 </div>
 
                 <div class="px-6 py-4">

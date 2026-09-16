@@ -18,7 +18,7 @@ const toggleDark = useToggle(isDark)
 <template>
   <DefineToggleButton>
     <slot name="toggle-button" :open="sidebarOpen" @click="toggleSidebar">
-      <Button
+      <LegacyButton
         variant="subtle"
         square
         :title="sidebarOpen ? 'Hide Sidebar' : 'Show sidebar'"
@@ -27,7 +27,7 @@ const toggleDark = useToggle(isDark)
       >
         <i-lucide-x v-if="sidebarOpen" />
         <i-lucide-menu v-else />
-      </Button>
+      </LegacyButton>
     </slot>
   </DefineToggleButton>
 
@@ -48,7 +48,7 @@ const toggleDark = useToggle(isDark)
   <DefineRightTemplate>
     <div class="flex items-center justify-end gap-2">
       <slot name="right" :is-dark="isDark" :toggle-dark="toggleDark">
-        <Button
+        <LegacyButton
           variant="subtle"
           square
           :disabled="!isMounted"
@@ -58,7 +58,7 @@ const toggleDark = useToggle(isDark)
           <i-lucide-moon v-if="isMounted && isDark" />
           <i-lucide-sun v-if="isMounted && !isDark" />
           <i-lucide-dot v-if="!isMounted" />
-        </Button>
+        </LegacyButton>
       </slot>
 
       <ToggleButton />

@@ -4,6 +4,7 @@ import { cloudflare } from '@cloudflare/vite-plugin'
 import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
 import matter from 'gray-matter'
+import rekaResolver from 'reka-ui/resolver'
 import iconsResolver from 'unplugin-icons/resolver'
 import icons from 'unplugin-icons/vite'
 import components from 'unplugin-vue-components/vite'
@@ -39,7 +40,7 @@ export default defineConfig({
       extensions: ['vue'],
       include: [VUE_SFC_RE, VUE_SUBREQUEST_RE, VUE_X_SUBREQUEST_RE, MARKDOWN_RE],
       dts: '.types/components.d.ts',
-      resolvers: [iconsResolver()],
+      resolvers: [iconsResolver(), rekaResolver({ prefix: 'Reka' })],
     }),
     icons(),
     vue({ include: [VUE_SFC_RE, MARKDOWN_RE] }),
