@@ -17,43 +17,50 @@ function submit(e: MouseEvent) {
     <div class="grow size-full max-w-7xl mx-auto px-6 pt-8 pb-16 md:px-8 md:pt-12 md:pb-24 lg:pb-0">
       <h1 class="text-3xl">hello</h1>
 
-      <Button>Click me</Button>
+      <div class="flex flex-wrap gap-2">
+        <Button>Click me</Button>
+        <Button variant="outline"> Click me </Button>
+        <Button variant="secondary"> Click me </Button>
+        <Button variant="ghost"> Click me </Button>
+        <Button variant="destructive"> Click me </Button>
+        <Button variant="link"> Click me </Button>
 
-      <Button>
-        <template #icon>
-          <i-lucide-plus class="size-4" />
-        </template>
-        Add item
-      </Button>
+        <Button>
+          <template #icon>
+            <i-lucide-plus class="size-4" />
+          </template>
+          Add item
+        </Button>
 
-      <Button trailing>
-        Next
-        <template #icon>
-          <i-lucide-arrow-right class="size-4" />
-        </template>
-      </Button>
+        <Button trailing>
+          Next
+          <template #icon>
+            <i-lucide-arrow-right class="size-4" />
+          </template>
+        </Button>
 
-      <Button :loading="isLoading" @click="submit">
-        <template #icon>
-          <i-lucide-save class="size-4" />
-        </template>
-        Save
-      </Button>
+        <Button :loading="isLoading" @click="submit">
+          <template #icon>
+            <i-lucide-save class="size-4" />
+          </template>
+          Save
+        </Button>
 
-      <Button trailing :loading="isLoading" @click="submit">
-        Continue
-        <template #icon>
-          <i-lucide-arrow-right class="size-4" />
-        </template>
-      </Button>
+        <Button trailing :loading="isLoading" @click="submit">
+          Continue
+          <template #icon>
+            <i-lucide-arrow-right class="size-4" />
+          </template>
+        </Button>
 
-      <Button size="icon" :loading="isLoading" @click="submit">
-        <template #icon>
-          <i-lucide-trash class="size-4" />
-        </template>
-      </Button>
+        <Button size="icon" :loading="isLoading" @click="submit">
+          <template #icon>
+            <i-lucide-trash class="size-4" />
+          </template>
+        </Button>
 
-      <Button :loading="isLoading" @click="submit"> Save </Button>
+        <Button :loading="isLoading" @click="submit"> Save </Button>
+      </div>
     </div>
   </div>
 </template>
