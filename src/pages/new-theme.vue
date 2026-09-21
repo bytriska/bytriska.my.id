@@ -61,6 +61,42 @@ function submit(e: MouseEvent) {
 
         <Button :loading="isLoading" @click="submit"> Save </Button>
       </div>
+      <div class="flex flex-wrap gap-2">
+        <Link to="/"> Home </Link>
+        <Link to="/posts" variant="outline"> Posts </Link>
+        <Link href="/posts" variant="secondary"> Posts (via href) </Link>
+        <Link href="https://example.com" variant="ghost"> External site </Link>
+        <Link href="mailto:hello@example.com" variant="link"> Email us </Link>
+
+        <Link to="/posts">
+          <template #icon>
+            <i-lucide-plus class="size-4" />
+          </template>
+          New post
+        </Link>
+
+        <Link href="https://example.com" trailing>
+          View source
+          <template #icon>
+            <i-lucide-arrow-up-right class="size-4" />
+          </template>
+        </Link>
+
+        <Link href="#pricing" variant="link"> Jump to pricing </Link>
+        <Link to="/posts" disabled> Posts (no access) </Link>
+
+        <Link href="https://example.com/report.pdf" target="_self" rel="noreferrer">
+          Open report
+        </Link>
+
+        <Link href="https://example.com" size="icon" variant="ghost">
+          <template #icon>
+            <i-lucide-external-link class="size-4" />
+          </template>
+        </Link>
+
+        <Link to="/posts" :loading="isLoading" @click="submit"> Go to posts </Link>
+      </div>
     </div>
   </div>
 </template>

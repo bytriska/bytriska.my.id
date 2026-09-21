@@ -1,11 +1,5 @@
 export type ThemeColor =
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'info'
-  | 'warning'
-  | 'error'
-  | (string & {})
+  'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'error' | (string & {})
 export interface Theme {
   colors: ThemeColor[]
 }

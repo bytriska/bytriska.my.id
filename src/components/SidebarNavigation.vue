@@ -25,9 +25,9 @@ const open = defineModel<boolean>('open', { default: false })
         <slot>
           <div class="h-full flex flex-col gap-2 px-6 py-8">
             <div v-for="nav in NAVIGATION_ITEMS" :key="nav.path" class="border-b -mx-1 px-1 pb-2">
-              <Link :to="nav.path" class="-ml-2.5" exact-active-class="text-ui-success">
+              <LegacyLink :to="nav.path" class="-ml-2.5" exact-active-class="text-ui-success">
                 {{ nav.title }}
-              </Link>
+              </LegacyLink>
             </div>
           </div>
         </slot>
