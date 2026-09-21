@@ -1,3 +1,9 @@
 {
-  "recommendations": ["antfu.icons-carbon", "bradlc.vscode-tailwindcss", "catppuccin.catppuccin-vsc-icons", "github.vscode-pull-request-github", "Vue.volar"]
+  "recommendations": [
+    "antfu.icons-carbon",
+    "bradlc.vscode-tailwindcss",
+    "catppuccin.catppuccin-vsc-icons",
+    "github.vscode-pull-request-github",
+    "Vue.volar"
+  ]
 }
