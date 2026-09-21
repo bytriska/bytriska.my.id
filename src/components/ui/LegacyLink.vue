@@ -8,7 +8,7 @@ import { computed } from 'vue'
 import link from '@/styles/link'
 
 // TODO: fix this type error
-export interface LinkProps extends /** @vue-ignore */ RouterLinkProps {
+export interface LegacyLinkProps extends /** @vue-ignore */ RouterLinkProps {
   block?: LinkVariantProps['block']
   color?: LinkVariantProps['color']
   size?: LinkVariantProps['size']
@@ -16,7 +16,7 @@ export interface LinkProps extends /** @vue-ignore */ RouterLinkProps {
   variant?: LinkVariantProps['variant']
 }
 
-const props = defineProps<LinkProps>()
+const props = defineProps<LegacyLinkProps>()
 
 const isExternal = computed(() => {
   return props.to && typeof props.to === 'string' && props.to.startsWith('http')

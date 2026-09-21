@@ -23,10 +23,7 @@ export function cleanUrl(url: string): string {
   return url.replace(URL_TRAILING_COMPONENTS_RE, '')
 }
 
-//
 export const VUE_EXT_RE = /\.(vue|md)(?:$|\?)/
-
-//
 export const JS_EXT_RE = /\.(mjs|jsx?|mts|tsx?)(?:$|\?)/
 export const CSS_EXT_RE = /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/
 export const ASSETS_EXT_RE =
@@ -112,4 +109,16 @@ export function parseIntOr(value: string | null, fallback: number) {
 
 export function cn(...input: ClassValue[]) {
   return twMerge(clsx(input))
+}
+
+export const SAFE_PROTOCOL_RE = /^(https?:|mailto:|tel:|\/\/|[/#?])/i
+export function isSafeUrl(url: string): boolean {
+  if (!url) return false
+  if (!SAFE_PROTOCOL_RE.test(url)) {
+    if (import.meta.env.DEV) console.warn(`[Link] Blocked unsafe url: ${url}`)
+
+    return false
+  }
+
+  return true
 }

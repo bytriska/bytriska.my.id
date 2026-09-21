@@ -40,7 +40,7 @@ const toggleDark = useToggle(isDark)
   <DefineLeftTemplate>
     <div class="flex items-center gap-2">
       <slot name="left">
-        <Link to="/" class="text-base! font-bold -ml-2.5"> bytriska </Link>
+        <LegacyLink to="/" class="text-base! font-bold -ml-2.5"> bytriska </LegacyLink>
       </slot>
     </div>
   </DefineLeftTemplate>
