@@ -1,5 +1,6 @@
 import { createHead } from '@unhead/vue/client'
 import { createApp } from '@/main'
+import '@/styles/font.css'
 import '@/styles/app.css'
 
 const { app, router } = createApp()
