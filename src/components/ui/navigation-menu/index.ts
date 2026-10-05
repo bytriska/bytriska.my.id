@@ -9,7 +9,6 @@ export { default as NavigationMenuItem } from './NavigationMenuItem.vue'
 export type { NavigationMenuItemProps } from './NavigationMenuItem.vue'
 export { default as NavigationMenuLink } from './NavigationMenuLink.vue'
 export type { NavigationMenuLinkEmits, NavigationMenuLinkProps } from './NavigationMenuLink.vue'
-
 export { default as NavigationMenuList } from './NavigationMenuList.vue'
 export type { NavigationMenuListProps } from './NavigationMenuList.vue'
 export { default as NavigationMenuRoot } from './NavigationMenuRoot.vue'
