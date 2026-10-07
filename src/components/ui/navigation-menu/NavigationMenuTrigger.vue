@@ -15,7 +15,7 @@ export interface NavigationMenuTriggerProps extends PrimitiveNavigationMenuTrigg
 const props = defineProps<NavigationMenuTriggerProps>()
 const delegatedProps = reactiveOmit(props, 'class')
 const forwardedProps = useForwardProps(delegatedProps)
-const { trigger } = navigationMenuVariants()
+const { trigger, triggerIcon } = navigationMenuVariants()
 </script>
 
 <template>
@@ -25,6 +25,6 @@ const { trigger } = navigationMenuVariants()
     :class="cn(trigger(), 'group', props.class)"
   >
     <slot />
-    <i-lucide-chevron-down class="cn-navigation-menu-trigger-icon" aria-hidden="true" />
+    <i-lucide-chevron-down :class="triggerIcon()" aria-hidden="true" />
   </NavigationMenuTrigger>
 </template>

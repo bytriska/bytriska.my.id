@@ -15,7 +15,7 @@ export interface NavigationMenuIndicatorProps extends PrimitiveNavigationMenuInd
 const props = defineProps<NavigationMenuIndicatorProps>()
 const delegatedProps = reactiveOmit(props, 'class')
 const forwardedProps = useForwardProps(delegatedProps)
-const { indicator } = navigationMenuVariants()
+const { indicator, indicatorArrow } = navigationMenuVariants()
 </script>
 
 <template>
@@ -24,6 +24,6 @@ const { indicator } = navigationMenuVariants()
     v-bind="forwardedProps"
     :class="cn(indicator(), props.class)"
   >
-    <div class="cn-navigation-menu-indicator-arrow relative top-[60%] h-2 w-2 rotate-45" />
+    <div :class="indicatorArrow()" />
   </NavigationMenuIndicator>
 </template>
