@@ -62,7 +62,7 @@ const showIcon = computed(() => props.loading || !!slot.icon)
     :as="as"
     :as-child="asChild"
     :type="as === 'button' ? type : undefined"
-    :disabled="isDisabled"
+    :disabled="as === 'button' ? isDisabled : undefined"
     :aria-busy="loading || undefined"
     :aria-disabled="isDisabled || undefined"
     :class="cn(buttonVariants({ variant, size }), props.class)"
