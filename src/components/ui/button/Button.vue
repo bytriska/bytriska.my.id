@@ -15,7 +15,7 @@ export interface ButtonProps extends /* @vue-ignore */ Omit<
   variant?: ButtonVariantProps['variant']
   size?: ButtonVariantProps['size']
   type?: 'submit' | 'reset' | 'button'
-  disabled?: boolean | 'true' | 'false'
+  disabled?: boolean
   asChild?: PrimitiveProps['asChild']
   as?: PrimitiveProps['as']
   loading?: boolean
