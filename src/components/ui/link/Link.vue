@@ -5,8 +5,9 @@ import type { ButtonProps } from '../button'
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { isSafeUrl } from '@/lib/utils'
+import { Button } from '../button'
 
-type BaseLinkProps = Omit<ButtonProps, 'as' | 'asChild' | 'type' | 'disabled'>
+type BaseLinkProps = Omit<ButtonProps, 'as' | 'asChild' | 'type'>
 
 export interface LinkProps extends BaseLinkProps {
   to?: RouteLocationRaw
@@ -16,7 +17,6 @@ export interface LinkProps extends BaseLinkProps {
   exactActiveClass?: string
   target?: string
   rel?: string
-  disabled?: boolean
 }
 
 export interface LinkSlot {
@@ -33,28 +33,16 @@ const props = withDefaults(defineProps<LinkProps>(), {
   disabled: false,
 })
 
-const isRouterLink = computed(() => props.to !== undefined)
-const safeHref = computed(() => {
-  if (props.href && isSafeUrl(props.href)) return props.href
-  return undefined
-})
+const isInert = computed(() => props.disabled || props.loading)
+const isRouterLink = computed(() => props.to !== undefined && !isInert.value)
 
-const isExternal = computed(() => {
-  if (!safeHref.value) return false
-  return EXTERNAL_URL_RE.test(safeHref.value)
-})
+const safeHref = computed(() => (props.href && isSafeUrl(props.href) ? props.href : undefined))
+const isExternal = computed(() => !!safeHref.value && EXTERNAL_URL_RE.test(safeHref.value))
 
 const resolvedTarget = computed(() => props.target ?? (isExternal.value ? '_blank' : undefined))
 const resolvedRel = computed(
-  () => props.rel ?? (isExternal.value ? 'noopener noreferrer' : undefined)
+  () => props.rel ?? (resolvedTarget.value === '_blank' ? 'noopener noreferrer' : undefined)
 )
-
-function onClick(e: MouseEvent) {
-  if (props.disabled) {
-    e.preventDefault()
-    e.stopPropagation()
-  }
-}
 </script>
 
 <template>
@@ -65,19 +53,18 @@ function onClick(e: MouseEvent) {
     :size="size"
     :loading="loading"
     :trailing="trailing"
+    :disabled="disabled"
     :class="props.class"
     :to="isRouterLink ? to : undefined"
     :replace="isRouterLink ? replace : undefined"
     :active-class="isRouterLink ? activeClass : undefined"
     :exact-active-class="isRouterLink ? exactActiveClass : undefined"
-    :href="!isRouterLink ? safeHref : undefined"
-    :target="resolvedTarget"
-    :rel="resolvedRel"
-    :aria-disabled="disabled || undefined"
-    :tabindex="disabled ? -1 : undefined"
-    @click="onClick"
+    :href="!isRouterLink && !isInert ? safeHref : undefined"
+    :target="isInert ? undefined : resolvedTarget"
+    :rel="isInert ? undefined : resolvedRel"
+    :tabindex="isInert ? -1 : undefined"
   >
-    <template #icon>
+    <template v-if="$slots.icon" #icon>
       <slot name="icon" />
     </template>
     <slot />
