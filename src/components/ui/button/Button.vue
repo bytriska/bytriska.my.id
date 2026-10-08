@@ -5,7 +5,7 @@ import type { ButtonVariantProps } from './button.variants'
 import { createReusableTemplate } from '@vueuse/core'
 import { Primitive } from 'reka-ui'
 import { cn } from 'tailwind-variants'
-import { computed, useAttrs } from 'vue'
+import { computed } from 'vue'
 import { buttonVariants } from './button.variants'
 
 export interface ButtonProps extends /* @vue-ignore */ Omit<
@@ -41,15 +41,12 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 })
 
 const slot = defineSlots<ButtonSlot>()
+const isDisabled = computed(() => props.disabled || props.loading)
 function hasIcon() {
   return props.loading || !!slot.icon
 }
 
-const attrs = useAttrs()
-
 const [DefineIconTemplate, IconTemplate] = createReusableTemplate()
-
-const isDisabled = computed(() => props.disabled || props.loading)
 </script>
 
 <template>
@@ -62,15 +59,15 @@ const isDisabled = computed(() => props.disabled || props.loading)
     data-slot="button"
     :data-variant="variant"
     :data-size="size"
-    :data-loading="loading ? '' : undefined"
     :as="as"
     :as-child="asChild"
+    v-bind="$attrs"
     :type="as === 'button' ? type : undefined"
     :disabled="as === 'button' ? isDisabled : undefined"
+    :data-loading="loading ? '' : undefined"
     :aria-busy="loading || undefined"
     :aria-disabled="isDisabled || undefined"
     :class="cn(buttonVariants({ variant, size }), props.class)"
-    v-bind="attrs"
   >
     <IconTemplate v-if="hasIcon() && !trailing" />
     <slot />
