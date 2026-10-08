@@ -3,8 +3,8 @@ import type { PrimitiveProps } from 'reka-ui'
 import type { ButtonHTMLAttributes, VNode } from 'vue'
 import type { ButtonVariantProps } from './button.variants'
 import { createReusableTemplate } from '@vueuse/core'
+import { cn } from 'tailwind-variants'
 import { computed, useAttrs } from 'vue'
-import { cn } from '@/lib/utils'
 import { buttonVariants } from './button.variants'
 
 export interface ButtonProps extends /* @vue-ignore */ Omit<
