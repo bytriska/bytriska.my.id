@@ -3,18 +3,20 @@ import type { PrimitiveProps } from 'reka-ui'
 import type { ButtonHTMLAttributes, VNode } from 'vue'
 import type { ButtonVariantProps } from './button.variants'
 import { createReusableTemplate } from '@vueuse/core'
+import { Primitive } from 'reka-ui'
+import { cn } from 'tailwind-variants'
 import { computed, useAttrs } from 'vue'
-import { cn } from '@/lib/utils'
-import buttonVariants from './button.variants'
+import { buttonVariants } from './button.variants'
 
 export interface ButtonProps extends /* @vue-ignore */ Omit<
   ButtonHTMLAttributes,
-  'type' | 'disabled'
+  'type' | 'disabled' | 'class'
 > {
+  class?: ButtonHTMLAttributes['class']
   variant?: ButtonVariantProps['variant']
   size?: ButtonVariantProps['size']
   type?: 'submit' | 'reset' | 'button'
-  disabled?: boolean | 'true' | 'false'
+  disabled?: boolean
   asChild?: PrimitiveProps['asChild']
   as?: PrimitiveProps['as']
   loading?: boolean
@@ -52,7 +54,7 @@ const showIcon = computed(() => props.loading || !!slot.icon)
     <slot v-else name="icon" />
   </DefineIconTemplate>
 
-  <RekaPrimitive
+  <Primitive
     data-slot="button"
     :data-variant="variant"
     :data-size="size"
@@ -69,5 +71,5 @@ const showIcon = computed(() => props.loading || !!slot.icon)
     <IconTemplate v-if="showIcon && !trailing" />
     <slot />
     <IconTemplate v-if="showIcon && trailing" />
-  </RekaPrimitive>
+  </Primitive>
 </template>
