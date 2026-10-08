@@ -9,8 +9,9 @@ import { buttonVariants } from './button.variants'
 
 export interface ButtonProps extends /* @vue-ignore */ Omit<
   ButtonHTMLAttributes,
-  'type' | 'disabled'
+  'type' | 'disabled' | 'class'
 > {
+  class?: ButtonHTMLAttributes['class']
   variant?: ButtonVariantProps['variant']
   size?: ButtonVariantProps['size']
   type?: 'submit' | 'reset' | 'button'
