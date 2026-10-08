@@ -1,5 +1,4 @@
 <script lang="ts">
-import type { VNode } from 'vue'
 import type { RouteLocationRaw } from 'vue-router'
 import type { ButtonProps } from '../button'
 import { computed } from 'vue'
@@ -20,8 +19,8 @@ export interface LinkProps extends BaseLinkProps {
 }
 
 export interface LinkSlot {
-  default?: () => VNode
-  icon?: () => VNode
+  default?: () => any
+  icon?: () => any
 }
 
 const EXTERNAL_URL_RE = /^(?:https?:|\/\/)/i
@@ -32,6 +31,8 @@ const props = withDefaults(defineProps<LinkProps>(), {
   variant: 'link',
   disabled: false,
 })
+
+defineSlots<LinkSlot>()
 
 const isInert = computed(() => props.disabled || props.loading)
 const isRouterLink = computed(() => props.to !== undefined && !isInert.value)
