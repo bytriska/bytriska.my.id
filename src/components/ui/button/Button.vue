@@ -5,7 +5,7 @@ import type { ButtonVariantProps } from './button.variants'
 import { createReusableTemplate } from '@vueuse/core'
 import { computed, useAttrs } from 'vue'
 import { cn } from '@/lib/utils'
-import buttonVariants from './button.variants'
+import { buttonVariants } from './button.variants'
 
 export interface ButtonProps extends /* @vue-ignore */ Omit<
   ButtonHTMLAttributes,

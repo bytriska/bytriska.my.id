@@ -1,7 +1,7 @@
 import type { VariantProps } from 'tailwind-variants'
 import { tv } from 'tailwind-variants'
 
-const buttonVariants = tv({
+export const buttonVariants = tv({
   base: 'cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0',
   variants: {
     variant: {
@@ -30,4 +30,3 @@ const buttonVariants = tv({
 })
 
 export interface ButtonVariantProps extends VariantProps<typeof buttonVariants> {}
-export default buttonVariants
