@@ -29,7 +29,6 @@ const EXTERNAL_URL_RE = /^(?:https?:|\/\/)/i
 <script setup lang="ts">
 const props = withDefaults(defineProps<LinkProps>(), {
   variant: 'link',
-  disabled: false,
 })
 
 defineSlots<LinkSlot>()
