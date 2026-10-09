@@ -40,10 +40,10 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   trailing: false,
 })
 
-const slot = defineSlots<ButtonSlot>()
+const slots = defineSlots<ButtonSlot>()
 const isDisabled = computed(() => props.disabled || props.loading)
 function hasIcon() {
-  return props.loading || !!slot.icon
+  return props.loading || !!slots.icon
 }
 
 const [DefineIconTemplate, IconTemplate] = createReusableTemplate()
