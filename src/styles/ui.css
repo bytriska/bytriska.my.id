@@ -1,3 +1,20 @@
+/* MARK: Accordion */
+.cn-accordion-item {
+  @apply not-last:border-b;
+}
+
+.cn-accordion-trigger {
+  @apply focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring **:data-[slot=accordion-trigger-icon]:text-muted-foreground rounded-lg py-2.5 text-left text-sm font-medium hover:underline focus-visible:ring-3 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4;
+}
+
+.cn-accordion-content {
+  @apply data-open:animate-accordion-down data-closed:animate-accordion-up text-sm;
+}
+
+.cn-accordion-content-inner {
+  @apply pt-0 pb-2.5;
+}
+
 /* MARK: Button */
 .cn-button {
   @apply focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-md border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4;

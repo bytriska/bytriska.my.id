@@ -23,6 +23,7 @@
     "types:generate": "wrangler types .types/worker-configuration.d.ts"
   },
   "dependencies": {
+    "@lucide/vue": "^1.55.0",
     "@vueuse/core": "^14.4.0",
     "clsx": "^2.1.1",
     "reka-ui": "^2.10.4",
