@@ -13,6 +13,7 @@ import {
   NavigationMenuRoot,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
+import ModeSwitcher from '@/components/ModeSwitcher'
 
 interface MenuLink {
   title: string
@@ -88,6 +89,7 @@ const sections: MenuSection[] = [
 <template>
   <div class="new-theme size-full min-h-dvh flex flex-col">
     <div class="h-16 w-full flex items-center">
+      <ModeSwitcher />
       <NavigationMenuRoot class="border border-yellow-400">
         <NavigationMenuList>
           <NavigationMenuItem
