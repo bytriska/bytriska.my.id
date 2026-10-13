@@ -2,6 +2,7 @@
 import type { PrimitiveProps } from 'reka-ui'
 import type { ButtonHTMLAttributes } from 'vue'
 import type { ButtonVariantProps } from './button.variants'
+import { LoaderCircleIcon } from '@lucide/vue'
 import { createReusableTemplate } from '@vueuse/core'
 import { Primitive } from 'reka-ui'
 import { cn } from 'tailwind-variants'
@@ -41,9 +42,14 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 })
 
 const slots = defineSlots<ButtonSlot>()
+
 const isDisabled = computed(() => props.disabled || props.loading)
-function hasIcon() {
-  return props.loading || !!slots.icon
+const isIconOnly = computed(() => props.size === 'icon' && !props.asChild)
+
+function showIcon() {
+  const hasIconSlot = !!slots.icon
+  const hasDefaultAsIcon = isIconOnly.value && !!slots.default
+  return props.loading || hasIconSlot || hasDefaultAsIcon
 }
 
 const [DefineIconTemplate, IconTemplate] = createReusableTemplate()
@@ -51,26 +57,27 @@ const [DefineIconTemplate, IconTemplate] = createReusableTemplate()
 
 <template>
   <DefineIconTemplate>
-    <i-lucide-loader-circle v-if="loading" class="size-4 animate-spin shrink-0" />
-    <slot v-else name="icon" />
+    <LoaderCircleIcon v-if="props.loading" class="size-4 animate-spin shrink-0" />
+    <slot v-else-if="slots.icon" name="icon" />
+    <slot v-else />
   </DefineIconTemplate>
 
   <Primitive
     data-slot="button"
-    :data-variant="variant"
-    :data-size="size"
-    :as="as"
-    :as-child="asChild"
+    :data-variant="props.variant"
+    :data-size="props.size"
+    :as="props.as"
+    :as-child="props.asChild"
     v-bind="$attrs"
-    :type="as === 'button' ? type : undefined"
-    :disabled="as === 'button' ? isDisabled : undefined"
-    :data-loading="loading ? '' : undefined"
-    :aria-busy="loading || undefined"
+    :type="props.as === 'button' ? props.type : undefined"
+    :disabled="props.as === 'button' ? isDisabled : undefined"
+    :data-loading="props.loading ? '' : undefined"
+    :aria-busy="props.loading || undefined"
     :aria-disabled="isDisabled || undefined"
-    :class="cn(buttonVariants({ variant, size }), props.class)"
+    :class="cn(buttonVariants({ variant: props.variant, size: props.size }), props.class)"
   >
-    <IconTemplate v-if="hasIcon() && !trailing" />
-    <slot />
-    <IconTemplate v-if="hasIcon() && trailing" />
+    <IconTemplate v-if="showIcon() && !props.trailing" />
+    <slot v-if="!isIconOnly" />
+    <IconTemplate v-if="showIcon() && props.trailing" />
   </Primitive>
 </template>
