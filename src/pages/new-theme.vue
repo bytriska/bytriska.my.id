@@ -1,5 +1,6 @@
 <script lang="ts">
 import { ref } from 'vue'
+import ModeSwitcher from '@/components/ModeSwitcher.vue'
 import {
   AccordionContent,
   AccordionItem,
@@ -87,7 +88,7 @@ const sections: MenuSection[] = [
 
 <template>
   <div class="new-theme size-full min-h-dvh flex flex-col">
-    <div class="h-16 w-full flex items-center">
+    <div class="h-16 w-full flex items-center justify-between px-4">
       <NavigationMenuRoot class="border border-yellow-400">
         <NavigationMenuList>
           <NavigationMenuItem
@@ -122,11 +123,9 @@ const sections: MenuSection[] = [
           <NavigationMenuItem>
             <NavigationMenuLink> Github </NavigationMenuLink>
           </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuLink> Facebook </NavigationMenuLink>
-          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenuRoot>
+      <ModeSwitcher variant="outline" />
     </div>
     <div class="grow size-full max-w-7xl mx-auto px-6 pt-8 pb-8 md:px-8 md:pt-8 md:pb-8 lg:pb-0">
       <AccordionRoot type="single" collapsible class="w-full" default-value="item-1">
