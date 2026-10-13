@@ -89,7 +89,7 @@ const sections: MenuSection[] = [
 <template>
   <div class="new-theme size-full min-h-dvh flex flex-col">
     <div class="h-16 w-full flex items-center justify-between px-4">
-      <NavigationMenuRoot class="border border-yellow-400">
+      <NavigationMenuRoot>
         <NavigationMenuList>
           <NavigationMenuItem
             v-for="section in sections"
@@ -103,7 +103,7 @@ const sections: MenuSection[] = [
                 class="m-0 w-full grid sm:w-120 max-sm:[.cn-navigation-menu-viewport-wrapper:has(&)]:w-full"
                 :class="section.columns === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-1'"
               >
-                <li v-for="link in section.links" :key="link.title" class="w-max">
+                <li v-for="link in section.links" :key="link.title">
                   <NavigationMenuLink as-child>
                     <Link href="#" variant="ghost" class="w-full h-auto! justify-start py-2">
                       <span>
@@ -125,7 +125,7 @@ const sections: MenuSection[] = [
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenuRoot>
-      <ModeSwitcher variant="outline" />
+      <ModeSwitcher />
     </div>
     <div class="grow size-full max-w-7xl mx-auto px-6 pt-8 pb-8 md:px-8 md:pt-8 md:pb-8 lg:pb-0">
       <AccordionRoot type="single" collapsible class="w-full" default-value="item-1">

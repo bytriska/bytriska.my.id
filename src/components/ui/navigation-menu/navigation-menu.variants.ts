@@ -14,7 +14,7 @@ export const navigationMenuVariants = tv({
     indicator:
       'cn-navigation-menu-indicator top-full z-1 flex h-1.5 items-end justify-center overflow-hidden',
     viewport:
-      'cn-navigation-menu-viewport origin-top-center relative mt-1.5 h-(--reka-navigation-menu-viewport-height) w-full overflow-hidden md:w-(--reka-navigation-menu-viewport-width) border border-red-400',
+      'cn-navigation-menu-viewport origin-top-center relative mt-1.5 h-(--reka-navigation-menu-viewport-height) w-full overflow-hidden md:w-(--reka-navigation-menu-viewport-width)',
     triggerIcon: 'cn-navigation-menu-trigger-icon',
     indicatorArrow: 'cn-navigation-menu-indicator-arrow relative top-[60%] h-2 w-2 rotate-45',
   },
