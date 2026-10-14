@@ -32,7 +32,7 @@
   }
 
   .layout-home {
-    display: flex;
+    display: grid;
     min-height: 100dvh;
     overflow-x: clip;
 
