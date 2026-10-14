@@ -22,8 +22,6 @@ export interface LinkSlot {
   default?: () => any
   icon?: () => any
 }
-
-const EXTERNAL_URL_RE = /^(?:https?:|\/\/)/i
 </script>
 
 <script setup lang="ts">
@@ -31,7 +29,9 @@ const props = withDefaults(defineProps<LinkProps>(), {
   variant: 'link',
 })
 
-defineSlots<LinkSlot>()
+const slots = defineSlots<LinkSlot>()
+
+const EXTERNAL_URL_RE = /^(?:https?:|\/\/)/i
 
 const isInert = computed(() => props.disabled || props.loading)
 const isRouterLink = computed(() => props.to !== undefined && !isInert.value)
@@ -39,32 +39,48 @@ const isRouterLink = computed(() => props.to !== undefined && !isInert.value)
 const safeHref = computed(() => (props.href && isSafeUrl(props.href) ? props.href : undefined))
 const isExternal = computed(() => !!safeHref.value && EXTERNAL_URL_RE.test(safeHref.value))
 
-const resolvedTarget = computed(() => props.target ?? (isExternal.value ? '_blank' : undefined))
-const resolvedRel = computed(
-  () => props.rel ?? (resolvedTarget.value === '_blank' ? 'noopener noreferrer' : undefined)
+const target = computed(() => props.target ?? (isExternal.value ? '_blank' : undefined))
+const rel = computed(
+  () => props.rel ?? (target.value === '_blank' ? 'noopener noreferrer' : undefined)
 )
+
+const linkAttrs = computed<LinkProps>(() => {
+  if (isInert.value) {
+    return { tabindex: -1 }
+  }
+
+  const shared: LinkProps = { rel: rel.value, target: target.value }
+
+  if (isRouterLink.value) {
+    return {
+      ...shared,
+      to: props.to,
+      replace: props.replace,
+      activeClass: props.activeClass,
+      exactActiveClass: props.exactActiveClass,
+    }
+  } else {
+    return {
+      ...shared,
+      href: safeHref.value,
+    }
+  }
+})
 </script>
 
 <template>
   <Button
     data-slot="link"
     :as="isRouterLink ? RouterLink : 'a'"
-    :variant="variant"
-    :size="size"
-    :loading="loading"
-    :trailing="trailing"
-    :disabled="disabled"
+    :variant="props.variant"
+    :size="props.size"
+    :loading="props.loading"
+    :trailing="props.trailing"
+    :disabled="props.disabled"
     :class="props.class"
-    :to="isRouterLink ? to : undefined"
-    :replace="isRouterLink ? replace : undefined"
-    :active-class="isRouterLink ? activeClass : undefined"
-    :exact-active-class="isRouterLink ? exactActiveClass : undefined"
-    :href="!isRouterLink && !isInert ? safeHref : undefined"
-    :target="isInert ? undefined : resolvedTarget"
-    :rel="isInert ? undefined : resolvedRel"
-    :tabindex="isInert ? -1 : undefined"
+    v-bind="linkAttrs"
   >
-    <template v-if="$slots.icon" #icon>
+    <template v-if="slots.icon" #icon>
       <slot name="icon" />
     </template>
     <slot />
