@@ -27,7 +27,7 @@
     --layout-row-2: calc(var(--layout-row-1) + var(--layout-header-height));
 
     &[data-banner] {
-      --layout-banner-height: 2.5rem;
+      --layout-banner-height: 1.5rem;
     }
   }
 
