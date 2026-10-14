@@ -1,165 +1,25 @@
-@import './font.css';
 @import 'tailwindcss';
+@import 'tw-animate-css';
+
+@import './legacy.css';
 @import './theme.css';
-@import './prose.css';
 
-:root,
-:host,
-.light {
-  /* ── Surface ── */
-  --ui-surface-base: var(--color-stone-50);
-  --ui-surface-muted: var(--color-stone-100);
-  --ui-surface-elevated: var(--color-stone-100);
-  --ui-surface-accented: var(--color-stone-200);
-  --ui-surface-inverted: var(--color-stone-900);
-
-  /* ── Content ── */
-  --ui-content-dimmed: var(--color-stone-400);
-  --ui-content-muted: var(--color-stone-500);
-  --ui-content-toned: var(--color-stone-600);
-  --ui-content-base: var(--color-stone-700);
-  --ui-content-highlighted: var(--color-stone-900);
-  --ui-content-inverted: var(--color-stone-50);
-
-  /* ── Borders ── */
-  --ui-border-default: var(--color-stone-200);
-  --ui-border-muted: var(--color-stone-200);
-  --ui-border-accented: var(--color-stone-300);
-  --ui-border-inverted: var(--color-stone-900);
-
-  /* ── Theme color ── */
-  --ui-primary: var(--color-green-500);
-  --ui-secondary: var(--color-blue-500);
-  --ui-success: var(--color-green-500);
-  --ui-info: var(--color-blue-500);
-  --ui-warning: var(--color-yellow-500);
-  --ui-error: var(--color-red-500);
-}
-
-.dark {
-  /* ── Surface ── */
-  --ui-surface-base: var(--color-stone-900);
-  --ui-surface-muted: var(--color-stone-800);
-  --ui-surface-elevated: var(--color-stone-800);
-  --ui-surface-accented: var(--color-stone-700);
-  --ui-surface-inverted: var(--color-stone-50);
-
-  /* ── Content ── */
-  --ui-content-dimmed: var(--color-stone-500);
-  --ui-content-muted: var(--color-stone-400);
-  --ui-content-toned: var(--color-stone-300);
-  --ui-content-base: var(--color-stone-200);
-  --ui-content-highlighted: var(--color-stone-50);
-  --ui-content-inverted: var(--color-stone-900);
-
-  /* ── Borders ── */
-  --ui-border-default: var(--color-stone-800);
-  --ui-border-muted: var(--color-stone-700);
-  --ui-border-accented: var(--color-stone-700);
-  --ui-border-inverted: var(--color-stone-50);
-
-  /* ── Theme color ── */
-  --ui-primary: var(--color-green-400);
-  --ui-secondary: var(--color-blue-400);
-  --ui-success: var(--color-green-400);
-  --ui-info: var(--color-blue-400);
-  --ui-warning: var(--color-yellow-400);
-  --ui-error: var(--color-red-400);
-}
-
-@custom-variant light (&:where(.light, .light *));
-@custom-variant dark (&:where(.dark, .dark *));
-
-@theme inline {
-  /* ── Custom Fonts ── */
-  --font-display: 'Geist', ui-sans-serif, system-ui, sans-serif;
-  --font-body: 'Geist', ui-sans-serif, system-ui, sans-serif;
-  --font-code: 'Geist Mono', ui-monospace, monospace;
-
-  /* ── Surfaces ── */
-  --color-ui-surface-base: var(--ui-surface-base);
-  --color-ui-surface-muted: var(--ui-surface-muted);
-  --color-ui-surface-elevated: var(--ui-surface-elevated);
-  --color-ui-surface-accented: var(--ui-surface-accented);
-  --color-ui-surface-inverted: var(--ui-surface-inverted);
-
-  /* ── Content ── */
-  --color-ui-content-dimmed: var(--ui-content-dimmed);
-  --color-ui-content-muted: var(--ui-content-muted);
-  --color-ui-content-toned: var(--ui-content-toned);
-  --color-ui-content-base: var(--ui-content-base);
-  --color-ui-content-highlighted: var(--ui-content-highlighted);
-  --color-ui-content-inverted: var(--ui-content-inverted);
-
-  /* ── Border ── */
-  --color-ui-border: var(--ui-border-default);
-  --color-ui-border-muted: var(--ui-border-muted);
-  --color-ui-border-accented: var(--ui-border-accented);
-  --color-ui-border-inverted: var(--ui-border-inverted);
-
-  /* ── Theme color ── */
-  --color-ui-primary: var(--ui-primary);
-  --color-ui-secondary: var(--ui-secondary);
-  --color-ui-success: var(--ui-success);
-  --color-ui-info: var(--ui-info);
-  --color-ui-warning: var(--ui-warning);
-  --color-ui-error: var(--ui-error);
-
-  /* ── Z-index ── */
-  --z-index-hide: -1;
-  --z-index-base: 0;
-  --z-index-raised: 10;
-  --z-index-docked: 100;
-  --z-index-sticky: 200;
-  --z-index-dropdown: 300;
-  --z-index-overlay: 400;
-  --z-index-modal: 500;
-  --z-index-slideover: 600;
-  --z-index-popover: 700;
-  --z-index-tooltip: 800;
-  --z-index-toast: 900;
-  --z-index-spotlight: 1000;
-}
-
-@utility z-ui-* {
-  z-index: --value(--z-index-*);
-}
-
-@layer base {
-  :root {
-    --ui-header-top-height: 0px;
-    --ui-header-nav-height: 4rem;
-    --ui-header-bottom-height: 0px;
-    --ui-header-height: calc(
-      var(--ui-header-top-height) + var(--ui-header-nav-height) + var(--ui-header-bottom-height)
-    );
-    --ui-sidebar-width: 16rem;
-  }
-
-  * {
-    @apply border-ui-border;
-  }
-
-  body {
-    @apply antialiased text-ui-content-base bg-ui-surface-base scheme-light dark:scheme-dark;
-  }
-}
+@import './ui.css' layer(base);
 
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
-  .new-theme,
-  .new-theme * {
+  * {
     @apply border-border outline-ring/50;
   }
 
-  body .new-theme {
+  body {
     @apply bg-background text-foreground;
   }
 }
 
 @layer components {
-  [data-slot="layout"] {
+  [data-slot='layout'] {
     --layout-banner-height: 0px;
     --layout-header-height: 3.5rem;
 
@@ -176,72 +36,11 @@
     min-height: 100dvh;
     overflow-x: clip;
 
-    grid-template-areas: 
-      "banner"
-      "header"
-      "main";
+    grid-template-areas:
+      'banner'
+      'header'
+      'main';
     grid-template-rows: var(--layout-banner-height) var(--layout-header-height) 1fr;
     grid-template-columns: minmax(0, 1fr);
   }
-}
-
-/* MARK: Button */
-.cn-button {
-  @apply focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-md border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:translate-y-px [&_svg:not([class*='size-'])]:size-4;
-}
-
-.cn-button-variant-default {
-  @apply bg-primary text-primary-foreground hover:bg-primary/80 active:bg-primary/80;
-}
-
-.cn-button-variant-outline {
-  @apply border-border bg-background hover:bg-muted hover:text-foreground active:bg-muted active:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 dark:active:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground shadow-xs;
-}
-
-.cn-button-variant-secondary {
-  @apply bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] active:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground;
-}
-
-.cn-button-variant-ghost {
-  @apply hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 active:bg-muted active:text-foreground dark:active:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground;
-}
-
-.cn-button-variant-destructive {
-  @apply bg-destructive/10 hover:bg-destructive/20 active:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30 dark:active:bg-destructive/30;
-}
-
-.cn-button-variant-link {
-  @apply text-primary underline-offset-4 hover:underline active:underline;
-}
-
-.cn-button-size-xs {
-  @apply h-6 gap-1 rounded-[min(var(--radius-md),8px)] px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3;
-}
-
-.cn-button-size-sm {
-  @apply h-8 gap-1 rounded-[min(var(--radius-md),10px)] px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5;
-}
-
-.cn-button-size-default {
-  @apply h-9 gap-1.5 px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
-}
-
-.cn-button-size-lg {
-  @apply h-10 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2;
-}
-
-.cn-button-size-icon-xs {
-  @apply size-6 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3;
-}
-
-.cn-button-size-icon-sm {
-  @apply size-8 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md;
-}
-
-.cn-button-size-icon {
-  @apply size-9;
-}
-
-.cn-button-size-icon-lg {
-  @apply size-10;
 }

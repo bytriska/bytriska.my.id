@@ -1,20 +1,23 @@
 <script lang="ts">
 import type { PrimitiveProps } from 'reka-ui'
-import type { ButtonHTMLAttributes, VNode } from 'vue'
+import type { ButtonHTMLAttributes } from 'vue'
 import type { ButtonVariantProps } from './button.variants'
+import { LoaderCircleIcon } from '@lucide/vue'
 import { createReusableTemplate } from '@vueuse/core'
-import { computed, useAttrs } from 'vue'
-import { cn } from '@/lib/utils'
-import buttonVariants from './button.variants'
+import { Primitive } from 'reka-ui'
+import { cn } from 'tailwind-variants'
+import { computed } from 'vue'
+import { buttonVariants } from './button.variants'
 
 export interface ButtonProps extends /* @vue-ignore */ Omit<
   ButtonHTMLAttributes,
-  'type' | 'disabled'
+  'type' | 'disabled' | 'class'
 > {
+  class?: ButtonHTMLAttributes['class']
   variant?: ButtonVariantProps['variant']
   size?: ButtonVariantProps['size']
   type?: 'submit' | 'reset' | 'button'
-  disabled?: boolean | 'true' | 'false'
+  disabled?: boolean
   asChild?: PrimitiveProps['asChild']
   as?: PrimitiveProps['as']
   loading?: boolean
@@ -22,8 +25,8 @@ export interface ButtonProps extends /* @vue-ignore */ Omit<
 }
 
 export interface ButtonSlot {
-  default?: () => VNode
-  icon?: () => VNode
+  default?: () => any
+  icon?: () => any
 }
 </script>
 
@@ -37,37 +40,44 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   loading: false,
   trailing: false,
 })
-const slot = defineSlots<ButtonSlot>()
-const attrs = useAttrs()
 
-const [DefineIconTemplate, IconTemplate] = createReusableTemplate()
+const slots = defineSlots<ButtonSlot>()
 
 const isDisabled = computed(() => props.disabled || props.loading)
-const showIcon = computed(() => props.loading || !!slot.icon)
+const isIconOnly = computed(() => props.size === 'icon' && !props.asChild)
+
+function showIcon() {
+  const hasIconSlot = !!slots.icon
+  const hasDefaultAsIcon = isIconOnly.value && !!slots.default
+  return props.loading || hasIconSlot || hasDefaultAsIcon
+}
+
+const [DefineIconTemplate, IconTemplate] = createReusableTemplate()
 </script>
 
 <template>
   <DefineIconTemplate>
-    <i-lucide-loader-circle v-if="loading" class="size-4 animate-spin shrink-0" />
-    <slot v-else name="icon" />
+    <LoaderCircleIcon v-if="props.loading" class="size-4 animate-spin shrink-0" />
+    <slot v-else-if="slots.icon" name="icon" />
+    <slot v-else />
   </DefineIconTemplate>
 
-  <RekaPrimitive
+  <Primitive
     data-slot="button"
-    :data-variant="variant"
-    :data-size="size"
-    :data-loading="loading ? '' : undefined"
-    :as="as"
-    :as-child="asChild"
-    :type="as === 'button' ? type : undefined"
-    :disabled="isDisabled"
-    :aria-busy="loading || undefined"
+    :data-variant="props.variant"
+    :data-size="props.size"
+    :as="props.as"
+    :as-child="props.asChild"
+    v-bind="$attrs"
+    :type="props.as === 'button' ? props.type : undefined"
+    :disabled="props.as === 'button' ? isDisabled : undefined"
+    :data-loading="props.loading ? '' : undefined"
+    :aria-busy="props.loading || undefined"
     :aria-disabled="isDisabled || undefined"
-    :class="cn(buttonVariants({ variant, size }), props.class)"
-    v-bind="attrs"
+    :class="cn(buttonVariants({ variant: props.variant, size: props.size }), props.class)"
   >
-    <IconTemplate v-if="showIcon && !trailing" />
-    <slot />
-    <IconTemplate v-if="showIcon && trailing" />
-  </RekaPrimitive>
+    <IconTemplate v-if="showIcon() && !props.trailing" />
+    <slot v-if="!isIconOnly" />
+    <IconTemplate v-if="showIcon() && props.trailing" />
+  </Primitive>
 </template>
