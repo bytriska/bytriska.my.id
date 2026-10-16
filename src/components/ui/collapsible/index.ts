@@ -1,0 +1,6 @@
+export type { CollapsibleContentProps } from './CollapsibleContent.vue'
+export { default as CollapsibleContent } from './CollapsibleContent.vue'
+export type { CollapsibleRootEmits, CollapsibleRootProps } from './CollapsibleRoot.vue'
+export { default as CollapsibleRoot } from './CollapsibleRoot.vue'
+export type { CollapsibleTriggerProps } from './CollapsibleTrigger.vue'
+export { default as CollapsibleTrigger } from './CollapsibleTrigger.vue'
