@@ -8,7 +8,7 @@ const greeting = 'hello world'
 
 <template>
   <HomeLayout>
-    <div class="size-full border border-teal-400">
+    <div class="[grid-area:main] h-[100rem] size-full border border-teal-400">
       <h1>{{ greeting }}</h1>
     </div>
   </HomeLayout>

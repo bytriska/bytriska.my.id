@@ -14,19 +14,13 @@ const slots = defineSlots<LayoutSlots>()
 
 <template>
   <div data-slot="layout-root" :data-banner="!!slots.banner" class="home-layout">
-    <div v-if="slots.banner" class="[grid-area:banner]">
-      <slot name="banner" />
-    </div>
+    <slot name="banner" />
 
-    <header class="[grid-area:header]">
-      <slot name="header">
-        <Header />
-      </slot>
-    </header>
+    <slot name="header">
+      <Header />
+    </slot>
 
-    <main class="[grid-area:main]">
-      <slot />
-    </main>
+    <slot />
   </div>
 </template>
 
@@ -46,7 +40,10 @@ const slots = defineSlots<LayoutSlots>()
     'banner'
     'header'
     'main';
-  grid-template-rows: var(--layout-banner-height) var(--layout-header-height) 1fr;
+  grid-template-rows: minmax(var(--layout-banner-height), auto) minmax(
+      var(--layout-header-height),
+      auto
+    ) 1fr;
   grid-template-columns: minmax(0, 1fr);
 }
 </style>
