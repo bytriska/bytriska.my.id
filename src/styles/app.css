@@ -7,6 +7,7 @@
 @import './ui.css' layer(base);
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant layout ([data-slot="layout-root"]:has(&));
 
 @layer base {
   * {
@@ -15,32 +16,5 @@
 
   body {
     @apply bg-background text-foreground;
-  }
-}
-
-@layer components {
-  [data-slot='layout'] {
-    --layout-banner-height: 0px;
-    --layout-header-height: 3.5rem;
-
-    --layout-row-1: var(--layout-banner-height);
-    --layout-row-2: calc(var(--layout-row-1) + var(--layout-header-height));
-
-    &[data-banner] {
-      --layout-banner-height: 1.5rem;
-    }
-  }
-
-  .layout-home {
-    display: grid;
-    min-height: 100dvh;
-    overflow-x: clip;
-
-    grid-template-areas:
-      'banner'
-      'header'
-      'main';
-    grid-template-rows: var(--layout-banner-height) var(--layout-header-height) 1fr;
-    grid-template-columns: minmax(0, 1fr);
   }
 }
