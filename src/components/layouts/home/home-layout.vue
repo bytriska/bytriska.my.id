@@ -1,10 +1,12 @@
 <script lang="ts">
+import Footer from './parts/footer.vue'
 import Header from './parts/header.vue'
 
 export interface LayoutSlots {
   default?: () => any
   banner?: () => any
   header?: () => any
+  footer?: () => any
 }
 </script>
 
@@ -21,6 +23,10 @@ const slots = defineSlots<LayoutSlots>()
     </slot>
 
     <slot />
+
+    <slot name="footer">
+      <Footer />
+    </slot>
   </div>
 </template>
 
@@ -39,11 +45,11 @@ const slots = defineSlots<LayoutSlots>()
   grid-template-areas:
     'banner'
     'header'
-    'main';
-  grid-template-rows: minmax(var(--layout-banner-height), auto) minmax(
-      var(--layout-header-height),
-      auto
-    ) 1fr;
+    'main'
+    'footer';
+  grid-template-rows:
+    minmax(var(--layout-banner-height), auto) minmax(var(--layout-header-height), auto)
+    1fr auto;
   grid-template-columns: minmax(0, 1fr);
 }
 </style>
