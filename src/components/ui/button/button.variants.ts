@@ -2,7 +2,7 @@ import type { VariantProps } from 'tailwind-variants'
 import { tv } from 'tailwind-variants'
 
 export const buttonVariants = tv({
-  base: 'cn-button group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-all outline-none select-none aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0',
+  base: 'cn-button group/button inline-flex shrink-0 items-center justify-center align-middle whitespace-nowrap transition-all outline-none select-none aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0',
   variants: {
     variant: {
       default: 'cn-button-variant-default',
@@ -11,6 +11,7 @@ export const buttonVariants = tv({
       ghost: 'cn-button-variant-ghost',
       destructive: 'cn-button-variant-destructive',
       link: 'cn-button-variant-link',
+      plain: '',
     },
     size: {
       default: 'cn-button-size-default',
@@ -18,6 +19,7 @@ export const buttonVariants = tv({
       sm: 'cn-button-size-sm',
       lg: 'cn-button-size-lg',
       icon: 'cn-button-size-icon',
+      bare: 'cn-button-size-bare',
       'icon-xs': 'cn-button-size-icon-xs',
       'icon-sm': 'cn-button-size-icon-sm',
       'icon-lg': 'cn-button-size-icon-lg',

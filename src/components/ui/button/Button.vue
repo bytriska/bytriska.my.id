@@ -59,7 +59,7 @@ const [DefineIconTemplate, IconTemplate] = createReusableTemplate()
   <DefineIconTemplate>
     <LoaderCircleIcon v-if="props.loading" class="size-4 animate-spin shrink-0" />
     <slot v-else-if="slots.icon" name="icon" />
-    <slot v-else />
+    <slot v-else-if="isIconOnly" />
   </DefineIconTemplate>
 
   <Primitive
@@ -71,6 +71,9 @@ const [DefineIconTemplate, IconTemplate] = createReusableTemplate()
     v-bind="$attrs"
     :type="props.as === 'button' ? props.type : undefined"
     :disabled="props.as === 'button' ? isDisabled : undefined"
+    :data-icon="
+      showIcon() && !isIconOnly ? (props.trailing ? 'inline-end' : 'inline-start') : undefined
+    "
     :data-loading="props.loading ? '' : undefined"
     :aria-busy="props.loading || undefined"
     :aria-disabled="isDisabled || undefined"
