@@ -9,26 +9,29 @@ const greeting = 'hello world'
 </script>
 
 <template>
-  <HomeLayout>
-    <div class="[grid-area:main] h-[100rem] size-full border border-teal-400">
+  <HomeLayout
+    title="triska mahfud khoiri"
+    tagline="Code, notes, and the random things I'm learning as I go along."
+  >
+    <div class="[grid-area:main] h-[100rem] size-full">
       <h1>{{ greeting }}</h1>
       <Button size="xs"> button </Button>
       <Button size="sm"> button </Button>
       <Button>button</Button>
       <Button size="lg"> button </Button>
-      <Button size="bare" variant="plain" class="border border-violet-500"> button </Button>
+      <Button size="bare" variant="plain"> button </Button>
 
-      <div class="border border-yellow-500">
+      <div>
         <Button size="sm"> button </Button>
 
-        <Button size="sm" class="border border-red-500 my-0">
+        <Button size="sm">
           <template #icon>
             <CircleIcon />
           </template>
           button
         </Button>
 
-        <Button size="sm" class="border border-red-500 my-0" trailing> button </Button>
+        <Button size="sm" trailing> button </Button>
 
         <Button size="sm" data-icon="inline-end" trailing>
           <template #icon>
