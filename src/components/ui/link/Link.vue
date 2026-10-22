@@ -9,6 +9,9 @@ import { Button } from '../button'
 type BaseLinkProps = Omit<ButtonProps, 'as' | 'asChild' | 'type'>
 
 export interface LinkProps extends BaseLinkProps {
+  as?: never
+  asChild?: never
+  type?: never
   to?: RouteLocationRaw
   href?: string
   replace?: boolean
@@ -17,19 +20,12 @@ export interface LinkProps extends BaseLinkProps {
   target?: string
   rel?: string
 }
-
-export interface LinkSlot {
-  default?: () => any
-  icon?: () => any
-}
 </script>
 
 <script setup lang="ts">
 const props = withDefaults(defineProps<LinkProps>(), {
   variant: 'link',
 })
-
-const slots = defineSlots<LinkSlot>()
 
 const EXTERNAL_URL_RE = /^(?:https?:|\/\/)/i
 
@@ -74,15 +70,14 @@ const linkAttrs = computed<LinkProps>(() => {
     :as="isRouterLink ? RouterLink : 'a'"
     :variant="props.variant"
     :size="props.size"
+    :block="props.block"
+    :unstyled="props.unstyled"
+    :data-icon="props.dataIcon"
     :loading="props.loading"
-    :trailing="props.trailing"
     :disabled="props.disabled"
     :class="props.class"
     v-bind="linkAttrs"
   >
-    <template v-if="slots.icon" #icon>
-      <slot name="icon" />
-    </template>
     <slot />
   </Button>
 </template>
