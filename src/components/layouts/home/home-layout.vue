@@ -48,24 +48,11 @@ const slots = defineSlots<LayoutSlots>()
 .home-layout {
   --layout-banner-height: 0px;
   --layout-header-height: 0px;
+  --max-container-width: 0px;
+  --max-content-width: 0px;
 
   --layout-row-1: var(--layout-banner-height);
   --layout-row-2: calc(var(--layout-row-1) + var(--layout-header-height));
-
-  --container-width: 100%;
-
-  @variant sm {
-    --container-width: var(--breakpoint-sm);
-  }
-  @variant md {
-    --container-width: var(--breakpoint-md);
-  }
-  @variant lg {
-    --container-width: var(--breakpoint-lg);
-  }
-  @variant xl {
-    --container-width: var(--breakpoint-xl);
-  }
 
   display: grid;
   min-height: 100dvh;
