@@ -30,7 +30,7 @@ function whenStyled(key: 'variant' | 'size', styles: Record<string, string>) {
 }
 
 export const buttonVariants = tv({
-  base: 'group/button aria-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0',
+  base: 'cn-button group/button inline-flex shrink-0 items-center justify-center align-middle whitespace-nowrap transition-all outline-none select-none aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0',
   variants: {
     variant: {
       default: '', outline: '', secondary: '', ghost: '', destructive: '', link: ''
@@ -45,7 +45,7 @@ export const buttonVariants = tv({
     },
     unstyled: {
       true: '',
-      false: 'cn-button inline-flex shrink-0 items-center justify-center align-middle whitespace-nowrap transition-all outline-none select-none aria-disabled:opacity-50'
+      false: ''
     }
   },
   compoundVariants: [

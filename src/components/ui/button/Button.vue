@@ -20,8 +20,8 @@ export interface ButtonProps extends /* @vue-ignore */ Omit<
   /** button variants */
   size?: ButtonVariantProps['size']
   variant?: ButtonVariantProps['variant']
-  block?: ButtonVariantProps['block']
-  unstyled?: ButtonVariantProps['unstyled']
+  block?: boolean
+  unstyled?: boolean
 
   /** primitive component props */
   as?: PrimitiveProps['as']
