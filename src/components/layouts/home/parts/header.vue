@@ -50,9 +50,9 @@ const props = defineProps<HeaderProps>()
     <div
       class="max-w-(--breakpoint-xl) w-full h-(--layout-header-height) flex items-center gap-x-4 px-4 mx-auto"
     >
-      <Link to="/" size="bare" class="text-base gap-2">
+      <Link to="/" class="text-base gap-2" unstyled>
         <HatGlassesIcon
-          class="size-4.5 shrink-0 pointer-events-none"
+          class="size-4.5"
           aria-hidden="true"
           focusable="false"
         />
@@ -82,19 +82,18 @@ const props = defineProps<HeaderProps>()
       <div class="contents *:first:ms-auto">
         <div class="flex items-center gap-x-2">
           <div role="group" aria-label="Site settings" class="*:max-sm:hidden">
-            <ModeSwitcher variant="plain" />
+            <ModeSwitcher unstyled />
           </div>
           <Link
             href="https://github.com/bytriska"
-            variant="plain"
-            size="bare"
             class="max-sm:hidden"
+            unstyled
           >
             <svg
               role="img"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="size-4 shrink-0 pointer-events-none"
+              class="size-4"
               aria-hidden="true"
               focusable="false"
             >
@@ -108,12 +107,11 @@ const props = defineProps<HeaderProps>()
 
         <CollapsibleTrigger
           :as="Button"
-          variant="plain"
-          size="bare"
           class="group/collapsible-trigger sm:hidden ms-auto"
+          unstyled
         >
           <ChevronDownIcon
-            class="size-4 shrink-0 pointer-events-none transition-transform group-data-[state=open]/collapsible-trigger:rotate-180"
+            class="size-4 motion-safe:transition-transform group-data-[state=open]/collapsible-trigger:rotate-180"
             aria-hidden="true"
             focusable="false"
           />
@@ -126,62 +124,78 @@ const props = defineProps<HeaderProps>()
     >
       <AccordionRoot class="[&_[data-slot='accordion-item']]:border-none [&_a]:font-normal">
         <AccordionItem>
-          <Link to="/posts" size="lg" variant="plain" class="w-full px-0 gap-2 justify-start">
-            <template #icon>
-              <NewspaperIcon
-                class="size-4 shrink-0 pointer-event-none"
-                aria-hidden="true"
-                focusable="false"
-              />
-            </template>
+          <Link
+            to="/posts"
+            size="lg"
+            class="px-0 gap-2 justify-start no-underline"
+            data-icon="inline-start"
+            block
+          >
+            <NewspaperIcon
+              class="size-4"
+              aria-hidden="true"
+              focusable="false"
+            />
             <span>Posts</span>
           </Link>
         </AccordionItem>
         <AccordionItem>
-          <Link to="#" size="lg" variant="plain" class="w-full px-0 gap-2 justify-start">
-            <template #icon>
-              <FolderGit2Icon
-                class="size-4 shrink-0 pointer-event-none"
-                aria-hidden="true"
-                focusable="false"
-              />
-            </template>
+          <Link
+            to="#"
+            size="lg"
+            class="px-0 gap-2 justify-start no-underline"
+            data-icon="inline-start"
+            block
+          >
+            <FolderGit2Icon
+              class="size-4"
+              aria-hidden="true"
+              focusable="false"
+            />
             <span>Projects</span>
           </Link>
         </AccordionItem>
         <AccordionItem>
-          <Link to="#" size="lg" variant="plain" class="w-full px-0 gap-2 justify-start">
-            <template #icon>
-              <HeartIcon
-                class="size-4 shrink-0 pointer-event-none"
-                aria-hidden="true"
-                focusable="false"
-              />
-            </template>
+          <Link
+            to="#"
+            size="lg"
+            class="px-0 gap-2 justify-start no-underline"
+            data-icon="inline-start"
+            block
+          >
+            <HeartIcon
+              class="size-4"
+              aria-hidden="true"
+              focusable="false"
+            />
             <span>Sponsor</span>
           </Link>
         </AccordionItem>
         <AccordionItem>
-          <Link to="/new-theme" size="lg" variant="plain" class="w-full px-0 gap-2 justify-start">
-            <template #icon>
-              <PaletteIcon
-                class="size-4 shrink-0 pointer-event-none"
-                aria-hidden="true"
-                focusable="false"
-              />
-            </template>
+          <Link
+            to="/new-theme"
+            size="lg"
+            class="px-0 gap-2 justify-start no-underline"
+            data-icon="inline-start"
+            block
+          >
+            <PaletteIcon
+              class="size-4"
+              aria-hidden="true"
+              focusable="false"
+            />
             <span>Theme (new)</span>
           </Link>
         </AccordionItem>
       </AccordionRoot>
 
       <div class="flex items-center gap-x-4 mt-2">
-        <Link href="https://github.com/bytriska" variant="plain" size="bare">
+        <Link href="https://github.com/bytriska" unstyled>
           <svg
             role="img"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="size-4 shrink-0 pointer-events-none"
+            class="size-4"
             aria-hidden="true"
             focusable="false"
           >
@@ -193,7 +207,7 @@ const props = defineProps<HeaderProps>()
         </Link>
 
         <div role="group" aria-label="Site settings" class="ms-auto">
-          <ModeSwitcher variant="plain" />
+          <ModeSwitcher unstyled />
         </div>
       </div>
     </CollapsibleContent>

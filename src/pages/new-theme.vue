@@ -10,8 +10,8 @@ const greeting = 'hello world'
 
 <template>
   <HomeLayout
-    title="triska mahfud khoiri"
-    tagline="Code, notes, and the random things I'm learning as I go along."
+    :title="greeting"
+    tagline="im triska mahfud khoiri, a software engineer and open source enthusiast"
   >
     <div class="[grid-area:main] h-[100rem] size-full">
       <h1>{{ greeting }}</h1>
@@ -19,25 +19,21 @@ const greeting = 'hello world'
       <Button size="sm"> button </Button>
       <Button>button</Button>
       <Button size="lg"> button </Button>
-      <Button size="bare" variant="plain"> button </Button>
+      <Button unstyled> button </Button>
 
       <div>
         <Button size="sm"> button </Button>
 
-        <Button size="sm">
-          <template #icon>
-            <CircleIcon />
-          </template>
+        <Button size="sm" data-icon="inline-start">
+          <CircleIcon />
           button
         </Button>
 
-        <Button size="sm" trailing> button </Button>
+        <Button size="sm"> button </Button>
 
-        <Button size="sm" data-icon="inline-end" trailing>
-          <template #icon>
-            <CircleIcon class="size-4" />
-          </template>
+        <Button size="sm" data-icon="inline-end">
           button
+          <CircleIcon class="size-4" />
         </Button>
       </div>
     </div>

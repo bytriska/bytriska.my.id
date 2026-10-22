@@ -3,7 +3,6 @@ import type { PrimitiveProps } from 'reka-ui'
 import type { ButtonHTMLAttributes } from 'vue'
 import type { ButtonVariantProps } from './button.variants'
 import { LoaderCircleIcon } from '@lucide/vue'
-import { createReusableTemplate } from '@vueuse/core'
 import { Primitive } from 'reka-ui'
 import { cn } from 'tailwind-variants'
 import { computed } from 'vue'
@@ -13,74 +12,65 @@ export interface ButtonProps extends /* @vue-ignore */ Omit<
   ButtonHTMLAttributes,
   'type' | 'disabled' | 'class'
 > {
+  /** default button attributes */
   class?: ButtonHTMLAttributes['class']
-  variant?: ButtonVariantProps['variant']
-  size?: ButtonVariantProps['size']
-  type?: 'submit' | 'reset' | 'button'
   disabled?: boolean
-  asChild?: PrimitiveProps['asChild']
-  as?: PrimitiveProps['as']
-  loading?: boolean
-  trailing?: boolean
-}
+  type?: ButtonHTMLAttributes['type']
 
-export interface ButtonSlot {
-  default?: () => any
-  icon?: () => any
+  /** button variants */
+  size?: ButtonVariantProps['size']
+  variant?: ButtonVariantProps['variant']
+  block?: boolean
+  unstyled?: boolean
+
+  /** primitive component props */
+  as?: PrimitiveProps['as']
+  asChild?: never
+
+  loading?: boolean
+  dataIcon?: 'inline-start' | 'inline-end'
 }
 </script>
 
 <script setup lang="ts">
-defineOptions({ inheritAttrs: false })
-
 const props = withDefaults(defineProps<ButtonProps>(), {
   as: 'button',
-  type: 'button',
-  disabled: false,
-  loading: false,
-  trailing: false,
+  type: 'button'
 })
 
-const slots = defineSlots<ButtonSlot>()
-
 const isDisabled = computed(() => props.disabled || props.loading)
-const isIconOnly = computed(() => props.size === 'icon' && !props.asChild)
-
-function showIcon() {
-  const hasIconSlot = !!slots.icon
-  const hasDefaultAsIcon = isIconOnly.value && !!slots.default
-  return props.loading || hasIconSlot || hasDefaultAsIcon
-}
-
-const [DefineIconTemplate, IconTemplate] = createReusableTemplate()
+const iconSide = computed(() => props.dataIcon ?? (props.loading ? 'inline-start' : undefined))
 </script>
 
 <template>
-  <DefineIconTemplate>
-    <LoaderCircleIcon v-if="props.loading" class="size-4 animate-spin shrink-0" />
-    <slot v-else-if="slots.icon" name="icon" />
-    <slot v-else-if="isIconOnly" />
-  </DefineIconTemplate>
-
   <Primitive
     data-slot="button"
-    :data-variant="props.variant"
-    :data-size="props.size"
     :as="props.as"
-    :as-child="props.asChild"
-    v-bind="$attrs"
     :type="props.as === 'button' ? props.type : undefined"
     :disabled="props.as === 'button' ? isDisabled : undefined"
-    :data-icon="
-      showIcon() && !isIconOnly ? (props.trailing ? 'inline-end' : 'inline-start') : undefined
-    "
+    :aria-disabled="isDisabled || undefined"
     :data-loading="props.loading ? '' : undefined"
     :aria-busy="props.loading || undefined"
-    :aria-disabled="isDisabled || undefined"
-    :class="cn(buttonVariants({ variant: props.variant, size: props.size }), props.class)"
+    :data-icon="iconSide"
+    :class="cn(
+      buttonVariants({
+        variant: props.variant,
+        size: props.size,
+        block: props.block,
+        unstyled: props.unstyled
+      }),
+      props.loading && '[&_svg:not([data-slot=loading-icon])]:hidden',
+      props.class
+    )"
   >
-    <IconTemplate v-if="showIcon() && !props.trailing" />
-    <slot v-if="!isIconOnly" />
-    <IconTemplate v-if="showIcon() && props.trailing" />
+    <LoaderCircleIcon
+      v-if="props.loading"
+      data-slot="loading-icon"
+      aria-hidden="true"
+      focusable="false"
+      :class="cn('motion-safe:animate-spin', iconSide === 'inline-end' && 'order-last')"
+    />
+
+    <slot />
   </Primitive>
 </template>

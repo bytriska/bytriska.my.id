@@ -76,10 +76,6 @@
   @apply size-9;
 }
 
-.cn-button-size-bare {
-  @apply h-auto gap-1.5 rounded-[min(var(--radius-md),10px)];
-}
-
 /* MARK: Navigation Menu */
 .cn-navigation-menu {
   @apply max-w-max;
