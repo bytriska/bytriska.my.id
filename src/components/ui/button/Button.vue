@@ -39,6 +39,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 })
 
 const isDisabled = computed(() => props.disabled || props.loading)
+const isButton = computed(() => props.as === 'button')
 const iconSide = computed(() => props.dataIcon ?? (props.loading ? 'inline-start' : undefined))
 </script>
 
@@ -46,11 +47,11 @@ const iconSide = computed(() => props.dataIcon ?? (props.loading ? 'inline-start
   <Primitive
     data-slot="button"
     :as="props.as"
-    :type="props.as === 'button' ? props.type : undefined"
-    :disabled="props.as === 'button' ? isDisabled : undefined"
-    :aria-disabled="isDisabled || undefined"
-    :data-loading="props.loading ? '' : undefined"
-    :aria-busy="props.loading || undefined"
+    :type="isButton ? props.type : undefined"
+    :disabled="isButton && isDisabled ? true : undefined"
+    :aria-disabled="isDisabled ? 'true' : undefined"
+    :data-loading="props.loading ? 'true' : undefined"
+    :aria-busy="props.loading ? 'true' undefined"
     :data-icon="iconSide"
     :class="cn(
       buttonVariants({
