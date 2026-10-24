@@ -35,7 +35,7 @@ export interface ButtonProps extends /* @vue-ignore */ Omit<
 <script setup lang="ts">
 const props = withDefaults(defineProps<ButtonProps>(), {
   as: 'button',
-  type: 'button'
+  type: 'button',
 })
 
 const isDisabled = computed(() => props.disabled || props.loading)
@@ -51,18 +51,20 @@ const iconSide = computed(() => props.dataIcon ?? (props.loading ? 'inline-start
     :disabled="isButton && isDisabled ? true : undefined"
     :aria-disabled="isDisabled ? 'true' : undefined"
     :data-loading="props.loading ? 'true' : undefined"
-    :aria-busy="props.loading ? 'true' undefined"
+    :aria-busy="props.loading ? 'true' : undefined"
     :data-icon="iconSide"
-    :class="cn(
-      buttonVariants({
-        variant: props.variant,
-        size: props.size,
-        block: props.block,
-        unstyled: props.unstyled
-      }),
-      props.loading && '[&_svg:not([data-slot=loading-icon])]:hidden',
-      props.class
-    )"
+    :class="
+      cn(
+        buttonVariants({
+          variant: props.variant,
+          size: props.size,
+          block: props.block,
+          unstyled: props.unstyled,
+        }),
+        props.loading && '[&_svg:not([data-slot=loading-icon])]:hidden',
+        props.class
+      )
+    "
   >
     <LoaderCircleIcon
       v-if="props.loading"
