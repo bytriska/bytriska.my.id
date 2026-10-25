@@ -1,25 +1,19 @@
 <script lang="ts">
 import type { AnchorHTMLAttributes } from 'vue'
-import type { RouteLocationRaw, RouterLinkProps } from 'vue-router'
 import type { LinkVariantProps } from './link.variants'
 import { cn } from 'tailwind-variants'
-import { computed } from 'vue'
-import { RouterLink } from 'vue-router'
+import { computed, reactive, toRef } from 'vue'
+import { useLink } from 'vue-router'
 import { linkVariants } from './link.variants'
 
 export interface LinkProps extends 
-  /* @vue-ignore */ Omit<AnchorHTMLAttributes, 'class' | 'href' | 'rel' | 'target'>,
-  /* @vue-ignore */ Omit<RouterLinkProps, 'to' | 'custom'> {
+  /* @vue-ignore */ Omit<AnchorHTMLAttributes, 'class' | 'href' | 'rel' | 'target' | 'aria-current'> {
   /** default a attributes */
   class?: AnchorHTMLAttributes['class']
-  /** use 'to' for every kind of URL (internal route, external url, mailto:, etc) */
-  href?: never
+  href?: AnchorHTMLAttributes['href']
   rel?: AnchorHTMLAttributes['rel']
   target?: AnchorHTMLAttributes['target']
-
-  /** router link props*/
-  to?: RouteLocationRaw
-  custom?: never
+  ariaCurrent?: AnchorHTMLAttributes['aria-current']
 
   /** button variants */
   size?: LinkVariantProps['size']
@@ -27,6 +21,7 @@ export interface LinkProps extends
   block?: boolean
   unstyled?: boolean
 
+  replace?: boolean
   disabled?: boolean
   dataIcon?: 'inline-start' | 'inline-end'
 }
@@ -39,19 +34,30 @@ const UNSAFE_URL_RE = /^\s*(?:javascript|data|vbscript):/i
 <script setup lang="ts">
 const props = defineProps<LinkProps>()
 
-const url = computed(() => typeof props.to === 'string' ? props.to : undefined)
+const url = computed(() => props.href)
 const isExternal = computed(() => !!url.value && EXTERNAL_URL_RE.test(url.value))
-const isUnsafeUrl = computed(() => !!url.value && UNSAFE_URL_RE.test(url.value))
-const isDisabled = computed(() => props.disabled || isUnsafeUrl.value)
-const shouldRenderAnchor = computed(() => !props.to || isDisabled.value || isExternal.value)
-
-const resolvedHref = computed(() => {
-  if(isDisabled.value || !url.value || !isExternal.value) return undefined
+const isUnsafeUrl = computed(() => 
   /**
    * Only `javascript:`, `data:` and `vbscript:` are blocked here.
-   * Still validate user-provided URLs before passing them to `to`.
+   * Still validate user-provided URLs before passing them to `href`.
    */
-  return url.value
+  !!url.value && UNSAFE_URL_RE.test(url.value)
+)
+const isDisabled = computed(() => props.disabled || isUnsafeUrl.value)
+const isInternal = computed(() => !!url.value && !isExternal.value && !isDisabled.value)
+
+const link = reactive(useLink({
+  /**
+   * useLink always resolves `to`, so give it a valid location when not internal;
+   * the result is only used when isInternal is true
+   */
+  to: computed(() => (isInternal.value ? url.value! : '/')),
+  replace: toRef(props, 'replace')
+}))
+
+const resolvedHref = computed(() => {
+  if(isDisabled.value || !url.value) return undefined
+  return isInternal.value ? link.href : url.value
 })
 
 const resolvedTarget = computed(() => {
@@ -70,6 +76,13 @@ const resolvedRel = computed(() => {
   return parts.size ? [...parts].join(' ') : undefined
 })
 
+const isActive = computed(() => isInternal.value && link.isActive)
+const isExactActive = computed(() => isInternal.value && link.isExactActive)
+
+const resolvedAriaCurrent = computed(() => 
+  props.ariaCurrent ?? (isExactActive.value ? 'page' : undefined)
+)
+
 const classes = computed(() => cn(
   linkVariants({
     variant: props.variant,
@@ -80,37 +93,32 @@ const classes = computed(() => cn(
   props.class
 ))
 
-function disabledClickGuard(e: MouseEvent) {
-  if(!isDisabled.value) return
-  e.preventDefault()
-  e.stopImmediatePropagation()
+function handleClick(e: MouseEvent) {
+  if(isDisabled.value) {
+    e.preventDefault()
+    e.stopImmediatePropagation()
+    return
+  }
+
+  if(isInternal.value) link.navigate(e)
 }
 </script>
 
 <template>
   <a 
-    v-if="shouldRenderAnchor"
     data-slot="link"
     :role="isDisabled ? 'link' : undefined"
     :href="resolvedHref"
     :rel="resolvedRel"
     :target="resolvedTarget"
+    :aria-current="resolvedAriaCurrent"
     :aria-disabled="isDisabled ? 'true' : undefined"
     :data-icon="props.dataIcon"
+    :data-active="isActive ? 'true' : undefined"
+    :data-exact="isExactActive ? 'true' : undefined"
     :class="classes"
-    @click="disabledClickGuard"
+    @click="handleClick"
   >
     <slot />
   </a>
-  <RouterLink
-    v-else
-    data-slot="link"
-    :to="props.to!"
-    :rel="resolvedRel"
-    :target="resolvedTarget"
-    :data-icon="props.dataIcon"
-    :class="classes"
-  >
-    <slot />
-  </RouterLink>
 </template>
