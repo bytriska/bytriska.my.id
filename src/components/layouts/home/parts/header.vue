@@ -50,7 +50,7 @@ const props = defineProps<HeaderProps>()
     <div
       class="max-w-(--breakpoint-xl) w-full h-(--layout-header-height) flex items-center gap-x-4 px-4 mx-auto"
     >
-      <Link to="/" class="text-base gap-2" unstyled>
+      <Link href="/" class="text-base gap-2" unstyled>
         <HatGlassesIcon class="size-4.5" aria-hidden="true" focusable="false" />
         <span>bytriska</span>
       </Link>
@@ -61,16 +61,16 @@ const props = defineProps<HeaderProps>()
       >
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuLink :as="Link" to="/posts"> Posts </NavigationMenuLink>
+            <NavigationMenuLink :as="Link" href="/posts"> Posts </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuLink :as="Link" to="#"> Projects </NavigationMenuLink>
+            <NavigationMenuLink :as="Link" href="#"> Projects </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuLink :as="Link" to="#"> Sponsor </NavigationMenuLink>
+            <NavigationMenuLink :as="Link" href="#"> Sponsor </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuLink :as="Link" to="/new-theme"> Theme (new) </NavigationMenuLink>
+            <NavigationMenuLink :as="Link" href="/new-theme"> Theme (new) </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenuRoot>
@@ -115,7 +115,7 @@ const props = defineProps<HeaderProps>()
       <AccordionRoot class="**:data-[slot='accordion-item']:border-none [&_a]:font-normal">
         <AccordionItem>
           <Link
-            to="/posts"
+            href="/posts"
             size="lg"
             class="px-0 gap-2 justify-start no-underline"
             data-icon="inline-start"
@@ -127,7 +127,7 @@ const props = defineProps<HeaderProps>()
         </AccordionItem>
         <AccordionItem>
           <Link
-            to="#"
+            href="#"
             size="lg"
             class="px-0 gap-2 justify-start no-underline"
             data-icon="inline-start"
@@ -139,7 +139,7 @@ const props = defineProps<HeaderProps>()
         </AccordionItem>
         <AccordionItem>
           <Link
-            to="#"
+            href="#"
             size="lg"
             class="px-0 gap-2 justify-start no-underline"
             data-icon="inline-start"
@@ -151,7 +151,7 @@ const props = defineProps<HeaderProps>()
         </AccordionItem>
         <AccordionItem>
           <Link
-            to="/new-theme"
+            href="/new-theme"
             size="lg"
             class="px-0 gap-2 justify-start no-underline"
             data-icon="inline-start"
