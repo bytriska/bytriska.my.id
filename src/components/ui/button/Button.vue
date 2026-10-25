@@ -1,21 +1,16 @@
 <script lang="ts">
-import type { PrimitiveProps } from 'reka-ui'
-import type { ButtonHTMLAttributes } from 'vue'
+import type { ButtonHTMLAttributes, ClassValue } from 'vue'
 import type { ButtonVariantProps } from './button.variants'
-import { LoaderCircleIcon } from '@lucide/vue'
-import { Primitive } from 'reka-ui'
 import { cn } from 'tailwind-variants'
 import { computed } from 'vue'
 import { buttonVariants } from './button.variants'
 
-export interface ButtonProps extends /* @vue-ignore */ Omit<
-  ButtonHTMLAttributes,
-  'type' | 'disabled' | 'class'
-> {
+export interface ButtonProps extends 
+  /** @vue-ignore */ Omit<ButtonHTMLAttributes, 'class' | 'disabled' | 'type'> {
   /** default button attributes */
-  class?: ButtonHTMLAttributes['class']
+  class?: ClassValue
   disabled?: boolean
-  type?: ButtonHTMLAttributes['type']
+  type?: 'button' | 'submit' | 'reset'
 
   /** button variants */
   size?: ButtonVariantProps['size']
@@ -23,57 +18,33 @@ export interface ButtonProps extends /* @vue-ignore */ Omit<
   block?: boolean
   unstyled?: boolean
 
-  /** primitive component props */
-  as?: PrimitiveProps['as']
-  asChild?: never
-
-  loading?: boolean
   dataIcon?: 'inline-start' | 'inline-end'
 }
 </script>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<ButtonProps>(), {
-  as: 'button',
-  type: 'button',
-})
+const props = defineProps<ButtonProps>()
 
-const isDisabled = computed(() => props.disabled || props.loading)
-const isButton = computed(() => props.as === 'button')
-const iconSide = computed(() => props.dataIcon ?? (props.loading ? 'inline-start' : undefined))
+const classes = computed(() => cn(
+  buttonVariants({
+    variant: props.variant,
+    size: props.size,
+    block: props.block,
+    unstyled: props.unstyled,
+  }),
+  props.class
+))
 </script>
 
 <template>
-  <Primitive
+  <button
     data-slot="button"
-    :as="props.as"
-    :type="isButton ? props.type : undefined"
-    :disabled="isButton && isDisabled ? true : undefined"
-    :aria-disabled="isDisabled ? 'true' : undefined"
-    :data-loading="props.loading ? 'true' : undefined"
-    :aria-busy="props.loading ? 'true' : undefined"
-    :data-icon="iconSide"
-    :class="
-      cn(
-        buttonVariants({
-          variant: props.variant,
-          size: props.size,
-          block: props.block,
-          unstyled: props.unstyled,
-        }),
-        props.loading && '[&_svg:not([data-slot=loading-icon])]:hidden',
-        props.class
-      )
-    "
+    :type="props.type"
+    :disabled="props.disabled ? true : undefined"
+    :aria-disabled="props.disabled ? 'true' : undefined"
+    :data-icon="props.dataIcon"
+    :class="classes"
   >
-    <LoaderCircleIcon
-      v-if="props.loading"
-      data-slot="loading-icon"
-      aria-hidden="true"
-      focusable="false"
-      :class="cn('motion-safe:animate-spin', iconSide === 'inline-end' && 'order-last')"
-    />
-
     <slot />
-  </Primitive>
+  </button>
 </template>
