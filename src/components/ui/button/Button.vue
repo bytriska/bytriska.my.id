@@ -35,10 +35,11 @@ export interface ButtonProps extends /* @vue-ignore */ Omit<
 <script setup lang="ts">
 const props = withDefaults(defineProps<ButtonProps>(), {
   as: 'button',
-  type: 'button'
+  type: 'button',
 })
 
 const isDisabled = computed(() => props.disabled || props.loading)
+const isButton = computed(() => props.as === 'button')
 const iconSide = computed(() => props.dataIcon ?? (props.loading ? 'inline-start' : undefined))
 </script>
 
@@ -46,22 +47,24 @@ const iconSide = computed(() => props.dataIcon ?? (props.loading ? 'inline-start
   <Primitive
     data-slot="button"
     :as="props.as"
-    :type="props.as === 'button' ? props.type : undefined"
-    :disabled="props.as === 'button' ? isDisabled : undefined"
-    :aria-disabled="isDisabled || undefined"
-    :data-loading="props.loading ? '' : undefined"
-    :aria-busy="props.loading || undefined"
+    :type="isButton ? props.type : undefined"
+    :disabled="isButton && isDisabled ? true : undefined"
+    :aria-disabled="isDisabled ? 'true' : undefined"
+    :data-loading="props.loading ? 'true' : undefined"
+    :aria-busy="props.loading ? 'true' : undefined"
     :data-icon="iconSide"
-    :class="cn(
-      buttonVariants({
-        variant: props.variant,
-        size: props.size,
-        block: props.block,
-        unstyled: props.unstyled
-      }),
-      props.loading && '[&_svg:not([data-slot=loading-icon])]:hidden',
-      props.class
-    )"
+    :class="
+      cn(
+        buttonVariants({
+          variant: props.variant,
+          size: props.size,
+          block: props.block,
+          unstyled: props.unstyled,
+        }),
+        props.loading && '[&_svg:not([data-slot=loading-icon])]:hidden',
+        props.class
+      )
+    "
   >
     <LoaderCircleIcon
       v-if="props.loading"
