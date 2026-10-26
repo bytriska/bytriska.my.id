@@ -1,83 +1,129 @@
 <script lang="ts">
-import type { RouteLocationRaw } from 'vue-router'
-import type { ButtonProps } from '../button'
-import { computed } from 'vue'
-import { RouterLink } from 'vue-router'
-import { isSafeUrl } from '@/lib/utils'
-import { Button } from '../button'
+import type { AnchorHTMLAttributes, ClassValue } from 'vue'
+import type { LinkVariantProps } from './link.variants'
+import { cn } from 'tailwind-variants'
+import { computed, reactive, toRef } from 'vue'
+import { useLink } from 'vue-router'
+import { linkVariants } from './link.variants'
 
-type BaseLinkProps = Omit<ButtonProps, 'as' | 'asChild' | 'type'>
-
-export interface LinkProps extends BaseLinkProps {
-  as?: never
-  asChild?: never
-  type?: never
-  to?: RouteLocationRaw
+export interface LinkProps
+  /* @vue-ignore */
+  extends Omit<AnchorHTMLAttributes, 'class' | 'href' | 'rel' | 'target' | 'aria-current'> {
+  /** default a attributes */
+  class?: ClassValue
   href?: string
-  replace?: boolean
-  activeClass?: string
-  exactActiveClass?: string
-  target?: string
   rel?: string
+  target?: string
+  ariaCurrent?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false'
+
+  /** button variants */
+  size?: LinkVariantProps['size']
+  variant?: LinkVariantProps['variant']
+  block?: boolean
+  unstyled?: boolean
+
+  replace?: boolean
+  disabled?: boolean
+  dataIcon?: 'inline-start' | 'inline-end'
 }
+
+const EXTERNAL_URL_RE = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i
+const NEW_TAB_URL_RE = /^(?:https?:)?\/\//i
+const UNSAFE_URL_RE = /^\s*(?:javascript|data|vbscript):/i
 </script>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<LinkProps>(), {
-  variant: 'link',
+const props = defineProps<LinkProps>()
+
+const url = computed(() => props.href)
+const isExternal = computed(() => !!url.value && EXTERNAL_URL_RE.test(url.value))
+const isUnsafeUrl = computed(() => {
+  /**
+   * Only `javascript:`, `data:` and `vbscript:` are blocked here.
+   * Still validate user-provided URLs before passing them to `href`.
+   */
+  return !!url.value && UNSAFE_URL_RE.test(url.value)
 })
+const isDisabled = computed(() => props.disabled || isUnsafeUrl.value)
+const isInternal = computed(() => !!url.value && !isExternal.value && !isDisabled.value)
 
-const EXTERNAL_URL_RE = /^(?:https?:|\/\/)/i
-
-const isInert = computed(() => props.disabled || props.loading)
-const isRouterLink = computed(() => props.to !== undefined && !isInert.value)
-
-const safeHref = computed(() => (props.href && isSafeUrl(props.href) ? props.href : undefined))
-const isExternal = computed(() => !!safeHref.value && EXTERNAL_URL_RE.test(safeHref.value))
-
-const target = computed(() => props.target ?? (isExternal.value ? '_blank' : undefined))
-const rel = computed(
-  () => props.rel ?? (target.value === '_blank' ? 'noopener noreferrer' : undefined)
+const link = reactive(
+  useLink({
+    /**
+     * useLink always resolves `to`, so give it a valid location when not internal;
+     * the result is only used when isInternal is true
+     */
+    to: computed(() => (isInternal.value ? url.value! : '/')),
+    replace: toRef(props, 'replace'),
+  })
 )
 
-const linkAttrs = computed<LinkProps>(() => {
-  if (isInert.value) {
-    return { tabindex: -1 }
-  }
-
-  const shared: LinkProps = { rel: rel.value, target: target.value }
-
-  if (isRouterLink.value) {
-    return {
-      ...shared,
-      to: props.to,
-      replace: props.replace,
-      activeClass: props.activeClass,
-      exactActiveClass: props.exactActiveClass,
-    }
-  } else {
-    return {
-      ...shared,
-      href: safeHref.value,
-    }
-  }
+const resolvedHref = computed(() => {
+  if (isDisabled.value || !url.value) return undefined
+  return isInternal.value ? link.href : url.value
 })
+
+const resolvedTarget = computed(() => {
+  if (isDisabled.value) return undefined
+  const shouldOpenNewTab = !!url.value && isExternal.value && NEW_TAB_URL_RE.test(url.value)
+  return props.target ?? (shouldOpenNewTab ? '_blank' : undefined)
+})
+
+const resolvedRel = computed(() => {
+  if (isDisabled.value) return undefined
+  const parts = new Set(props.rel?.split(/\s+/).filter(Boolean))
+  if (resolvedTarget.value === '_blank') {
+    parts.add('noopener')
+    parts.add('noreferrer')
+  }
+  return parts.size ? [...parts].join(' ') : undefined
+})
+
+const isActive = computed(() => isInternal.value && link.isActive)
+const isExactActive = computed(() => isInternal.value && link.isExactActive)
+
+const resolvedAriaCurrent = computed(
+  () => props.ariaCurrent ?? (isExactActive.value ? 'page' : undefined)
+)
+
+const classes = computed(() =>
+  cn(
+    linkVariants({
+      variant: props.variant,
+      size: props.size,
+      block: props.block,
+      unstyled: props.unstyled,
+    }),
+    props.class
+  )
+)
+
+function handleClick(e: MouseEvent) {
+  if (isDisabled.value) {
+    e.preventDefault()
+    e.stopImmediatePropagation()
+    return
+  }
+
+  if (isInternal.value) link.navigate(e)
+}
 </script>
 
 <template>
-  <Button
+  <a
     data-slot="link"
-    :as="isRouterLink ? RouterLink : 'a'"
-    :variant="props.variant"
-    :size="props.size"
-    :block="props.block"
-    :unstyled="props.unstyled"
+    :role="isDisabled ? 'link' : undefined"
+    :href="resolvedHref"
+    :rel="resolvedRel"
+    :target="resolvedTarget"
+    :aria-current="resolvedAriaCurrent"
+    :aria-disabled="isDisabled ? 'true' : undefined"
     :data-icon="props.dataIcon"
-    :loading="props.loading"
-    :disabled="props.disabled"
-    :class="props.class"
-    v-bind="linkAttrs"
+    :data-active="isActive ? 'true' : undefined"
+    :data-exact="isExactActive ? 'true' : undefined"
+    :class="classes"
+    @click="handleClick"
   >
     <slot />
-  </Button>
+  </a>
 </template>
