@@ -30,7 +30,11 @@ const { header, trigger, triggerIcon } = accordionVariants()
     >
       <slot />
       <slot name="icon">
-        <ChevronDownIcon data-slot="accordion-trigger-icon" :class="triggerIcon()" />
+        <ChevronDownIcon 
+          data-slot="accordion-trigger-icon"
+          aria-hidden="true"
+          :class="triggerIcon()"
+        />
       </slot>
     </AccordionTrigger>
   </AccordionHeader>

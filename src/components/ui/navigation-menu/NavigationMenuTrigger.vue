@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { NavigationMenuTriggerProps as PrimitiveNavigationMenuTriggerProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
+import { ChevronDownIcon } from '@lucide/vue'
 import { reactiveOmit } from '@vueuse/core'
 import { NavigationMenuTrigger, useForwardProps } from 'reka-ui'
 import { cn } from 'tailwind-variants'
@@ -25,6 +26,9 @@ const { trigger, triggerIcon } = navigationMenuVariants()
     :class="cn(trigger(), 'group', props.class)"
   >
     <slot />
-    <i-lucide-chevron-down :class="triggerIcon()" aria-hidden="true" />
+    <ChevronDownIcon
+      aria-hidden="true"
+      :class="triggerIcon()"
+    />
   </NavigationMenuTrigger>
 </template>
