@@ -359,7 +359,7 @@ watch(
     <footer
       class="post-layout__footer [grid-area:footer] layout:[--layout-container-width:var(--container-5xl)]!"
     >
-      <div class="w-full max-w-(--layout-container-width) h-36 p-4 mx-auto">
+      <div class="w-full max-w-(--layout-container-width) p-4 mx-auto">
         <p>&copy; 2026 bytriska. All rights reserved.</p>
       </div>
     </footer>
