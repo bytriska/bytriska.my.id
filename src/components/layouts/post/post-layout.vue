@@ -9,7 +9,7 @@ import {
   NewspaperIcon,
   TextAlignStartIcon,
 } from '@lucide/vue'
-import { unrefElement, useEventListener, useMediaQuery } from '@vueuse/core'
+import { unrefElement, useEventListener, useMediaQuery, useWindowScroll } from '@vueuse/core'
 import { nextTick, ref, useTemplateRef, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import ModeSwitcher from '@/components/ModeSwitcher.vue'
@@ -107,6 +107,12 @@ watch(
   () => isLg.value,
   value => value && close()
 )
+
+const scroll = useWindowScroll()
+
+function scrollToTop() {
+  scroll.y.value = 0
+}
 </script>
 
 <template>
@@ -192,7 +198,7 @@ watch(
           <TextAlignStartIcon aria-hidden="true" />
           <span class="truncate">Example placeholder table of content</span>
         </Button>
-        <Button class="flex-none gap-2" data-icon="inline-end" unstyled>
+        <Button unstyled data-icon="inline-end" class="flex-none gap-2" @click="scrollToTop">
           <span>Back to top</span>
           <CircleArrowUpIcon aria-hidden="true" />
         </Button>
