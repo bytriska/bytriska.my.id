@@ -7,7 +7,7 @@ import {
   HeartIcon,
   LayoutGridCirclesIcon,
   NewspaperIcon,
-  TableOfContentsIcon
+  TextAlignStartIcon,
 } from '@lucide/vue'
 import { unrefElement, useEventListener, useMediaQuery } from '@vueuse/core'
 import { nextTick, ref, useTemplateRef, watch } from 'vue'
@@ -43,15 +43,18 @@ defineProps<PostLayoutProps>()
 defineSlots<PostLayoutSlots>()
 
 const activeDrawerId = ref<DrawerId | null>(null)
-const renderedDrawerId = ref<DrawerId | null >(null)
-watch(() => activeDrawerId.value, (id) => {
-  if(!id) return
-  renderedDrawerId.value = id
-  nextTick(() => {
-    const drawerEl = unrefElement(layoutDrawer)
-    drawerEl?.querySelector('a, button')?.focus()
-  })
-})
+const renderedDrawerId = ref<DrawerId | null>(null)
+watch(
+  () => activeDrawerId.value,
+  id => {
+    if (!id) return
+    renderedDrawerId.value = id
+    nextTick(() => {
+      const drawerEl = unrefElement(layoutDrawer)
+      drawerEl?.querySelector('a, button')?.focus()
+    })
+  }
+)
 
 const layoutDrawer = useTemplateRef('drawer')
 const drawerTriggerNav = useTemplateRef('drawer-trigger__nav')
@@ -62,15 +65,15 @@ function inRegion(node: EventTarget | null) {
 }
 
 function toggle(id: DrawerId) {
-  activeDrawerId.value = (activeDrawerId.value === id ? null : id)
+  activeDrawerId.value = activeDrawerId.value === id ? null : id
 }
 
 function close(shouldReturnFocus: boolean = false) {
   const prev = activeDrawerId.value
-  if(!prev) return
+  if (!prev) return
   activeDrawerId.value = null
 
-  if(shouldReturnFocus) {
+  if (shouldReturnFocus) {
     nextTick(() => {
       const triggerEl = unrefElement(prev === 'nav' ? drawerTriggerNav : drawerTriggerToc)
       triggerEl?.focus()
@@ -78,38 +81,50 @@ function close(shouldReturnFocus: boolean = false) {
   }
 }
 
-useEventListener('pointerdown', (e) => { if(!inRegion(e.target) && activeDrawerId.value) close() })
-useEventListener('focusin', (e) => { if(!inRegion(e.target) && activeDrawerId.value) close() })
-useEventListener('keydown', (e) => { if((e.key === 'Escape') && activeDrawerId.value) close(true) })
+useEventListener('pointerdown', e => {
+  if (!inRegion(e.target) && activeDrawerId.value) close()
+})
+useEventListener('focusin', e => {
+  if (!inRegion(e.target) && activeDrawerId.value) close()
+})
+useEventListener('keydown', e => {
+  if (e.key === 'Escape' && activeDrawerId.value) close(true)
+})
 
 const route = useRoute()
-watch(() => route.fullPath, () => close())
+watch(
+  () => route.fullPath,
+  () => close()
+)
 
-const isSm = useMediaQuery("(width >= 40rem)")
-watch(() => isSm.value, (value) => value && activeDrawerId === 'nav' && close())
-const isLg = useMediaQuery("(width >= 64rem)")
-watch(() => isLg.value, (value) => value && close())
+const isSm = useMediaQuery('(width >= 40rem)')
+watch(
+  () => isSm.value,
+  value => value && activeDrawerId.value === 'nav' && close()
+)
+const isLg = useMediaQuery('(width >= 64rem)')
+watch(
+  () => isLg.value,
+  value => value && close()
+)
 </script>
 
 <template>
   <div data-slot="layout-root" class="post-layout__root">
     <div
       v-if="$slots.announcement"
-      :class="[
-        'post-layout__announcement [grid-area:announcement]',
-        'sticky top-0 z-40'
-      ]"
+      class="post-layout__announcement [grid-area:announcement] sticky top-0 z-40"
     >
       <slot name="announcement" />
     </div>
 
     <header
-      :class="[
-        'post-layout__header [grid-area:header] layout:[--container-max-width:var(--container-5xl)]! layout:[--layout-header-height:calc(3.5rem-1px)]!',
-        'self-start sticky top-(--layout-row-1) z-40'
-      ]"
+      class="post-layout__header [grid-area:header] layout:[--container-max-width:var(--container-5xl)]! layout:[--layout-header-height:3.5rem]! self-start sticky top-(--layout-row-1) z-40"
     >
-      <div class="w-full h-(--layout-header-height) max-w-(--container-max-width) flex items-center gap-4 px-4 mx-auto">
+      <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
+      <div
+        class="w-full h-(--layout-header-height) max-w-(--container-max-width) flex items-center gap-4 px-4 mx-auto"
+      >
         <Link href="/" class="text-base gap-2" unstyled>
           <HatGlassesIcon aria-hidden="true" class="size-4.5" />
           <span>bytriska</span>
@@ -132,25 +147,21 @@ watch(() => isLg.value, (value) => value && close())
           </NavigationMenuList>
         </NavigationMenuRoot>
 
-        <div class="contents *:first:ms-auto">
+        <div class="flex items-center gap-4 ms-auto">
           <ModeSwitcher data-show="sm md lg xl" unstyled />
-          <Link 
-            href="https://github.com/bytriska"
-            data-show="sm md lg xl"
-            unstyled
-          >
+          <Link href="https://github.com/bytriska" data-show="sm md lg xl" unstyled>
             <GithubIcon aria-hidden="true" />
             <span class="sr-only">Github (open in new tab)</span>
           </Link>
-          <Button 
+          <Button
+            ref="drawer-trigger__nav"
             unstyled
             data-drawer-region
             data-show="base"
-            ref="drawer-trigger__nav"
             aria-controls="drawer-content__nav"
             :aria-expanded="activeDrawerId === 'nav' ? 'true' : 'false'"
-            @click="toggle('nav')"
             class="group"
+            @click="toggle('nav')"
           >
             <ChevronDownIcon
               aria-hidden="true"
@@ -164,26 +175,24 @@ watch(() => isLg.value, (value) => value && close())
 
     <div
       data-show="base sm md"
-      :class="[
-        'post-layout__toc-bar [grid-area:toc-bar] max-lg:layout:[--layout-toc-bar-height:calc(2.5rem-1px)]!',
-        'self-start sticky top-(--layout-row-2) z-40'
-      ]"
+      class="post-layout__toc-bar [grid-area:toc-bar] max-lg:layout:[--layout-toc-bar-height:2.5rem]! self-start sticky top-(--layout-row-2) z-40"
     >
+      <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
       <div class="w-full h-(--layout-toc-bar-height) flex items-center gap-2 px-4 mx-auto">
-        <Button 
-          block
+        <Button
+          ref="drawer-trigger__toc"
           unstyled
           data-drawer-region
-          ref="drawer-trigger__toc"
+          data-icon="inline-start"
           aria-controls="drawer-content__toc"
           :aria-expanded="activeDrawerId === 'toc' ? 'true' : 'false'"
+          class="flex-1 min-w-0 justify-start gap-2"
           @click="toggle('toc')"
-          class="grow-1 truncate"
         >
-          <TableOfContentsIcon aria-hidden="true" />
-          <span>Example placeholder table of content</span>
+          <TextAlignStartIcon aria-hidden="true" />
+          <span class="truncate">Example placeholder table of content</span>
         </Button>
-        <Button class="shrink-0" unstyled>
+        <Button class="flex-none gap-2" data-icon="inline-end" unstyled>
           <span>Back to top</span>
           <CircleArrowUpIcon aria-hidden="true" />
         </Button>
@@ -191,20 +200,15 @@ watch(() => isLg.value, (value) => value && close())
     </div>
 
     <CollapsibleRoot
+      ref="drawer"
       data-drawer-region
       data-show="base sm md"
-      ref="drawer"
       :open="activeDrawerId !== null"
-      :class="[
-        'post-layout__drawer [grid-area:drawer] max-lg:layout:[--layout-drawer-height:calc(70dvh-var(--layout-row-4)-1px)]!',
-        'sticky top-(--layout-row-3) z-40'
-      ]"
+      class="post-layout__drawer [grid-area:drawer] max-lg:layout:[--layout-drawer-height:calc(70dvh-var(--layout-row-4))]! sticky top-(--layout-row-3) z-40"
     >
+      <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
       <CollapsibleContent
-        :class="[
-          'overflow-hidden data-[state=open]:motion-safe:animate-collapsible-down data-[state=closed]:motion-safe:animate-collapsible-up p-4 pt-0',
-          '*:w-full *:h-auto *:max-h-(--layout-drawer-height) overflow-y-auto'
-        ]"
+        class="overflow-hidden data-[state=open]:motion-safe:animate-collapsible-down data-[state=closed]:motion-safe:animate-collapsible-up p-4 pt-2 *:w-full *:h-auto *:max-h-(--layout-drawer-height) overflow-y-auto"
       >
         <div v-if="renderedDrawerId === 'nav'" id="drawer-content__nav">
           <AccordionRoot class="**:data-[slot='accordion-item']:border-none [&_a]:font-normal">
@@ -258,7 +262,7 @@ watch(() => isLg.value, (value) => value && close())
             </AccordionItem>
           </AccordionRoot>
 
-          <div class="flex items-center gap-4 mt-2 *:nth-2:ms-auto">
+          <div class="flex items-center gap-4 mt-4 *:nth-2:ms-auto">
             <Link href="https://github.com/bytriska" unstyled>
               <GithubIcon aria-hidden="true" />
               <span class="sr-only">Github (open in new tab)</span>
@@ -269,16 +273,26 @@ watch(() => isLg.value, (value) => value && close())
         <div v-if="renderedDrawerId === 'toc'" id="drawer-content__toc">
           <nav aria-label="On this page">
             <ul class="flex flex-col list-none">
-              <li><Link href="#">heading 1</Link></li>
               <li>
-                <Link href="#">heading 2</Link>
-                <ul class="flex flex-col list-none ms-2">
-                  <li><Link href="#">heading 2.1</Link></li>
-                  <li><Link href="#">heading 2.2</Link></li>
+                <Link href="#" block> Heading 1 </Link>
+              </li>
+              <li>
+                <Link href="#" block> Heading 2 </Link>
+                <ul class="flex flex-col list-none ms-4">
+                  <li>
+                    <Link href="#" block> Heading 2.1 </Link>
+                  </li>
+                  <li>
+                    <Link href="#" block> Heading 2.2 </Link>
+                  </li>
                 </ul>
               </li>
-              <li><Link href="#">heading 3</Link></li>
-              <li><Link href="#">heading 4</Link></li>
+              <li>
+                <Link href="#" block> Heading 3 </Link>
+              </li>
+              <li>
+                <Link href="#" block> Heading 4 </Link>
+              </li>
             </ul>
           </nav>
         </div>
@@ -286,12 +300,9 @@ watch(() => isLg.value, (value) => value && close())
     </CollapsibleRoot>
 
     <main
-      :class="[
-        'post-layout__main [grid-area:main] layout:[--layout-container-width:var(--container-5xl)]! layout:[--layout-content-width:var(--container-2xl)]!',
-        'size-full min-w-0 py-12 sm:py-16 overflow-x-clip'
-      ]"
+      class="post-layout__main [grid-area:main] layout:[--layout-container-width:var(--container-5xl)]! layout:[--layout-content-width:var(--container-2xl)]! size-full min-w-0 py-12 sm:py-16 overflow-x-clip"
     >
-      <article class="max-w-(--max-content-width) px-4 mx-auto">
+      <article class="max-w-(--layout-content-width) px-4 mx-auto">
         <header class="mb-6">
           <div class="flex items-baseline justify-between gap-4 mb-4">
             <h1 class="text-3xl sm:text-4xl font-semibold">
@@ -309,35 +320,46 @@ watch(() => isLg.value, (value) => value && close())
 
     <aside
       data-show="lg xl"
-      :class="[
-        'post-layout__toc [grid-area:toc] lg:layout:[--layout-toc-width:268px]!',
-        'self-start sticky top-(--layout-row-4)'
-      ]"
+      class="post-layout__toc [grid-area:toc] lg:layout:[--layout-toc-width:268px]!"
     >
-      <div class="w-(--layout-toc-width) h-[calc(100dvh-var(--layout-row-4))] overflow-y-auto py-16 pe-4">
+      <div
+        class="sticky top-(--layout-row-4) w-(--layout-toc-width) h-[calc(100dvh-var(--layout-row-4))] overflow-y-auto py-16 pe-4"
+      >
         <h2 id="toc__title" class="inline-flex items-center gap-2 [&_svg]:size-4">
-          <TableOfContents aria-hidden="true" />
+          <TextAlignStartIcon aria-hidden="true" />
           <span>On this page</span>
         </h2>
         <nav aria-labeledby="toc__title">
           <ul class="flex flex-col list-none mt-6">
-            <li><Link href="#">heading 1</Link></li>
             <li>
-              <Link href="#">heading 2</Link>
-              <ul class="flex flex-col list-none ms-2">
-                <li><Link href="#">heading 2.1</Link></li>
-                <li><Link href="#">heading 2.2</Link></li>
+              <Link href="#" block> Heading 1 </Link>
+            </li>
+            <li>
+              <Link href="#" block> Heading 2 </Link>
+              <ul class="flex flex-col list-none ms-4">
+                <li>
+                  <Link href="#" block> Heading 2.1 </Link>
+                </li>
+                <li>
+                  <Link href="#" block> Heading 2.2 </Link>
+                </li>
               </ul>
             </li>
-            <li><Link href="#">heading 3</Link></li>
-            <li><Link href="#">heading 4</Link></li>
+            <li>
+              <Link href="#" block> Heading 3 </Link>
+            </li>
+            <li>
+              <Link href="#" block> Heading 4 </Link>
+            </li>
           </ul>
         </nav>
       </div>
     </aside>
 
-    <footer class="post-layout__footer [grid-area:footer] layout:[--layout-container-width:var(--container-5xl)]!">
-      <div class="w-full max-w-(--layout-container-width) p-4 mx-auto">
+    <footer
+      class="post-layout__footer [grid-area:footer] layout:[--layout-container-width:var(--container-5xl)]!"
+    >
+      <div class="w-full max-w-(--layout-container-width) h-36 p-4 mx-auto">
         <p>&copy; 2026 bytriska. All rights reserved.</p>
       </div>
     </footer>
@@ -373,7 +395,7 @@ watch(() => isLg.value, (value) => value && close())
     'drawer'
     'main'
     'footer';
-  grid-template-rows: 
+  grid-template-rows:
     minmax(var(--layout-announcement-height), auto)
     minmax(var(--layout-header-height), auto)
     minmax(var(--layout-toc-bar-height), auto)
@@ -393,21 +415,21 @@ watch(() => isLg.value, (value) => value && close())
       minmax(var(--layout-header-height), auto)
       1fr
       auto;
-    grid-template-columns: minmax(0, 1fr) minmax(0, var(--layout-toc-width))
+    grid-template-columns: minmax(0, 1fr) minmax(0, var(--layout-toc-width));
   }
 }
 
 .post-layout__header,
 .post-layout__toc-bar,
 .post-layout__drawer {
-  @apply text-foreground bg-background/70 backdrop-blur-sm border-b border-border;
+  @apply text-foreground bg-background/70 backdrop-blur-sm;
 }
 
 .post-layout__header {
   & :deep(a) {
     @apply text-foreground;
 
-    &[data-slot="navigation-menu-link"] {
+    &[data-slot='navigation-menu-link'] {
       @apply font-normal;
     }
   }
@@ -419,9 +441,23 @@ watch(() => isLg.value, (value) => value && close())
   }
 }
 
+.post-layout__drawer {
+  & :deep(a) {
+    @apply text-foreground;
+  }
+
+  & #drawer-content__toc nav :deep(a) {
+    @apply px-0 font-normal justify-start;
+  }
+}
+
 .post-layout__toc {
   & h2 {
     @apply text-sm text-muted-foreground;
+  }
+
+  & nav :deep(a) {
+    @apply text-foreground font-normal px-0 justify-start;
   }
 }
 
