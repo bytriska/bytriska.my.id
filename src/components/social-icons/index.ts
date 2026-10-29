@@ -1,1 +1,1 @@
-export { default as GithubIcon } from './guthub-icon.vue'
+export { default as GithubIcon } from './github-icon.vue'
