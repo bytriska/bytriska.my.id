@@ -212,10 +212,10 @@ function scrollToTop() {
       :open="activeDrawerId !== null"
       class="post-layout__drawer [grid-area:drawer] max-lg:layout:[--layout-drawer-height:calc(70dvh-var(--layout-row-4))]! sticky top-(--layout-row-3) z-40"
     >
-      <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
       <CollapsibleContent
-        class="overflow-hidden data-[state=open]:motion-safe:animate-collapsible-down data-[state=closed]:motion-safe:animate-collapsible-up p-4 pt-2 *:w-full *:h-auto *:max-h-(--layout-drawer-height) overflow-y-auto"
+        class="overflow-hidden data-[state=open]:motion-safe:animate-collapsible-down data-[state=closed]:motion-safe:animate-collapsible-up p-4 pt-2"
       >
+        <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
         <div v-if="renderedDrawerId === 'nav'" id="drawer-content__nav">
           <AccordionRoot class="**:data-[slot='accordion-item']:border-none [&_a]:font-normal">
             <AccordionItem>
@@ -443,7 +443,11 @@ function scrollToTop() {
 
 .post-layout__toc-bar {
   & :deep(button) {
-    @apply text-foreground font-normal;
+    @apply text-muted-foreground font-normal;
+
+    &[aria-controls][aria-expanded='true'] {
+      @apply text-foreground;
+    }
   }
 }
 
