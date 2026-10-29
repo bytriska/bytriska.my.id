@@ -109,7 +109,6 @@ watch(
 )
 
 const scroll = useWindowScroll()
-
 function scrollToTop() {
   scroll.y.value = 0
 }
@@ -184,7 +183,7 @@ function scrollToTop() {
       class="post-layout__toc-bar [grid-area:toc-bar] max-lg:layout:[--layout-toc-bar-height:2.5rem]! self-start sticky top-(--layout-row-2) z-40"
     >
       <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
-      <div class="w-full h-(--layout-toc-bar-height) flex items-center gap-2 px-4 mx-auto">
+      <div class="w-full h-(--layout-toc-bar-height) flex items-center gap-4 px-4 mx-auto">
         <Button
           ref="drawer-trigger__toc"
           unstyled
