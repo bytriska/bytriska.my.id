@@ -5,8 +5,10 @@ import { cn } from 'tailwind-variants'
 import { computed } from 'vue'
 import { buttonVariants } from './button.variants'
 
-export interface ButtonProps extends 
-  /** @vue-ignore */ Omit<ButtonHTMLAttributes, 'class' | 'disabled' | 'type'> {
+export interface ButtonProps extends /** @vue-ignore */ Omit<
+  ButtonHTMLAttributes,
+  'class' | 'disabled' | 'type'
+> {
   /** default button attributes */
   class?: ClassValue
   disabled?: boolean
@@ -25,15 +27,17 @@ export interface ButtonProps extends
 <script setup lang="ts">
 const props = defineProps<ButtonProps>()
 
-const classes = computed(() => cn(
-  buttonVariants({
-    variant: props.variant,
-    size: props.size,
-    block: props.block,
-    unstyled: props.unstyled,
-  }),
-  props.class
-))
+const classes = computed(() =>
+  cn(
+    buttonVariants({
+      variant: props.variant,
+      size: props.size,
+      block: props.block,
+      unstyled: props.unstyled,
+    }),
+    props.class
+  )
+)
 </script>
 
 <template>

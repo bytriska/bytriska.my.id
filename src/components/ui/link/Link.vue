@@ -6,9 +6,10 @@ import { computed, reactive, toRef } from 'vue'
 import { useLink } from 'vue-router'
 import { linkVariants } from './link.variants'
 
-export interface LinkProps
-  /* @vue-ignore */
-  extends Omit<AnchorHTMLAttributes, 'class' | 'href' | 'rel' | 'target' | 'aria-current'> {
+export interface LinkProps extends /* @vue-ignore */ Omit<
+  AnchorHTMLAttributes,
+  'class' | 'href' | 'rel' | 'target' | 'aria-current'
+> {
   /** default a attributes */
   class?: ClassValue
   href?: string

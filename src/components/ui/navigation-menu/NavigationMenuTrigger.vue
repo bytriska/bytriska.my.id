@@ -26,9 +26,6 @@ const { trigger, triggerIcon } = navigationMenuVariants()
     :class="cn(trigger(), 'group', props.class)"
   >
     <slot />
-    <ChevronDownIcon
-      aria-hidden="true"
-      :class="triggerIcon()"
-    />
+    <ChevronDownIcon aria-hidden="true" :class="triggerIcon()" />
   </NavigationMenuTrigger>
 </template>

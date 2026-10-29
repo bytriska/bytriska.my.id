@@ -11,27 +11,39 @@
 
 @layer base {
   @media (width < theme(--breakpoint-sm)) {
-    & [data-show]:not([data-show~="base"]) { display: none !important; }
+    & [data-show]:not([data-show~='base']) {
+      display: none !important;
+    }
   }
 
   @media (width >= theme(--breakpoint-sm)) and (width < theme(--breakpoint-md)) {
-    & [data-show]:not([data-show~="sm"]) { display: none !important; }
+    & [data-show]:not([data-show~='sm']) {
+      display: none !important;
+    }
   }
 
   @media (width >= theme(--breakpoint-md)) and (width < theme(--breakpoint-lg)) {
-    & [data-show]:not([data-show~="md"]) { display: none !important; }
+    & [data-show]:not([data-show~='md']) {
+      display: none !important;
+    }
   }
 
   @media (width >= theme(--breakpoint-lg)) and (width < theme(--breakpoint-xl)) {
-    & [data-show]:not([data-show~="lg"]) { display: none !important; }
+    & [data-show]:not([data-show~='lg']) {
+      display: none !important;
+    }
   }
 
   @media (width >= theme(--breakpoint-xl)) and (width < theme(--breakpoint-2xl)) {
-    & [data-show]:not([data-show~="xl"]) { display: none !important; }
+    & [data-show]:not([data-show~='xl']) {
+      display: none !important;
+    }
   }
 
   @media (width >= theme(--breakpoint-2xl)) {
-    & [data-show]:not([data-show~="2xl"]) { display: none !important; }
+    & [data-show]:not([data-show~='2xl']) {
+      display: none !important;
+    }
   }
 
   * {

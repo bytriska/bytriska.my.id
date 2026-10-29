@@ -28,10 +28,7 @@ function toggle() {
     :class="cn('extend-touch-target', props.class)"
     @click="toggle"
   >
-    <ContrastIcon 
-      class="size-4"
-      aria-hidden="true"
-    />
+    <ContrastIcon class="size-4" aria-hidden="true" />
     <span class="sr-only">Toggle theme</span>
   </Button>
 </template>

@@ -7,7 +7,7 @@ const variantStyles = {
   outline: 'cn-button-variant-outline',
   secondary: 'cn-button-variant-secondary',
   ghost: 'cn-button-variant-ghost',
-  destructive: 'cn-button-variant-destructive'
+  destructive: 'cn-button-variant-destructive',
 }
 
 const sizeStyles = {
@@ -25,7 +25,7 @@ function whenStyled(key: 'variant' | 'size', styles: Record<string, string>) {
   return Object.entries(styles).map(([value, cls]) => ({
     [key]: value,
     unstyled: false,
-    class: cls
+    class: cls,
   }))
 }
 
@@ -33,24 +33,35 @@ export const linkVariants = tv({
   base: 'cn-button group/button inline-flex shrink-0 items-center justify-center align-middle whitespace-nowrap transition-all outline-none select-none aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0',
   variants: {
     variant: {
-      default: '', solid: '', outline: '', secondary: '', ghost: '', destructive: ''
+      default: '',
+      solid: '',
+      outline: '',
+      secondary: '',
+      ghost: '',
+      destructive: '',
     },
     size: {
-      default: '', xs: '', sm: '', lg: '',
-      icon: '', 'icon-xs': '', 'icon-sm': '', 'icon-lg': ''
+      default: '',
+      xs: '',
+      sm: '',
+      lg: '',
+      icon: '',
+      'icon-xs': '',
+      'icon-sm': '',
+      'icon-lg': '',
     },
     block: {
       true: 'w-full',
-      false: ''
+      false: '',
     },
     unstyled: {
       true: '',
-      false: ''
-    }
+      false: '',
+    },
   },
   compoundVariants: [
     ...whenStyled('variant', variantStyles),
-    ...whenStyled('size', sizeStyles)
+    ...whenStyled('size', sizeStyles),
   ] as any,
   defaultVariants: {
     variant: 'default',
@@ -58,4 +69,4 @@ export const linkVariants = tv({
   },
 })
 
-export interface LinkVariantProps extends VariantProps<typeof linkVariants> { }
+export interface LinkVariantProps extends VariantProps<typeof linkVariants> {}
