@@ -116,6 +116,14 @@ function scrollToTop() {
 
 <template>
   <div data-slot="layout-root" class="post-layout__root root:[--scroll-padding-top:var(--layout-row-4)]">
+    <Link
+      href="#main-content"
+      variant="outline"
+      class="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-50"
+    >
+      Skip to main content
+  </Link>
+
     <div
       v-if="$slots.announcement"
       class="post-layout__announcement [grid-area:announcement] sticky top-0 z-40"
@@ -307,6 +315,7 @@ function scrollToTop() {
     </CollapsibleRoot>
 
     <main
+      id="main-content"
       class="post-layout__main [grid-area:main] layout:[--layout-container-width:var(--container-5xl)]! layout:[--layout-content-width:var(--container-2xl)]! size-full min-w-0 py-12 sm:py-16 overflow-x-clip"
     >
       <article class="max-w-(--layout-content-width) px-4 mx-auto">
