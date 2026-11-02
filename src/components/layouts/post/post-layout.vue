@@ -209,12 +209,13 @@ function scrollToTop() {
       data-drawer-region
       data-show="base sm md"
       :open="activeDrawerId !== null"
-      class="post-layout__drawer [grid-area:drawer] max-lg:layout:[--layout-drawer-height:calc(70dvh-var(--layout-row-4))]! sticky top-(--layout-row-3) z-40"
+      class="post-layout__drawer [grid-area:drawer] max-lg:layout:[--layout-drawer-height:calc(70dvh-var(--layout-row-3))]! sticky top-(--layout-row-3) z-40"
     >
       <CollapsibleContent
-        class="overflow-hidden data-[state=open]:motion-safe:animate-collapsible-down data-[state=closed]:motion-safe:animate-collapsible-up p-4 pt-2"
+        class="overflow-hidden data-[state=open]:motion-safe:animate-collapsible-down data-[state=closed]:motion-safe:animate-collapsible-up"
       >
         <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
+        <div class="max-h-(--layout-drawer-height) overflow-y-auto overscroll-contain p-4 pt-2">
         <div v-if="renderedDrawerId === 'nav'" id="drawer-content__nav">
           <AccordionRoot class="**:data-[slot='accordion-item']:border-none [&_a]:font-normal">
             <AccordionItem>
@@ -300,6 +301,7 @@ function scrollToTop() {
               </li>
             </ul>
           </nav>
+        </div>
         </div>
       </CollapsibleContent>
     </CollapsibleRoot>
