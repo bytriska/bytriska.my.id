@@ -334,7 +334,7 @@ function scrollToTop() {
           <TextAlignStartIcon aria-hidden="true" />
           <span>On this page</span>
         </h2>
-        <nav aria-labeledby="toc__title">
+        <nav aria-labelledby="toc__title">
           <ul class="flex flex-col list-none mt-6">
             <li>
               <Link href="#" block> Heading 1 </Link>
