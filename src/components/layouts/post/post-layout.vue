@@ -56,6 +56,7 @@ watch(
   }
 )
 
+const contentTitle = useTemplateRef('content-title')
 const layoutDrawer = useTemplateRef('drawer')
 const drawerTriggerNav = useTemplateRef('drawer-trigger__nav')
 const drawerTriggerToc = useTemplateRef('drawer-trigger__toc')
@@ -95,6 +96,15 @@ const route = useRoute()
 watch(
   () => route.fullPath,
   () => close()
+)
+watch(
+  () => route.path,
+  () => {
+    nextTick(() => {
+      const contentTitleEl = unrefElement(contentTitle)
+      contentTitleEl?.focus({ preventScroll: true })
+    })
+  }
 )
 
 const isSm = useMediaQuery('(width >= 40rem)')
@@ -322,7 +332,11 @@ function scrollToTop() {
       <article class="max-w-(--layout-content-width) px-4 mx-auto">
         <header class="mb-6">
           <div class="flex items-baseline justify-between gap-4 mb-4">
-            <h1 class="text-3xl sm:text-4xl font-semibold">
+            <h1
+              ref="content-title"
+              tabindex="-1"
+              class="text-3xl sm:text-4xl font-semibold"
+            >
               {{ $props.title }}
             </h1>
           </div>
