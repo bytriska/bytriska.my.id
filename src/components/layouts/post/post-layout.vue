@@ -201,7 +201,7 @@ function scrollToTop() {
       class="post-layout__toc-bar [grid-area:toc-bar] max-lg:layout:[--layout-toc-bar-height:2.5rem]! self-start sticky top-(--layout-row-2) z-40"
     >
       <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
-      <div class="w-full h-(--layout-toc-bar-height) flex items-center gap-4 px-4 mx-auto">
+      <div class="w-full min-h-(--layout-toc-bar-height) flex items-center gap-4 px-4 mx-auto">
         <Button
           ref="drawer-trigger__toc"
           unstyled
@@ -228,7 +228,7 @@ function scrollToTop() {
       data-drawer-region
       data-show="base sm md"
       :open="activeDrawerId !== null"
-      class="post-layout__drawer [grid-area:drawer] max-lg:layout:[--layout-drawer-height:calc(70dvh-var(--layout-row-3))]! sticky top-(--layout-row-3) z-40"
+      class="post-layout__drawer [grid-area:drawer] max-lg:data-[state=open]:layout:[--layout-drawer-height:calc(70dvh-var(--layout-row-3))]! sticky top-(--layout-row-3) z-40"
     >
       <CollapsibleContent
         class="overflow-hidden data-[state=open]:motion-safe:animate-collapsible-down data-[state=closed]:motion-safe:animate-collapsible-up"
