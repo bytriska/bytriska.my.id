@@ -146,7 +146,7 @@ function scrollToTop() {
     >
       <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
       <div
-        class="w-full h-(--layout-header-height) max-w-(--container-max-width) flex items-center gap-4 px-4 mx-auto"
+        class="w-full min-h-(--layout-header-height) max-w-(--container-max-width) flex items-center gap-4 px-4 mx-auto"
       >
         <Link href="/" class="text-base gap-2" unstyled>
           <HatGlassesIcon aria-hidden="true" class="size-4.5" />
