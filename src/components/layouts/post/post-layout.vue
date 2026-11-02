@@ -203,7 +203,8 @@ function scrollToTop() {
           @click="toggle('toc')"
         >
           <TextAlignStartIcon aria-hidden="true" />
-          <span class="truncate">Example placeholder table of content</span>
+          <span class="truncate" aria-hidden="true">Example placeholder table of content</span>
+          <span class="sr-only">On this page</span>
         </Button>
         <Button unstyled data-icon="inline-end" class="flex-none gap-2" @click="scrollToTop">
           <span>Back to top</span>
