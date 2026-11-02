@@ -115,7 +115,7 @@ function scrollToTop() {
 </script>
 
 <template>
-  <div data-slot="layout-root" class="post-layout__root">
+  <div data-slot="layout-root" class="post-layout__root root:[--scroll-padding-top:var(--layout-row-4)]">
     <div
       v-if="$slots.announcement"
       class="post-layout__announcement [grid-area:announcement] sticky top-0 z-40"
