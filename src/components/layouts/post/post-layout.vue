@@ -14,16 +14,9 @@ import { nextTick, ref, useTemplateRef, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import ModeSwitcher from '@/components/ModeSwitcher.vue'
 import { GithubIcon } from '@/components/social-icons'
-import { AccordionItem, AccordionRoot } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { CollapsibleContent, CollapsibleRoot } from '@/components/ui/collapsible'
 import { Link } from '@/components/ui/link'
-import {
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuRoot,
-} from '@/components/ui/navigation-menu'
 
 export interface PostLayoutProps {
   title?: string
@@ -125,14 +118,17 @@ function scrollToTop() {
 </script>
 
 <template>
-  <div data-slot="layout-root" class="post-layout__root root:[--scroll-padding-top:var(--layout-row-4)]">
+  <div
+    data-slot="layout-root"
+    class="post-layout__root root:[--scroll-padding-top:var(--layout-row-4)]"
+  >
     <Link
       href="#main-content"
       variant="outline"
       class="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-50"
     >
       Skip to main content
-  </Link>
+    </Link>
 
     <div
       v-if="$slots.announcement"
@@ -153,22 +149,22 @@ function scrollToTop() {
           <span>bytriska</span>
         </Link>
 
-        <NavigationMenuRoot aria-label="Main" data-show="sm md lg xl">
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuLink :as="Link" href="/example-home"> Home </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink :as="Link" href="/example-post"> Posts </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink :as="Link" href="#"> Projects </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink :as="Link" href="#"> Sponsor </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenuRoot>
+        <nav aria-label="Main" data-show="sm md lg xl">
+          <ul class="flex items-center list-none">
+            <li>
+              <Link href="/example-home"> Home </Link>
+            </li>
+            <li>
+              <Link href="/example-post"> Posts </Link>
+            </li>
+            <li>
+              <Link href="#"> Projects </Link>
+            </li>
+            <li>
+              <Link href="#"> Sponsor </Link>
+            </li>
+          </ul>
+        </nav>
 
         <div class="flex items-center gap-4 ms-auto">
           <ModeSwitcher data-show="sm md lg xl" unstyled />
@@ -235,92 +231,72 @@ function scrollToTop() {
       >
         <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
         <div class="max-h-(--layout-drawer-height) overflow-y-auto overscroll-contain p-4 pt-2">
-        <div v-if="renderedDrawerId === 'nav'" id="drawer-content__nav">
-          <AccordionRoot class="**:data-[slot='accordion-item']:border-none [&_a]:font-normal">
-            <AccordionItem>
-              <Link
-                block
-                size="lg"
-                href="/example-home"
-                data-icon="inline-start"
-                class="px-0 gap-2 justify-start no-underline"
+          <div v-if="renderedDrawerId === 'nav'" id="drawer-content__nav">
+            <nav aria-label="Main">
+              <ul
+                class="flex flex-col list-none [&_a]:font-normal [&_a]:px-0 [&_a]:gap-2 [&_a]:justify-start"
               >
-                <LayoutGridCirclesIcon aria-hidden="true" />
-                <span>Home</span>
-              </Link>
-            </AccordionItem>
-            <AccordionItem>
-              <Link
-                block
-                size="lg"
-                href="/example-post"
-                data-icon="inline-start"
-                class="px-0 gap-2 justify-start no-underline"
-              >
-                <NewspaperIcon aria-hidden="true" />
-                <span>Posts</span>
-              </Link>
-            </AccordionItem>
-            <AccordionItem>
-              <Link
-                block
-                size="lg"
-                href="#"
-                data-icon="inline-start"
-                class="px-0 gap-2 justify-start no-underline"
-              >
-                <FolderGit2Icon aria-hidden="true" />
-                <span>Projects</span>
-              </Link>
-            </AccordionItem>
-            <AccordionItem>
-              <Link
-                block
-                size="lg"
-                href="#"
-                data-icon="inline-start"
-                class="px-0 gap-2 justify-start no-underline"
-              >
-                <HeartIcon aria-hidden="true" />
-                <span>Sponsor</span>
-              </Link>
-            </AccordionItem>
-          </AccordionRoot>
+                <li>
+                  <Link block size="lg" href="/example-home" data-icon="inline-start">
+                    <LayoutGridCirclesIcon aria-hidden="true" />
+                    <span>Home</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link block size="lg" href="/example-post" data-icon="inline-start">
+                    <NewspaperIcon aria-hidden="true" />
+                    <span>Posts</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link block size="lg" href="#" data-icon="inline-start">
+                    <FolderGit2Icon aria-hidden="true" />
+                    <span>Projects</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link block size="lg" href="#" data-icon="inline-start">
+                    <HeartIcon aria-hidden="true" />
+                    <span>Sponsor</span>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
 
-          <div class="flex items-center gap-4 mt-4 *:nth-2:ms-auto">
-            <Link href="https://github.com/bytriska" unstyled>
-              <GithubIcon aria-hidden="true" />
-              <span class="sr-only">Github (open in new tab)</span>
-            </Link>
-            <ModeSwitcher unstyled />
+            <div class="flex items-center gap-4 mt-4 *:nth-2:ms-auto">
+              <Link href="https://github.com/bytriska" unstyled>
+                <GithubIcon aria-hidden="true" />
+                <span class="sr-only">Github (open in new tab)</span>
+              </Link>
+              <ModeSwitcher unstyled />
+            </div>
           </div>
-        </div>
-        <div v-if="renderedDrawerId === 'toc'" id="drawer-content__toc">
-          <nav aria-label="On this page">
-            <ul class="flex flex-col list-none">
-              <li>
-                <Link href="#" block> Heading 1 </Link>
-              </li>
-              <li>
-                <Link href="#" block> Heading 2 </Link>
-                <ul class="flex flex-col list-none ms-4">
-                  <li>
-                    <Link href="#" block> Heading 2.1 </Link>
-                  </li>
-                  <li>
-                    <Link href="#" block> Heading 2.2 </Link>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <Link href="#" block> Heading 3 </Link>
-              </li>
-              <li>
-                <Link href="#" block> Heading 4 </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
+          <div v-if="renderedDrawerId === 'toc'" id="drawer-content__toc">
+            <nav aria-label="On this page">
+              <ul class="flex flex-col list-none">
+                <li>
+                  <Link href="#" block> Heading 1 </Link>
+                </li>
+                <li>
+                  <Link href="#" block> Heading 2 </Link>
+                  <ul class="flex flex-col list-none ms-4">
+                    <li>
+                      <Link href="#" block> Heading 2.1 </Link>
+                    </li>
+                    <li>
+                      <Link href="#" block> Heading 2.2 </Link>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <Link href="#" block> Heading 3 </Link>
+                </li>
+                <li>
+                  <Link href="#" block> Heading 4 </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </CollapsibleContent>
     </CollapsibleRoot>
@@ -332,11 +308,7 @@ function scrollToTop() {
       <article class="max-w-(--layout-content-width) px-4 mx-auto">
         <header class="mb-6">
           <div class="flex items-baseline justify-between gap-4 mb-4">
-            <h1
-              ref="content-title"
-              tabindex="-1"
-              class="text-3xl sm:text-4xl font-semibold"
-            >
+            <h1 ref="content-title" tabindex="-1" class="text-3xl sm:text-4xl font-semibold">
               {{ $props.title }}
             </h1>
           </div>
