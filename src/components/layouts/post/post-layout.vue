@@ -14,16 +14,9 @@ import { nextTick, ref, useTemplateRef, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import ModeSwitcher from '@/components/ModeSwitcher.vue'
 import { GithubIcon } from '@/components/social-icons'
-import { AccordionItem, AccordionRoot } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { CollapsibleContent, CollapsibleRoot } from '@/components/ui/collapsible'
 import { Link } from '@/components/ui/link'
-import {
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuRoot,
-} from '@/components/ui/navigation-menu'
 
 export interface PostLayoutProps {
   title?: string
@@ -56,6 +49,7 @@ watch(
   }
 )
 
+const contentTitle = useTemplateRef('content-title')
 const layoutDrawer = useTemplateRef('drawer')
 const drawerTriggerNav = useTemplateRef('drawer-trigger__nav')
 const drawerTriggerToc = useTemplateRef('drawer-trigger__toc')
@@ -96,6 +90,15 @@ watch(
   () => route.fullPath,
   () => close()
 )
+watch(
+  () => route.path,
+  () => {
+    nextTick(() => {
+      const contentTitleEl = unrefElement(contentTitle)
+      contentTitleEl?.focus({ preventScroll: true })
+    })
+  }
+)
 
 const isSm = useMediaQuery('(width >= 40rem)')
 watch(
@@ -115,7 +118,18 @@ function scrollToTop() {
 </script>
 
 <template>
-  <div data-slot="layout-root" class="post-layout__root">
+  <div
+    data-slot="layout-root"
+    class="post-layout__root root:[--scroll-padding-top:var(--layout-row-4)]"
+  >
+    <Link
+      href="#main-content"
+      variant="outline"
+      class="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-50"
+    >
+      Skip to main content
+    </Link>
+
     <div
       v-if="$slots.announcement"
       class="post-layout__announcement [grid-area:announcement] sticky top-0 z-40"
@@ -128,29 +142,29 @@ function scrollToTop() {
     >
       <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
       <div
-        class="w-full h-(--layout-header-height) max-w-(--container-max-width) flex items-center gap-4 px-4 mx-auto"
+        class="w-full min-h-(--layout-header-height) max-w-(--container-max-width) flex items-center gap-4 px-4 mx-auto"
       >
         <Link href="/" class="text-base gap-2" unstyled>
           <HatGlassesIcon aria-hidden="true" class="size-4.5" />
           <span>bytriska</span>
         </Link>
 
-        <NavigationMenuRoot aria-label="Main" data-show="sm md lg xl">
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuLink :as="Link" href="/example-home"> Home </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink :as="Link" href="/example-post"> Posts </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink :as="Link" href="#"> Projects </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink :as="Link" href="#"> Sponsor </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenuRoot>
+        <nav aria-label="Main" data-show="sm md lg xl">
+          <ul class="flex items-center list-none">
+            <li>
+              <Link href="/example-home"> Home </Link>
+            </li>
+            <li>
+              <Link href="/example-post"> Posts </Link>
+            </li>
+            <li>
+              <Link href="#"> Projects </Link>
+            </li>
+            <li>
+              <Link href="#"> Sponsor </Link>
+            </li>
+          </ul>
+        </nav>
 
         <div class="flex items-center gap-4 ms-auto">
           <ModeSwitcher data-show="sm md lg xl" unstyled />
@@ -183,7 +197,7 @@ function scrollToTop() {
       class="post-layout__toc-bar [grid-area:toc-bar] max-lg:layout:[--layout-toc-bar-height:2.5rem]! self-start sticky top-(--layout-row-2) z-40"
     >
       <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
-      <div class="w-full h-(--layout-toc-bar-height) flex items-center gap-4 px-4 mx-auto">
+      <div class="w-full min-h-(--layout-toc-bar-height) flex items-center gap-4 px-4 mx-auto">
         <Button
           ref="drawer-trigger__toc"
           unstyled
@@ -195,7 +209,8 @@ function scrollToTop() {
           @click="toggle('toc')"
         >
           <TextAlignStartIcon aria-hidden="true" />
-          <span class="truncate">Example placeholder table of content</span>
+          <span class="truncate" aria-hidden="true">Example placeholder table of content</span>
+          <span class="sr-only">On this page</span>
         </Button>
         <Button unstyled data-icon="inline-end" class="flex-none gap-2" @click="scrollToTop">
           <span>Back to top</span>
@@ -209,108 +224,93 @@ function scrollToTop() {
       data-drawer-region
       data-show="base sm md"
       :open="activeDrawerId !== null"
-      class="post-layout__drawer [grid-area:drawer] max-lg:layout:[--layout-drawer-height:calc(70dvh-var(--layout-row-4))]! sticky top-(--layout-row-3) z-40"
+      class="post-layout__drawer [grid-area:drawer] sticky top-(--layout-row-3) z-40"
     >
       <CollapsibleContent
-        class="overflow-hidden data-[state=open]:motion-safe:animate-collapsible-down data-[state=closed]:motion-safe:animate-collapsible-up p-4 pt-2"
+        class="overflow-hidden data-[state=open]:motion-safe:animate-collapsible-down data-[state=closed]:motion-safe:animate-collapsible-up"
       >
         <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
-        <div v-if="renderedDrawerId === 'nav'" id="drawer-content__nav">
-          <AccordionRoot class="**:data-[slot='accordion-item']:border-none [&_a]:font-normal">
-            <AccordionItem>
-              <Link
-                block
-                size="lg"
-                href="/example-home"
-                data-icon="inline-start"
-                class="px-0 gap-2 justify-start no-underline"
+        <div
+          class="max-h-[calc(70dvh-var(--layout-row-3))] overflow-y-auto overscroll-contain p-4 pt-2"
+        >
+          <div v-if="renderedDrawerId === 'nav'" id="drawer-content__nav">
+            <nav aria-label="Main">
+              <ul
+                class="flex flex-col list-none [&_a]:font-normal [&_a]:px-0 [&_a]:gap-2 [&_a]:justify-start"
               >
-                <LayoutGridCirclesIcon aria-hidden="true" />
-                <span>Home</span>
-              </Link>
-            </AccordionItem>
-            <AccordionItem>
-              <Link
-                block
-                size="lg"
-                href="/example-post"
-                data-icon="inline-start"
-                class="px-0 gap-2 justify-start no-underline"
-              >
-                <NewspaperIcon aria-hidden="true" />
-                <span>Posts</span>
-              </Link>
-            </AccordionItem>
-            <AccordionItem>
-              <Link
-                block
-                size="lg"
-                href="#"
-                data-icon="inline-start"
-                class="px-0 gap-2 justify-start no-underline"
-              >
-                <FolderGit2Icon aria-hidden="true" />
-                <span>Projects</span>
-              </Link>
-            </AccordionItem>
-            <AccordionItem>
-              <Link
-                block
-                size="lg"
-                href="#"
-                data-icon="inline-start"
-                class="px-0 gap-2 justify-start no-underline"
-              >
-                <HeartIcon aria-hidden="true" />
-                <span>Sponsor</span>
-              </Link>
-            </AccordionItem>
-          </AccordionRoot>
+                <li>
+                  <Link block size="lg" href="/example-home" data-icon="inline-start">
+                    <LayoutGridCirclesIcon aria-hidden="true" />
+                    <span>Home</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link block size="lg" href="/example-post" data-icon="inline-start">
+                    <NewspaperIcon aria-hidden="true" />
+                    <span>Posts</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link block size="lg" href="#" data-icon="inline-start">
+                    <FolderGit2Icon aria-hidden="true" />
+                    <span>Projects</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link block size="lg" href="#" data-icon="inline-start">
+                    <HeartIcon aria-hidden="true" />
+                    <span>Sponsor</span>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
 
-          <div class="flex items-center gap-4 mt-4 *:nth-2:ms-auto">
-            <Link href="https://github.com/bytriska" unstyled>
-              <GithubIcon aria-hidden="true" />
-              <span class="sr-only">Github (open in new tab)</span>
-            </Link>
-            <ModeSwitcher unstyled />
+            <div class="flex items-center gap-4 mt-4 *:nth-2:ms-auto">
+              <Link href="https://github.com/bytriska" unstyled>
+                <GithubIcon aria-hidden="true" />
+                <span class="sr-only">Github (open in new tab)</span>
+              </Link>
+              <ModeSwitcher unstyled />
+            </div>
           </div>
-        </div>
-        <div v-if="renderedDrawerId === 'toc'" id="drawer-content__toc">
-          <nav aria-label="On this page">
-            <ul class="flex flex-col list-none">
-              <li>
-                <Link href="#" block> Heading 1 </Link>
-              </li>
-              <li>
-                <Link href="#" block> Heading 2 </Link>
-                <ul class="flex flex-col list-none ms-4">
-                  <li>
-                    <Link href="#" block> Heading 2.1 </Link>
-                  </li>
-                  <li>
-                    <Link href="#" block> Heading 2.2 </Link>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <Link href="#" block> Heading 3 </Link>
-              </li>
-              <li>
-                <Link href="#" block> Heading 4 </Link>
-              </li>
-            </ul>
-          </nav>
+          <div v-if="renderedDrawerId === 'toc'" id="drawer-content__toc">
+            <nav aria-label="On this page">
+              <ul class="flex flex-col list-none">
+                <li>
+                  <Link href="#" block> Heading 1 </Link>
+                </li>
+                <li>
+                  <Link href="#" block> Heading 2 </Link>
+                  <ul class="flex flex-col list-none ms-4">
+                    <li>
+                      <Link href="#" block> Heading 2.1 </Link>
+                    </li>
+                    <li>
+                      <Link href="#" block> Heading 2.2 </Link>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <Link href="#" block> Heading 3 </Link>
+                </li>
+                <li>
+                  <Link href="#" block> Heading 4 </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </CollapsibleContent>
     </CollapsibleRoot>
 
     <main
+      id="main-content"
       class="post-layout__main [grid-area:main] layout:[--layout-container-width:var(--container-5xl)]! layout:[--layout-content-width:var(--container-2xl)]! size-full min-w-0 py-12 sm:py-16 overflow-x-clip"
     >
       <article class="max-w-(--layout-content-width) px-4 mx-auto">
         <header class="mb-6">
           <div class="flex items-baseline justify-between gap-4 mb-4">
-            <h1 class="text-3xl sm:text-4xl font-semibold">
+            <h1 ref="content-title" tabindex="-1" class="text-3xl sm:text-4xl font-semibold">
               {{ $props.title }}
             </h1>
           </div>
@@ -334,7 +334,7 @@ function scrollToTop() {
           <TextAlignStartIcon aria-hidden="true" />
           <span>On this page</span>
         </h2>
-        <nav aria-labeledby="toc__title">
+        <nav aria-labelledby="toc__title">
           <ul class="flex flex-col list-none mt-6">
             <li>
               <Link href="#" block> Heading 1 </Link>

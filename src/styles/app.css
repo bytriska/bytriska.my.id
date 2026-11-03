@@ -7,9 +7,28 @@
 @import './ui.css' layer(base);
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant root (:root:has(&));
 @custom-variant layout ([data-slot="layout-root"]:has(&));
 
+:root {
+  --scroll-padding-top: 0px;
+}
+
 @layer base {
+  * {
+    border-color: var(--border);
+    outline-color: --alpha(var(--ring) / 50%);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  html {
+    scroll-padding-top: calc(var(--scroll-padding-top) + 0.5rem);
+  }
+
   @media (width < theme(--breakpoint-sm)) {
     & [data-show]:not([data-show~='base']) {
       display: none !important;
@@ -44,13 +63,5 @@
     & [data-show]:not([data-show~='2xl']) {
       display: none !important;
     }
-  }
-
-  * {
-    @apply border-border outline-ring/50;
-  }
-
-  body {
-    @apply bg-background text-foreground;
   }
 }
