@@ -200,7 +200,7 @@ function scrollToTop() {
           :aria-expanded="activeDrawerId === 'toc' ? 'true' : 'false'"
           class="flex-1 min-w-0 justify-start"
           :class="{
-            'text-foreground': activeDrawerId === 'toc',
+            'text-foreground!': activeDrawerId === 'toc',
           }"
           @click="toggle('toc')"
         >
@@ -270,7 +270,7 @@ function scrollToTop() {
               </div>
             </div>
 
-            <div v-if="renderedDrawerId === 'toc'" id="drawer-content__toc">
+            <div v-if="renderedDrawerId === 'toc'">
               <nav aria-label="On this page">
                 <ul
                   class="flex flex-col list-none [&_a]:font-normal [&_a]:text-foreground [&_a]:justify-start [&_a]:px-0"
