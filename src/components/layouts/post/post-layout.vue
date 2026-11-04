@@ -118,10 +118,7 @@ function scrollToTop() {
 </script>
 
 <template>
-  <div
-    data-slot="layout-root"
-    class="post-layout__root root:[--scroll-padding-top:var(--layout-row-4)]"
-  >
+  <div data-slot="layout-root" class="post-layout__root">
     <Link
       href="#main-content"
       variant="outline"
@@ -130,19 +127,15 @@ function scrollToTop() {
       Skip to main content
     </Link>
 
-    <div
-      v-if="$slots.announcement"
-      class="post-layout__announcement [grid-area:announcement] sticky top-0 z-40"
-    >
+    <div v-if="$slots.announcement" class="post-layout__announcement">
       <slot name="announcement" />
     </div>
 
     <header
-      class="post-layout__header [grid-area:header] layout:[--container-max-width:var(--container-5xl)]! layout:[--layout-header-height:3.5rem]! self-start sticky top-(--layout-row-1) z-40"
+      class="post-layout__header root:[--layout-container-width:var(--container-5xl)]! root:[--header-navbar-height:3.5rem]! root:[--header-tocbar-height:2.5rem]!"
     >
-      <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
       <div
-        class="w-full min-h-(--layout-header-height) max-w-(--container-max-width) flex items-center gap-4 px-4 mx-auto"
+        class="w-full min-h-(--header-navbar-height) max-w-(--layout-container-width) flex items-center gap-4 px-4 mx-auto"
       >
         <Link href="/" class="text-base gap-2" unstyled>
           <HatGlassesIcon aria-hidden="true" class="size-4.5" />
@@ -177,7 +170,7 @@ function scrollToTop() {
             unstyled
             data-drawer-region
             data-show="base"
-            aria-controls="drawer-content__nav"
+            aria-controls="header-drawer__content"
             :aria-expanded="activeDrawerId === 'nav' ? 'true' : 'false'"
             class="group"
             @click="toggle('nav')"
@@ -190,20 +183,19 @@ function scrollToTop() {
           </Button>
         </div>
       </div>
-    </header>
 
-    <div
-      data-show="base sm md"
-      class="post-layout__toc-bar [grid-area:toc-bar] max-lg:layout:[--layout-toc-bar-height:2.5rem]! self-start sticky top-(--layout-row-2) z-40"
-    >
-      <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
-      <div class="w-full min-h-(--layout-toc-bar-height) flex items-center gap-4 px-4 mx-auto">
+      <div class="absolute bottom-0 inset-x-1 h-px bg-border" />
+
+      <div
+        data-show="base sm md"
+        class="w-full min-h-(--header-tocbar-height) max-w-(--layout-container-width) flex items-center gap-4 px-4 mx-auto"
+      >
         <Button
           ref="drawer-trigger__toc"
           unstyled
           data-drawer-region
           data-icon="inline-start"
-          aria-controls="drawer-content__toc"
+          aria-controls="header-drawer__content"
           :aria-expanded="activeDrawerId === 'toc' ? 'true' : 'false'"
           class="flex-1 min-w-0 justify-start gap-2"
           @click="toggle('toc')"
@@ -217,23 +209,23 @@ function scrollToTop() {
           <CircleArrowUpIcon aria-hidden="true" />
         </Button>
       </div>
-    </div>
 
     <CollapsibleRoot
       ref="drawer"
       data-drawer-region
       data-show="base sm md"
       :open="activeDrawerId !== null"
-      class="post-layout__drawer [grid-area:drawer] sticky top-(--layout-row-3) z-40"
     >
       <CollapsibleContent
-        class="overflow-hidden data-[state=open]:motion-safe:animate-collapsible-down data-[state=closed]:motion-safe:animate-collapsible-up"
+        id="header-drawer__content"
+        class="overflow-hidden motion-safe:data-[state=open]:animate-collapsible-down motion-safe:data-[state=closed]:animate-collapsible-up"
       >
-        <div class="absolute bottom-0 inset-x-0 h-px bg-border" />
+        <div class="absolute bottom-0 inset-x-1 h-px bg-border" />
+
         <div
-          class="max-h-[calc(70dvh-var(--layout-row-3))] overflow-y-auto overscroll-contain p-4 pt-2"
+          class="max-h-[calc(70dvh-var(--layout-row-2))] overflow-y-auto overscroll-contain p-4 pt-2"
         >
-          <div v-if="renderedDrawerId === 'nav'" id="drawer-content__nav">
+          <div v-if="renderedDrawerId === 'nav'">
             <nav aria-label="Main">
               <ul
                 class="flex flex-col list-none [&_a]:font-normal [&_a]:px-0 [&_a]:gap-2 [&_a]:justify-start"
@@ -273,6 +265,7 @@ function scrollToTop() {
               <ModeSwitcher unstyled />
             </div>
           </div>
+          
           <div v-if="renderedDrawerId === 'toc'" id="drawer-content__toc">
             <nav aria-label="On this page">
               <ul class="flex flex-col list-none">
@@ -302,12 +295,13 @@ function scrollToTop() {
         </div>
       </CollapsibleContent>
     </CollapsibleRoot>
+  </header>
 
     <main
       id="main-content"
-      class="post-layout__main [grid-area:main] layout:[--layout-container-width:var(--container-5xl)]! layout:[--layout-content-width:var(--container-2xl)]! size-full min-w-0 py-12 sm:py-16 overflow-x-clip"
+      class="post-layout__main root:[--layout-container-width:var(--container-5xl)]! root:[--main-content-width:var(--container-2xl)]! lg:layout:[--main-toc-width:268px]!"
     >
-      <article class="max-w-(--layout-content-width) px-4 mx-auto">
+      <article class="px-4 py-12 lg:py-16 mx-auto">
         <header class="mb-6">
           <div class="flex items-baseline justify-between gap-4 mb-4">
             <h1 ref="content-title" tabindex="-1" class="text-3xl sm:text-4xl font-semibold">
@@ -321,15 +315,9 @@ function scrollToTop() {
 
         <slot />
       </article>
-    </main>
 
-    <aside
-      data-show="lg xl"
-      class="post-layout__toc [grid-area:toc] lg:layout:[--layout-toc-width:268px]!"
-    >
-      <div
-        class="sticky top-(--layout-row-4) w-(--layout-toc-width) h-[calc(100dvh-var(--layout-row-4))] overflow-y-auto py-16 pe-4"
-      >
+    <aside data-show="lg xl">
+      <div class="main-toc__inner py-16 pe-4">
         <h2 id="toc__title" class="inline-flex items-center gap-2 [&_svg]:size-4">
           <TextAlignStartIcon aria-hidden="true" />
           <span>On this page</span>
@@ -360,10 +348,9 @@ function scrollToTop() {
         </nav>
       </div>
     </aside>
+    </main>
 
-    <footer
-      class="post-layout__footer [grid-area:footer] layout:[--layout-container-width:var(--container-5xl)]!"
-    >
+    <footer class="post-layout__footer root:[--layout-container-width:var(--container-5xl)]!">
       <div class="w-full max-w-(--layout-container-width) p-4 mx-auto">
         <p>&copy; 2026 bytriska. All rights reserved.</p>
       </div>
@@ -373,6 +360,66 @@ function scrollToTop() {
 
 <style scoped>
 @reference "@/styles/app.css";
+
+:root {
+  --header-navbar-height: 0px;
+  --header-tocbar-height: 0px;
+  --header-drawer-height: 0px;
+
+  --main-content-width: 0px;
+  --main-toc-width: 0px;
+
+  --layout-announcement-height: 0px;
+  --layout-header-height: calc(var(--header-navbar-height) + var(--header-tocbar-height) + var(--header-drawer-height));
+
+  --layout-container-width: 0px;
+
+  --layout-row-1: var(--layout-announcement-height);
+  --layout-row-2: calc(var(--layout-row-1) + var(--layout-header-height));
+
+  /* override root var */
+  --scroll-padding-top: var(--layout-row-2);
+}
+
+.post-layout__root {
+  display: grid;
+  min-height: 100dvh;
+  overflow-x: clip;
+
+  grid-template-rows: minmax(var(--layout-announcement-height), auto) minmax(var(--layout-header-height), auto) 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.post-layout__announcement,
+.post-layout__header {
+  position: sticky;
+  z-index: 30;
+}
+
+.post-layout__announcement { top: 0px; }
+.post-layout__header { top: var(--layout-row-1); }
+
+.post-layout__main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+
+  @media (width >= 64rem) {
+    grid-template-columns: minmax(0, min(1fr, var(--main-content-width))) minmax(0, var(--main-toc-width))
+  }
+
+  .main-toc__inner {
+    position: sticky;
+    top: calc(var(--layout-row-2) + 1rem);
+    max-height: calc(100dvh - var(--layout-row-2) - 2rem);
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+  }
+}
+
+.post-layout__footer {}
 
 .post-layout__root {
   --layout-announcement-height: 0px;
