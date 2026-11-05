@@ -1,13 +1,11 @@
 <script lang="ts">
 import {
   ChevronDownIcon,
-  CircleArrowUpIcon,
   FolderGit2Icon,
   HatGlassesIcon,
   HeartIcon,
   LayoutGridCirclesIcon,
   NewspaperIcon,
-  TextAlignStartIcon,
 } from '@lucide/vue'
 import { unrefElement, useEventListener, useMediaQuery } from '@vueuse/core'
 import { nextTick, ref, useTemplateRef, watch } from 'vue'
@@ -40,10 +38,11 @@ const drawerTrigger = useTemplateRef('header-navbar__drawer-trigger')
 const openDrawer = ref<boolean>(false)
 watch(
   () => openDrawer.value,
-  () => nextTick(() => {
-    const drawerEl = unrefElement(headerDrawer)
-    drawerEl?.querySelector('a, button')?.focus()
-  })
+  () =>
+    nextTick(() => {
+      const drawerEl = unrefElement(headerDrawer)
+      drawerEl?.querySelector('a, button')?.focus()
+    })
 )
 
 function inRegion(node: EventTarget | null) {
@@ -55,10 +54,10 @@ function toggle() {
 }
 
 function close(shouldReturnFocus: boolean = false) {
-  if(!openDrawer.value) return
+  if (!openDrawer.value) return
   openDrawer.value = false
 
-  if(shouldReturnFocus) {
+  if (shouldReturnFocus) {
     nextTick(() => {
       const triggerEl = unrefElement(drawerTrigger)
       triggerEl?.focus()
@@ -66,33 +65,34 @@ function close(shouldReturnFocus: boolean = false) {
   }
 }
 
-useEventListener('pointerdown', (e) => {
-  if(!inRegion(e.target) && openDrawer.value) close()
+useEventListener('pointerdown', e => {
+  if (!inRegion(e.target) && openDrawer.value) close()
 })
-useEventListener('focusin', (e) => {
-  if(!inRegion(e.target) && openDrawer.value) close()
+useEventListener('focusin', e => {
+  if (!inRegion(e.target) && openDrawer.value) close()
 })
-useEventListener('keydown', (e) => {
-  if(e.key === 'Escape' && openDrawer.value) close(true)
+useEventListener('keydown', e => {
+  if (e.key === 'Escape' && openDrawer.value) close(true)
 })
 
 const route = useRoute()
 watch(
-  () => route.fullpath,
+  () => route.fullPath,
   () => close()
 )
 watch(
   () => route.path,
-  () => nextTick(() => {
-    const contentTitleEl = unrefElement(contentTitle)
-    contentTitleEl?.focus({ preventScroll: true })
-  })
+  () =>
+    nextTick(() => {
+      const contentTitleEl = unrefElement(contentTitle)
+      contentTitleEl?.focus({ preventScroll: true })
+    })
 )
 
 const isSm = useMediaQuery('(width >= 40rem)')
 watch(
   () => isSm.value,
-  (value) => value && close()
+  value => value && close()
 )
 </script>
 
@@ -110,8 +110,12 @@ watch(
       <slot name="announcement" />
     </div>
 
-    <header class="home-layout__header root:[--layout-container-width:var(--container-5xl)]! root:[--header-navbar-height:3.5rem]! border-b bg-background/80 backdrop-blur-sm">
-      <div class="w-full max-w-(--layout-container-width) min-h-(--header-navbar-height) flex items-center gap-4 px-4 mx-auto">
+    <header
+      class="home-layout__header root:[--layout-container-width:var(--container-5xl)]! root:[--header-navbar-height:3.5rem]! border-b bg-background/80 backdrop-blur-sm"
+    >
+      <div
+        class="w-full max-w-(--layout-container-width) min-h-(--header-navbar-height) flex items-center gap-4 px-4 mx-auto"
+      >
         <Link href="/" class="text-base gap-2" unstyled>
           <HatGlassesIcon aria-hidden="true" class="size-4.5" />
           <span>bytriska</span>
@@ -168,44 +172,44 @@ watch(
           <div
             class="max-h-[calc(70dvh-var(--layout-row-2))] overflow-y-auto overscroll-contain p-4 pt-2"
           >
-              <nav aria-label="Main">
-                <ul
-                  class="flex flex-col list-none [&_a]:font-normal [&_a]:text-foreground [&_a]:justify-start [&_a]:px-0 [&_a]:gap-2"
-                >
-                  <li>
-                    <Link block href="/example-home" data-icon="inline-start">
-                      <LayoutGridCirclesIcon aria-hidden="true" />
-                      <span>Home</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link block href="/example-post" data-icon="inline-start">
-                      <NewspaperIcon aria-hidden="true" />
-                      <span>Posts</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link block href="#" data-icon="inline-start">
-                      <FolderGit2Icon aria-hidden="true" />
-                      <span>Projects</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link block href="#" data-icon="inline-start">
-                      <HeartIcon aria-hidden="true" />
-                      <span>Sponsor</span>
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
+            <nav aria-label="Main">
+              <ul
+                class="flex flex-col list-none [&_a]:font-normal [&_a]:text-foreground [&_a]:justify-start [&_a]:px-0 [&_a]:gap-2"
+              >
+                <li>
+                  <Link block href="/example-home" data-icon="inline-start">
+                    <LayoutGridCirclesIcon aria-hidden="true" />
+                    <span>Home</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link block href="/example-post" data-icon="inline-start">
+                    <NewspaperIcon aria-hidden="true" />
+                    <span>Posts</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link block href="#" data-icon="inline-start">
+                    <FolderGit2Icon aria-hidden="true" />
+                    <span>Projects</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link block href="#" data-icon="inline-start">
+                    <HeartIcon aria-hidden="true" />
+                    <span>Sponsor</span>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
 
-              <div class="flex items-center gap-4 mt-4 *:nth-2:ms-auto">
-                <Link href="https://github.com/bytriska" unstyled>
-                  <GithubIcon aria-hidden="true" />
-                  <span class="sr-only">Github (open in new tab)</span>
-                </Link>
-                <ModeSwitcher unstyled />
-              </div>
+            <div class="flex items-center gap-4 mt-4 *:nth-2:ms-auto">
+              <Link href="https://github.com/bytriska" unstyled>
+                <GithubIcon aria-hidden="true" />
+                <span class="sr-only">Github (open in new tab)</span>
+              </Link>
+              <ModeSwitcher unstyled />
+            </div>
           </div>
         </CollapsibleContent>
       </CollapsibleRoot>
@@ -218,11 +222,7 @@ watch(
       >
         <header class="mb-6">
           <div class="flex items-baseline justify-between gap-4 mb-4">
-            <h1
-              ref="main-content__title"
-              tabindex="-1"
-              class="text-3xl sm:text-4xl font-semibold"
-            >
+            <h1 ref="main-content__title" tabindex="-1" class="text-3xl sm:text-4xl font-semibold">
               {{ $props.title }}
             </h1>
           </div>
@@ -235,9 +235,11 @@ watch(
       </article>
     </main>
 
-    <footer class="home-layout__footer root:[--layout-container-width:var(--container-5xl)]! border-t">
+    <footer
+      class="home-layout__footer root:[--layout-container-width:var(--container-5xl)]! border-t"
+    >
       <div class="w-full max-w-(--layout-container-height) p-4 mx-auto">
-        <p class="text-sm text-muted-foreground text-cdnter">
+        <p class="text-sm text-muted-foreground text-center">
           &copy; 2026 bytriska. All rights reserved.
         </p>
       </div>
@@ -261,7 +263,7 @@ watch(
   --layout-row-2: calc(var(--layout-row-1) + var(--layout-header-height));
 
   /* override root var */
-  --scroll-padding-top: var(--layout-row-2)
+  --scroll-padding-top: var(--layout-row-2);
 }
 
 .home-layout__root {
