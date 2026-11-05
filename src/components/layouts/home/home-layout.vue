@@ -1,8 +1,8 @@
 <script lang="ts">
 import {
+  AtSignIcon,
   ChevronDownIcon,
   FolderGit2Icon,
-  HatGlassesIcon,
   HeartIcon,
   LayoutGridCirclesIcon,
   NewspaperIcon,
@@ -117,7 +117,7 @@ watch(
         class="w-full max-w-(--layout-container-width) min-h-(--header-navbar-height) flex items-center gap-4 px-4 mx-auto"
       >
         <Link href="/" class="text-base gap-2" unstyled>
-          <HatGlassesIcon aria-hidden="true" class="size-4.5" />
+          <AtSignIcon aria-hidden="true" class="size-4.5" />
           <span>bytriska</span>
         </Link>
 

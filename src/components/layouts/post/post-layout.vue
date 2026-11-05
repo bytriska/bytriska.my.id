@@ -1,9 +1,9 @@
 <script lang="ts">
 import {
+  AtSignIcon,
   ChevronDownIcon,
   CircleArrowUpIcon,
   FolderGit2Icon,
-  HatGlassesIcon,
   HeartIcon,
   LayoutGridCirclesIcon,
   NewspaperIcon,
@@ -138,7 +138,7 @@ function scrollToTop() {
         class="w-full min-h-(--header-navbar-height) max-w-(--layout-container-width) flex items-center gap-4 px-4 mx-auto"
       >
         <Link href="/" class="text-base gap-2" unstyled>
-          <HatGlassesIcon aria-hidden="true" class="size-4.5" />
+          <AtSignIcon aria-hidden="true" class="size-4.5" />
           <span>bytriska</span>
         </Link>
 
