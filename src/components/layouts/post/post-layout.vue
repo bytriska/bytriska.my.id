@@ -173,12 +173,11 @@ function scrollToTop() {
             data-show="base"
             aria-controls="header-drawer__content"
             :aria-expanded="activeDrawerId === 'nav' ? 'true' : 'false'"
-            class="group"
             @click="toggle('nav')"
           >
             <ChevronDownIcon
               aria-hidden="true"
-              class="size-4.5 motion-safe:transition-transform group-aria-expanded:rotate-180"
+              class="size-4.5 motion-safe:transition-transform group-aria-expanded/button:rotate-180"
             />
             <span class="sr-only">Menu</span>
           </Button>
