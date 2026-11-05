@@ -303,10 +303,12 @@ function scrollToTop() {
     </header>
 
     <main
-      id="main-content"
       class="post-layout__main root:[--layout-container-width:var(--container-5xl)]! root:[--main-content-width:var(--container-2xl)]! lg:layout:[--main-toc-width:268px]!"
     >
-      <article class="main-content max-w-(--main-content-width) px-4 py-12 lg:py-16 mx-auto">
+      <article
+        id="main-content"
+        class="main-content max-w-(--main-content-width) px-4 py-12 lg:py-16 mx-auto"
+      >
         <header class="mb-6">
           <div class="flex items-baseline justify-between gap-4 mb-4">
             <h1 ref="content-title" tabindex="-1" class="text-3xl sm:text-4xl font-semibold">
@@ -431,6 +433,8 @@ function scrollToTop() {
 
 .post-layout__main {
   grid-area: main;
+  max-width: var(--layout-container-width);
+  margin-inline: auto;
 
   display: grid;
   grid-template-columns: minmax(0, var(--main-content-width));
