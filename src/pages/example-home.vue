@@ -1,5 +1,6 @@
 <script lang="ts">
 import { HomeLayout } from '@/components/layouts/home'
+import { ArticleTemplate } from '@/components/templates/article-template'
 </script>
 
 <script setup lang="ts">
@@ -7,13 +8,14 @@ const greeting = 'hello world'
 </script>
 
 <template>
-  <HomeLayout
-    class="font-sans"
-    :title="greeting"
-    tagline="My name is Triska, a tofu maker who interested in software engineering and open source."
-  >
-    <div class="[grid-area:main] h-[100rem] size-full">
-      <h1>{{ greeting }}</h1>
-    </div>
+  <HomeLayout class="font-sans">
+    <ArticleTemplate
+      :title="greeting"
+      tagline="My name is Triska, a tofu maker who interested in software engineering and open source."
+    >
+      <div class="[grid-area:main] h-[100rem] size-full">
+        <h1>{{ greeting }}</h1>
+      </div>
+    </ArticleTemplate>
   </HomeLayout>
 </template>
