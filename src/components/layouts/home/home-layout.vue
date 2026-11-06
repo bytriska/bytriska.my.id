@@ -31,7 +31,6 @@ export interface HomeLayoutSlots {
 defineProps<HomeLayoutProps>()
 defineSlots<HomeLayoutSlots>()
 
-const contentTitle = useTemplateRef('main-content__title')
 const headerDrawer = useTemplateRef('header-drawer')
 const drawerTrigger = useTemplateRef('header-navbar__drawer-trigger')
 
@@ -79,14 +78,6 @@ const route = useRoute()
 watch(
   () => route.fullPath,
   () => close()
-)
-watch(
-  () => route.path,
-  () =>
-    nextTick(() => {
-      const contentTitleEl = unrefElement(contentTitle)
-      contentTitleEl?.focus({ preventScroll: true })
-    })
 )
 
 const isSm = useMediaQuery('(width >= 40rem)')
@@ -222,7 +213,7 @@ watch(
       >
         <header class="mb-6">
           <div class="flex items-baseline justify-between gap-4 mb-4">
-            <h1 ref="main-content__title" tabindex="-1" class="text-3xl sm:text-4xl font-semibold">
+            <h1 class="text-3xl sm:text-4xl font-semibold">
               {{ $props.title }}
             </h1>
           </div>
