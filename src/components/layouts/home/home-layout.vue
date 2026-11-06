@@ -118,7 +118,7 @@ watch(
               <Link href="/example-post"> Posts </Link>
             </li>
             <li>
-              <Link href="#"> Projects </Link>
+              <Link href="/example-projects"> Projects </Link>
             </li>
             <li>
               <Link href="#"> Sponsor </Link>
@@ -177,7 +177,7 @@ watch(
                   </Link>
                 </li>
                 <li>
-                  <Link block href="#" data-icon="inline-start">
+                  <Link block href="/example-projects" data-icon="inline-start">
                     <FolderGit2Icon aria-hidden="true" />
                     <span>Projects</span>
                   </Link>
