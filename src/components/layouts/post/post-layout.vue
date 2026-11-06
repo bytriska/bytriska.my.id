@@ -111,11 +111,11 @@ function scrollToTop() {
 <template>
   <div data-slot="layout-root" class="post-layout__root">
     <Link
-      href="#main-content"
+      href="#main"
       variant="outline"
       class="sr-only focus:not-sr-only focus:fixed focus:inset-s-4 focus:top-4 focus:z-50"
     >
-      Skip to main content
+      Skip to main
     </Link>
 
     <div v-if="$slots.announcement" class="post-layout__announcement">
@@ -293,12 +293,10 @@ function scrollToTop() {
     </header>
 
     <main
+      id="main"
       class="post-layout__main root:[--layout-container-width:var(--container-5xl)]! root:[--main-content-width:var(--container-2xl)]! lg:layout:[--main-toc-width:268px]!"
     >
-      <article
-        id="main-content"
-        class="main-content max-w-(--main-content-width) px-4 py-12 lg:py-16 mx-auto"
-      >
+      <article class="main-content max-w-(--main-content-width) px-4 py-12 lg:py-16 mx-auto">
         <header class="mb-6">
           <div class="flex items-baseline justify-between gap-4 mb-4">
             <h1 class="text-3xl sm:text-4xl font-semibold">
