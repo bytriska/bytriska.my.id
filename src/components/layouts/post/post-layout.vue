@@ -35,7 +35,6 @@ type DrawerId = 'nav' | 'toc'
 defineProps<PostLayoutProps>()
 defineSlots<PostLayoutSlots>()
 
-const mainContentTitle = useTemplateRef('main-content__title')
 const headerDrawer = useTemplateRef('header-drawer')
 const drawerTriggerNav = useTemplateRef('header-navbar__drawer-trigger-nav')
 const drawerTriggerToc = useTemplateRef('header-tocbar__drawer-trigger-toc')
@@ -89,14 +88,6 @@ const route = useRoute()
 watch(
   () => route.fullPath,
   () => close()
-)
-watch(
-  () => route.path,
-  () =>
-    nextTick(() => {
-      const contentTitleEl = unrefElement(mainContentTitle)
-      contentTitleEl?.focus({ preventScroll: true })
-    })
 )
 
 const isSm = useMediaQuery('(width >= 40rem)')
@@ -310,7 +301,7 @@ function scrollToTop() {
       >
         <header class="mb-6">
           <div class="flex items-baseline justify-between gap-4 mb-4">
-            <h1 ref="main-content__title" tabindex="-1" class="text-3xl sm:text-4xl font-semibold">
+            <h1 class="text-3xl sm:text-4xl font-semibold">
               {{ $props.title }}
             </h1>
           </div>
