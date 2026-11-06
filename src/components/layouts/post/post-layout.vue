@@ -18,10 +18,7 @@ import { Button } from '@/components/ui/button'
 import { CollapsibleContent, CollapsibleRoot } from '@/components/ui/collapsible'
 import { Link } from '@/components/ui/link'
 
-export interface PostLayoutProps {
-  title?: string
-  tagline?: string
-}
+export interface PostLayoutProps {}
 
 export interface PostLayoutSlots {
   default?: () => any
@@ -142,7 +139,7 @@ function scrollToTop() {
               <Link href="/example-post"> Posts </Link>
             </li>
             <li>
-              <Link href="#"> Projects </Link>
+              <Link href="/example-projects"> Projects </Link>
             </li>
             <li>
               <Link href="#"> Sponsor </Link>
@@ -236,7 +233,7 @@ function scrollToTop() {
                     </Link>
                   </li>
                   <li>
-                    <Link block href="#" data-icon="inline-start">
+                    <Link block href="/example-projects" data-icon="inline-start">
                       <FolderGit2Icon aria-hidden="true" />
                       <span>Projects</span>
                     </Link>
@@ -296,20 +293,7 @@ function scrollToTop() {
       id="main"
       class="post-layout__main root:[--layout-container-width:var(--container-5xl)]! root:[--main-content-width:var(--container-2xl)]! lg:layout:[--main-toc-width:268px]!"
     >
-      <article class="main-content max-w-(--main-content-width) px-4 py-12 lg:py-16 mx-auto">
-        <header class="mb-6">
-          <div class="flex items-baseline justify-between gap-4 mb-4">
-            <h1 class="text-3xl sm:text-4xl font-semibold">
-              {{ $props.title }}
-            </h1>
-          </div>
-          <p v-if="$props.tagline" class="text-muted-foreground">
-            {{ $props.tagline }}
-          </p>
-        </header>
-
-        <slot />
-      </article>
+      <slot />
 
       <aside data-show="lg xl" class="main-toc">
         <div class="main-toc__inner py-16 pe-4">
