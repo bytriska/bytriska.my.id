@@ -1,9 +1,9 @@
 <script lang="ts">
 import type { PageFrontmatter, PostFrontmatter } from '@/types'
+import { computed } from 'vue'
 import { HomeLayout } from '@/components/layouts/home'
 import { PostLayout } from '@/components/layouts/post'
 import { ArticleTemplate } from '@/components/templates/article-template'
-import { computed } from 'vue'
 
 export interface MarkdownWrapperProps {
   frontmatter: PageFrontmatter | PostFrontmatter
@@ -32,8 +32,8 @@ const page = computed(() => (isPost(props.frontmatter) ? null : props.frontmatte
       <slot />
     </ArticleTemplate>
   </PostLayout>
-  <HomeLayout v-else-if="home" :meta="home">
-    <ArticleTemplate :title="home.title" :tagline="home.description">
+  <HomeLayout v-else-if="page" :meta="page">
+    <ArticleTemplate :title="page.title" :tagline="page.description">
       <slot />
     </ArticleTemplate>
   </HomeLayout>
