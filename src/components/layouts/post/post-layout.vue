@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { PostFrontmatter } from '@/types'
 import {
   AtSignIcon,
   ChevronDownIcon,
@@ -17,8 +18,13 @@ import { GithubIcon } from '@/components/social-icons'
 import { Button } from '@/components/ui/button'
 import { CollapsibleContent, CollapsibleRoot } from '@/components/ui/collapsible'
 import { Link } from '@/components/ui/link'
+import { useCodeGroupNav } from '@/composables/code-group-nav'
+import { useCopyCode } from '@/composables/copy-code'
+import { useSeo } from '@/composables/seo'
 
-export interface PostLayoutProps {}
+export interface PostLayoutProps {
+  meta: PostFrontmatter
+}
 
 export interface PostLayoutSlots {
   default?: () => any
@@ -29,8 +35,12 @@ type DrawerId = 'nav' | 'toc'
 </script>
 
 <script setup lang="ts">
-defineProps<PostLayoutProps>()
+const props = defineProps<PostLayoutProps>()
 defineSlots<PostLayoutSlots>()
+
+useCopyCode()
+useCodeGroupNav()
+useSeo(props.meta)
 
 const headerDrawer = useTemplateRef('header-drawer')
 const drawerTriggerNav = useTemplateRef('header-navbar__drawer-trigger-nav')

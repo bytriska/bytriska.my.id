@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { PageFrontmatter } from '@/types'
 import {
   AtSignIcon,
   ChevronDownIcon,
@@ -15,8 +16,11 @@ import { GithubIcon } from '@/components/social-icons'
 import { Button } from '@/components/ui/button'
 import { CollapsibleContent, CollapsibleRoot } from '@/components/ui/collapsible'
 import { Link } from '@/components/ui/link'
+import { useSeo } from '@/composables/seo'
 
-export interface HomeLayoutProps {}
+export interface HomeLayoutProps {
+  meta: PageFrontmatter
+}
 
 export interface HomeLayoutSlots {
   announcement?: () => any
@@ -25,8 +29,10 @@ export interface HomeLayoutSlots {
 </script>
 
 <script setup lang="ts">
-defineProps<HomeLayoutProps>()
+const props = defineProps<HomeLayoutProps>()
 defineSlots<HomeLayoutSlots>()
+
+useSeo(props.meta)
 
 const headerDrawer = useTemplateRef('header-drawer')
 const drawerTrigger = useTemplateRef('header-navbar__drawer-trigger')
