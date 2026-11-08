@@ -21,9 +21,6 @@ export default function markdown(userOpts?: Options): Plugin<any> {
     wrapperDiv: false,
     headEnabled: false,
     wrapperComponent: 'MarkdownWrapper',
-    transforms: {
-      extraScripts: () => [`import { MarkdownWrapper } from '@/components/markdown-wrapper'`],
-    },
     markdownSetup: async md => {
       highlighter = createHighlighter()
 
