@@ -20,7 +20,10 @@ export default function markdown(userOpts?: Options): Plugin<any> {
   const defaultMarkdownPluginOptions: Options = {
     wrapperDiv: false,
     headEnabled: false,
-    wrapperComponent: resolveLayoutNameByPath,
+    wrapperComponent: 'MarkdownWrapper',
+    transforms: {
+      extraScripts: () => [`import { MarkdownWrapper } from '@/components/markdown-wrapper'`],
+    },
     markdownSetup: async md => {
       highlighter = createHighlighter()
 
@@ -69,10 +72,6 @@ export default function markdown(userOpts?: Options): Plugin<any> {
       server.httpServer?.on('close', () => highlighter.clearHighlighter())
     },
   }
-}
-
-function resolveLayoutNameByPath(id: string): string {
-  return id.includes('/posts/') ? 'PostLayout' : 'PageLayout'
 }
 
 function mergeConfig(defaults: Options, overrides: Options): Options {
