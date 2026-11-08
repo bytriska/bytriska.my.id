@@ -15,6 +15,7 @@ import { nextTick, ref, useTemplateRef, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import ModeSwitcher from '@/components/ModeSwitcher.vue'
 import { GithubIcon } from '@/components/social-icons'
+import { TocTree } from '@/components/toc-tree'
 import { Button } from '@/components/ui/button'
 import { CollapsibleContent, CollapsibleRoot } from '@/components/ui/collapsible'
 import { Link } from '@/components/ui/link'
@@ -268,30 +269,7 @@ function scrollToTop() {
 
             <div v-if="renderedDrawerId === 'toc'">
               <nav aria-label="On this page">
-                <ul
-                  class="flex flex-col list-none [&_a]:font-normal [&_a]:text-foreground [&_a]:justify-start [&_a]:px-0"
-                >
-                  <li>
-                    <Link href="#" block> Heading 1 </Link>
-                  </li>
-                  <li>
-                    <Link href="#" block> Heading 2 </Link>
-                    <ul class="flex flex-col list-none ms-4">
-                      <li>
-                        <Link href="#" block> Heading 2.1 </Link>
-                      </li>
-                      <li>
-                        <Link href="#" block> Heading 2.2 </Link>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <Link href="#" block> Heading 3 </Link>
-                  </li>
-                  <li>
-                    <Link href="#" block> Heading 4 </Link>
-                  </li>
-                </ul>
+                <TocTree :toc="$props.meta.toc" />
               </nav>
             </div>
           </div>
@@ -313,30 +291,7 @@ function scrollToTop() {
           </h2>
 
           <nav aria-labelledby="toc__title">
-            <ul
-              class="flex flex-col list-none mt-6 [&_a]:font-normal [&_a]:text-foreground [&_a]:justify-start"
-            >
-              <li>
-                <Link href="#" block> Heading 1 </Link>
-              </li>
-              <li>
-                <Link href="#" block> Heading 2 </Link>
-                <ul class="flex flex-col list-none ms-4">
-                  <li>
-                    <Link href="#" block> Heading 2.1 </Link>
-                  </li>
-                  <li>
-                    <Link href="#" block> Heading 2.2 </Link>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <Link href="#" block> Heading 3 </Link>
-              </li>
-              <li>
-                <Link href="#" block> Heading 4 </Link>
-              </li>
-            </ul>
+            <TocTree :toc="$props.meta.toc" class="mt-6" />
           </nav>
         </div>
       </aside>
