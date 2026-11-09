@@ -1,24 +1,23 @@
 <script lang="ts">
-import {
-  AtSignIcon,
-  ChevronDownIcon,
-  CircleArrowUpIcon,
-  FolderGit2Icon,
-  HeartIcon,
-  LayoutGridCirclesIcon,
-  NewspaperIcon,
-  TextAlignStartIcon,
-} from '@lucide/vue'
+import type { PostFrontmatter } from '@/types'
+import { AtSignIcon, ChevronDownIcon, CircleArrowUpIcon, TextAlignStartIcon } from '@lucide/vue'
 import { unrefElement, useEventListener, useMediaQuery, useWindowScroll } from '@vueuse/core'
 import { nextTick, ref, useTemplateRef, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import ModeSwitcher from '@/components/ModeSwitcher.vue'
+import { ModeSwitcher } from '@/components/mode-switcher'
 import { GithubIcon } from '@/components/social-icons'
+import { TocTree } from '@/components/toc-tree'
 import { Button } from '@/components/ui/button'
 import { CollapsibleContent, CollapsibleRoot } from '@/components/ui/collapsible'
 import { Link } from '@/components/ui/link'
+import { useCodeGroupNav } from '@/composables/code-group-nav'
+import { useCopyCode } from '@/composables/copy-code'
+import { useSeo } from '@/composables/seo'
+import { mainNavigationList } from '../shared'
 
-export interface PostLayoutProps {}
+export interface PostLayoutProps {
+  meta: PostFrontmatter
+}
 
 export interface PostLayoutSlots {
   default?: () => any
@@ -29,8 +28,12 @@ type DrawerId = 'nav' | 'toc'
 </script>
 
 <script setup lang="ts">
-defineProps<PostLayoutProps>()
+const props = defineProps<PostLayoutProps>()
 defineSlots<PostLayoutSlots>()
+
+useCopyCode()
+useCodeGroupNav()
+useSeo(props.meta)
 
 const headerDrawer = useTemplateRef('header-drawer')
 const drawerTriggerNav = useTemplateRef('header-navbar__drawer-trigger-nav')
@@ -132,17 +135,10 @@ function scrollToTop() {
 
         <nav aria-label="Main" data-show="sm md lg xl">
           <ul class="flex items-center list-none [&_a]:font-normal [&_a]:text-foreground">
-            <li>
-              <Link href="/example-home"> Home </Link>
-            </li>
-            <li>
-              <Link href="/example-post"> Posts </Link>
-            </li>
-            <li>
-              <Link href="/example-projects"> Projects </Link>
-            </li>
-            <li>
-              <Link href="#"> Sponsor </Link>
+            <li v-for="navigation in mainNavigationList" :key="navigation.href">
+              <Link :href="navigation.href">
+                {{ navigation.title }}
+              </Link>
             </li>
           </ul>
         </nav>
@@ -220,28 +216,10 @@ function scrollToTop() {
                 <ul
                   class="flex flex-col list-none [&_a]:font-normal [&_a]:text-foreground [&_a]:justify-start [&_a]:px-0 [&_a]:gap-2"
                 >
-                  <li>
-                    <Link block href="/example-home" data-icon="inline-start">
-                      <LayoutGridCirclesIcon aria-hidden="true" />
-                      <span>Home</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link block href="/example-post" data-icon="inline-start">
-                      <NewspaperIcon aria-hidden="true" />
-                      <span>Posts</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link block href="/example-projects" data-icon="inline-start">
-                      <FolderGit2Icon aria-hidden="true" />
-                      <span>Projects</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link block href="#" data-icon="inline-start">
-                      <HeartIcon aria-hidden="true" />
-                      <span>Sponsor</span>
+                  <li v-for="navigation in mainNavigationList" :key="navigation.href">
+                    <Link block :href="navigation.href" data-icon="inline-start">
+                      <component :is="navigation.icon" aria-hidden="true" />
+                      <span>{{ navigation.title }}</span>
                     </Link>
                   </li>
                 </ul>
@@ -258,30 +236,7 @@ function scrollToTop() {
 
             <div v-if="renderedDrawerId === 'toc'">
               <nav aria-label="On this page">
-                <ul
-                  class="flex flex-col list-none [&_a]:font-normal [&_a]:text-foreground [&_a]:justify-start [&_a]:px-0"
-                >
-                  <li>
-                    <Link href="#" block> Heading 1 </Link>
-                  </li>
-                  <li>
-                    <Link href="#" block> Heading 2 </Link>
-                    <ul class="flex flex-col list-none ms-4">
-                      <li>
-                        <Link href="#" block> Heading 2.1 </Link>
-                      </li>
-                      <li>
-                        <Link href="#" block> Heading 2.2 </Link>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <Link href="#" block> Heading 3 </Link>
-                  </li>
-                  <li>
-                    <Link href="#" block> Heading 4 </Link>
-                  </li>
-                </ul>
+                <TocTree :toc="$props.meta.toc" />
               </nav>
             </div>
           </div>
@@ -303,30 +258,7 @@ function scrollToTop() {
           </h2>
 
           <nav aria-labelledby="toc__title">
-            <ul
-              class="flex flex-col list-none mt-6 [&_a]:font-normal [&_a]:text-foreground [&_a]:justify-start"
-            >
-              <li>
-                <Link href="#" block> Heading 1 </Link>
-              </li>
-              <li>
-                <Link href="#" block> Heading 2 </Link>
-                <ul class="flex flex-col list-none ms-4">
-                  <li>
-                    <Link href="#" block> Heading 2.1 </Link>
-                  </li>
-                  <li>
-                    <Link href="#" block> Heading 2.2 </Link>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <Link href="#" block> Heading 3 </Link>
-              </li>
-              <li>
-                <Link href="#" block> Heading 4 </Link>
-              </li>
-            </ul>
+            <TocTree :toc="$props.meta.toc" class="mt-6" />
           </nav>
         </div>
       </aside>

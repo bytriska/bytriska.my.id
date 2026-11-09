@@ -7,8 +7,8 @@ import type { HTMLAttributes } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { NavigationMenuRoot, useForwardPropsEmits } from 'reka-ui'
 import { cn } from 'tailwind-variants'
-import { navigationMenuVariants } from './navigation-menu.variants'
-import NavigationMenuViewport from './NavigationMenuViewport.vue'
+import NavigationMenuViewport from './navigation-menu-viewport.vue/index.js'
+import { navigationMenuVariants } from './navigation-menu.variants.ts'
 
 export interface NavigationMenuRootProps extends PrimitiveNavigationMenuRootProps {
   class?: HTMLAttributes['class']

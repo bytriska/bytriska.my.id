@@ -1,20 +1,23 @@
 <script setup lang="ts">
-import type { BaseMeta } from '@/types'
+import { computed } from 'vue'
+import { HomeLayout } from '@/components/layouts/home'
+import { PostCard } from '@/components/post-card'
+import { CollectionTemplate } from '@/components/templates/collection'
 import { usePosts } from '@/composables/posts'
 
-const meta: BaseMeta = {
+const meta = computed(() => ({
   title: 'Posts',
   description: 'A collection of all my posts.',
   draft: false,
-}
+}))
 
 const { allPosts } = usePosts()
 </script>
 
 <template>
-  <DefaultLayout v-bind="{ meta }">
-    <div>
+  <HomeLayout v-bind="{ meta }">
+    <CollectionTemplate :title="meta.title" :tagline="meta.description">
       <PostCard v-for="post in allPosts" :key="post.path" :post="post" />
-    </div>
-  </DefaultLayout>
+    </CollectionTemplate>
+  </HomeLayout>
 </template>

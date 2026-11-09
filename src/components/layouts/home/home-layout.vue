@@ -1,22 +1,20 @@
 <script lang="ts">
-import {
-  AtSignIcon,
-  ChevronDownIcon,
-  FolderGit2Icon,
-  HeartIcon,
-  LayoutGridCirclesIcon,
-  NewspaperIcon,
-} from '@lucide/vue'
+import type { PageFrontmatter } from '@/types'
+import { AtSignIcon, ChevronDownIcon } from '@lucide/vue'
 import { unrefElement, useEventListener, useMediaQuery } from '@vueuse/core'
 import { nextTick, ref, useTemplateRef, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import ModeSwitcher from '@/components/ModeSwitcher.vue'
+import { ModeSwitcher } from '@/components/mode-switcher'
 import { GithubIcon } from '@/components/social-icons'
 import { Button } from '@/components/ui/button'
 import { CollapsibleContent, CollapsibleRoot } from '@/components/ui/collapsible'
 import { Link } from '@/components/ui/link'
+import { useSeo } from '@/composables/seo'
+import { mainNavigationList } from '../shared'
 
-export interface HomeLayoutProps {}
+export interface HomeLayoutProps {
+  meta: PageFrontmatter
+}
 
 export interface HomeLayoutSlots {
   announcement?: () => any
@@ -25,8 +23,10 @@ export interface HomeLayoutSlots {
 </script>
 
 <script setup lang="ts">
-defineProps<HomeLayoutProps>()
+const props = defineProps<HomeLayoutProps>()
 defineSlots<HomeLayoutSlots>()
+
+useSeo(props.meta)
 
 const headerDrawer = useTemplateRef('header-drawer')
 const drawerTrigger = useTemplateRef('header-navbar__drawer-trigger')
@@ -111,17 +111,10 @@ watch(
 
         <nav aria-label="Main" data-show="sm md lg xl">
           <ul class="flex items-center list-none [&_a]:font-normal [&_a]:text-foreground">
-            <li>
-              <Link href="/example-home"> Home </Link>
-            </li>
-            <li>
-              <Link href="/example-post"> Posts </Link>
-            </li>
-            <li>
-              <Link href="/example-projects"> Projects </Link>
-            </li>
-            <li>
-              <Link href="#"> Sponsor </Link>
+            <li v-for="navigation in mainNavigationList" :key="navigation.href">
+              <Link :href="navigation.href">
+                {{ navigation.title }}
+              </Link>
             </li>
           </ul>
         </nav>
@@ -164,28 +157,10 @@ watch(
               <ul
                 class="flex flex-col list-none [&_a]:font-normal [&_a]:text-foreground [&_a]:justify-start [&_a]:px-0 [&_a]:gap-2"
               >
-                <li>
-                  <Link block href="/example-home" data-icon="inline-start">
-                    <LayoutGridCirclesIcon aria-hidden="true" />
-                    <span>Home</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link block href="/example-post" data-icon="inline-start">
-                    <NewspaperIcon aria-hidden="true" />
-                    <span>Posts</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link block href="/example-projects" data-icon="inline-start">
-                    <FolderGit2Icon aria-hidden="true" />
-                    <span>Projects</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link block href="#" data-icon="inline-start">
-                    <HeartIcon aria-hidden="true" />
-                    <span>Sponsor</span>
+                <li v-for="navigation in mainNavigationList" :key="navigation.href">
+                  <Link block :href="navigation.href" data-icon="inline-start">
+                    <component :is="navigation.icon" aria-hidden="true" />
+                    <span>{{ navigation.title }}</span>
                   </Link>
                 </li>
               </ul>
