@@ -4,7 +4,7 @@ import { AtSignIcon, ChevronDownIcon, CircleArrowUpIcon, TextAlignStartIcon } fr
 import { unrefElement, useEventListener, useMediaQuery, useWindowScroll } from '@vueuse/core'
 import { nextTick, ref, useTemplateRef, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import ModeSwitcher from '@/components/ModeSwitcher.vue'
+import { ModeSwitcher } from '@/components/mode-switcher'
 import { GithubIcon } from '@/components/social-icons'
 import { TocTree } from '@/components/toc-tree'
 import { Button } from '@/components/ui/button'

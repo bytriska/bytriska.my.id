@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { HomeLayout } from '@/components/layouts/home'
-import { CollectionTemplate } from '@/components/templates/collection-template'
+import { PostCard } from '@/components/post-card'
+import { CollectionTemplate } from '@/components/templates/collection'
 import { usePosts } from '@/composables/posts'
 
 const meta = computed(() => ({

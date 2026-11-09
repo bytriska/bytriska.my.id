@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-@import './legacy.css';
 @import './theme.css';
 
 @import './ui.css' layer(base);
