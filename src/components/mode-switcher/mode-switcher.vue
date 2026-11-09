@@ -18,7 +18,9 @@ withDefaults(defineProps<ModeSwitcherProps>(), {
 const mode = useColorMode()
 const isDark = computed({
   get: () => mode.value === 'dark',
-  set: (value) => { mode.value = (value ? 'dark' : 'light') }
+  set: value => {
+    mode.value = value ? 'dark' : 'light'
+  },
 })
 </script>
 
