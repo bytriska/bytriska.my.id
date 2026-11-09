@@ -2,13 +2,12 @@
 import type { ButtonProps } from '../ui/button'
 import { ContrastIcon } from '@lucide/vue'
 import { useColorMode } from '@vueuse/core'
+import { Toggle } from 'reka-ui'
 import { cn } from 'tailwind-variants'
+import { computed } from 'vue'
 import { Button } from '../ui/button'
 
-export interface ModeSwitcherProps
-  extends
-    Pick<ButtonProps, 'class' | 'variant'>,
-    /** @vue-ignore */ Omit<ButtonProps, 'class' | 'variant'> {}
+export interface ModeSwitcherProps extends Pick<ButtonProps, 'class' | 'unstyled' | 'variant'> {}
 </script>
 
 <script setup lang="ts">
@@ -17,19 +16,22 @@ withDefaults(defineProps<ModeSwitcherProps>(), {
 })
 
 const mode = useColorMode()
-function toggle() {
-  mode.value = mode.value === 'dark' ? 'light' : 'dark'
-}
+const isDark = computed({
+  get: () => mode.value === 'dark',
+  set: (value) => { mode.value = (value ? 'dark' : 'light') }
+})
 </script>
 
 <template>
-  <Button
+  <Toggle
+    v-model="isDark"
+    :as="Button"
     size="icon"
+    :unstyled="$props.unstyled"
     :variant="$props.variant"
     :class="cn('extend-touch-target', $props.class)"
-    @click="toggle"
   >
     <ContrastIcon aria-hidden="true" />
-    <span class="sr-only">Toggle theme</span>
-  </Button>
+    <span class="sr-only">Dark mode toggle</span>
+  </Toggle>
 </template>
