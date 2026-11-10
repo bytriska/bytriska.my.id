@@ -28,7 +28,7 @@ export function findHashTarget(hash: string) {
  */
 export function getScrollOffset(target: Element) {
   return (
-    parsePx(getComputedStyle(target).scrollMarginTop)
-    + parsePx(getComputedStyle(document.documentElement).scrollPaddingTop)
+    parsePx(getComputedStyle(target).scrollMarginTop) +
+    parsePx(getComputedStyle(document.documentElement).scrollPaddingTop)
   )
 }
