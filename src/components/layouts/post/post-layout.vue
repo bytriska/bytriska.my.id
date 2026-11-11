@@ -109,7 +109,7 @@ function scrollToTop() {
 </script>
 
 <template>
-  <div data-slot="layout-root" class="post-layout__root">
+  <div data-slot="layout-root" class="post-layout__root root:[--scroll-padding-top:var(--layout-scroll-padding-top)]!">
     <Link
       href="#main"
       variant="outline"
@@ -295,8 +295,7 @@ function scrollToTop() {
   --layout-row-1: var(--layout-announcement-height);
   --layout-row-2: calc(var(--layout-row-1) + var(--layout-header-height));
 
-  /* override root var */
-  --scroll-padding-top: var(--layout-row-2);
+  --layout-scroll-padding-top: calc(var(--layout-row-1) + var(--header-navbar-height) + var(--header-tocbar-height));
 }
 
 .post-layout__root {
