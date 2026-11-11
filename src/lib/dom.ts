@@ -32,3 +32,36 @@ export function getScrollOffset(target: Element) {
     parsePx(getComputedStyle(document.documentElement).scrollPaddingTop)
   )
 }
+
+function nextFrame() {
+  return new Promise<void>(resolve => requestAnimationFrame(() => resolve()))
+}
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+/**
+ * Wait until finite animations and transitions have ended
+ * and the DOM updates. Gives up after `timeout`.
+ */
+export async function animationSettled(timeout: number = 500) {
+  const deadline = performance.now() + timeout
+
+  await nextFrame()
+  await nextFrame()
+
+  while (performance.now() < deadline) {
+    const running = document
+      .getAnimations()
+      .filter(a => a.effect?.getComputedTiming().iterations !== Infinity)
+    if (!running.length) return
+
+    await Promise.race([
+      Promise.allSettled(running.map(a => a.finished)),
+      sleep(deadline - performance.now()),
+    ])
+
+    await nextFrame()
+  }
+}
