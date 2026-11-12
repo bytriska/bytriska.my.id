@@ -1,5 +1,5 @@
 /** browser-only utils */
-import { sleep } from "./async"
+import { sleep } from './async'
 
 function parsePx(value: string) {
   return Number.parseFloat(value) || 0
@@ -62,7 +62,10 @@ export async function animationSettled(timeout: number = 500) {
   while (performance.now() < deadline) {
     const running = document
       .getAnimations()
-      .filter(a => a.playState === 'running' && a.effect?.getComputedTiming().iterations !== Infinity)
+      .filter(
+        a => a.playState === 'running' && a.effect?.getComputedTiming().iterations !== Infinity
+      )
+
     if (!running.length) return
 
     await Promise.race([
