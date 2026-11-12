@@ -1,4 +1,5 @@
 /** browser-only utils */
+import { sleep } from "./async"
 
 function parsePx(value: string) {
   return Number.parseFloat(value) || 0
@@ -46,10 +47,6 @@ export function nextFrame() {
       resolve()
     })
   })
-}
-
-function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 /**
