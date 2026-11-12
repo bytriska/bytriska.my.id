@@ -62,7 +62,7 @@ export async function animationSettled(timeout: number = 500) {
   while (performance.now() < deadline) {
     const running = document
       .getAnimations()
-      .filter(a => a.effect?.getComputedTiming().iterations !== Infinity)
+      .filter(a => a.playState === 'running' && a.effect?.getComputedTiming().iterations !== Infinity)
     if (!running.length) return
 
     await Promise.race([
