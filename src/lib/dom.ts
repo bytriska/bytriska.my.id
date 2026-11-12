@@ -33,8 +33,19 @@ export function getScrollOffset(target: Element) {
   )
 }
 
-function nextFrame() {
-  return new Promise<void>(resolve => requestAnimationFrame(() => resolve()))
+/**
+ * Wait until next frame render
+ */
+export function nextFrame() {
+  return new Promise<void>(resolve => {
+    /** add timeout to resolve when there no next animation render */
+    const timer = setTimeout(resolve, 100)
+
+    requestAnimationFrame(() => {
+      clearTimeout(timer)
+      resolve()
+    })
+  })
 }
 
 function sleep(ms: number) {
