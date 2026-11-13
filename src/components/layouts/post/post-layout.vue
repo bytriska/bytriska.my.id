@@ -109,7 +109,10 @@ function scrollToTop() {
 </script>
 
 <template>
-  <div data-slot="layout-root" class="post-layout__root">
+  <div
+    data-slot="layout-root"
+    class="post-layout__root root:[--scroll-padding-top:var(--layout-scroll-padding-top)]!"
+  >
     <Link
       href="#main"
       variant="outline"
@@ -204,7 +207,7 @@ function scrollToTop() {
       >
         <CollapsibleContent
           id="header-drawer__content"
-          class="overflow-hidden motion-safe:data-[state=open]:animate-collapsible-down motion-safe:data-[state=closed]:animate-collapsible-up"
+          class="overflow-hidden motion-safe:data-[state=open]:animate-collapsible-down motion-safe:data-[state=closed]:animate-collapsible-up motion-safe:data-[state=closed]:fill-mode-forwards"
         >
           <div class="absolute inset-x-2 h-px bg-border" />
 
@@ -295,8 +298,9 @@ function scrollToTop() {
   --layout-row-1: var(--layout-announcement-height);
   --layout-row-2: calc(var(--layout-row-1) + var(--layout-header-height));
 
-  /* override root var */
-  --scroll-padding-top: var(--layout-row-2);
+  --layout-scroll-padding-top: calc(
+    var(--layout-row-1) + var(--header-navbar-height) + var(--header-tocbar-height)
+  );
 }
 
 .post-layout__root {

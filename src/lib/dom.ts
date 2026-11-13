@@ -1,4 +1,5 @@
 /** browser-only utils */
+import { sleep } from './async'
 
 function parsePx(value: string) {
   return Number.parseFloat(value) || 0
@@ -31,4 +32,47 @@ export function getScrollOffset(target: Element) {
     parsePx(getComputedStyle(target).scrollMarginTop) +
     parsePx(getComputedStyle(document.documentElement).scrollPaddingTop)
   )
+}
+
+/**
+ * Wait until next frame render
+ */
+export function nextFrame() {
+  return new Promise<void>(resolve => {
+    /** add timeout to resolve when there no next animation render */
+    const timer = setTimeout(resolve, 100)
+
+    requestAnimationFrame(() => {
+      clearTimeout(timer)
+      resolve()
+    })
+  })
+}
+
+/**
+ * Wait until finite animations and transitions have ended
+ * and the DOM updates. Gives up after `timeout`.
+ */
+export async function animationSettled(timeout: number = 500) {
+  const deadline = performance.now() + timeout
+
+  await nextFrame()
+  await nextFrame()
+
+  while (performance.now() < deadline) {
+    const running = document
+      .getAnimations()
+      .filter(
+        a => a.playState === 'running' && a.effect?.getComputedTiming().iterations !== Infinity
+      )
+
+    if (!running.length) return
+
+    await Promise.race([
+      Promise.allSettled(running.map(a => a.finished)),
+      sleep(deadline - performance.now()),
+    ])
+
+    await nextFrame()
+  }
 }
