@@ -254,8 +254,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       '@mdit-vue/plugin-headers':
-        specifier: ^3.0.2
-        version: 3.0.2
+        specifier: ^4.0.0
+        version: 4.0.0
       '@mdit-vue/plugin-sfc':
         specifier: ^4.0.0
         version: 4.0.0
@@ -1660,12 +1660,12 @@ packages:
       }
     engines: { node: '>=20.19.0' }
 
-  '@mdit-vue/plugin-headers@3.0.2':
+  '@mdit-vue/plugin-headers@4.0.0':
     resolution:
       {
-        integrity: sha512-Z3PpDdwBTO5jlW2r617tQibkwtCc5unTnj/Ew1SCxTQaXjtKgwP9WngdSN+xxriISHoNOYzwpoUw/1CW8ntibA==,
+        integrity: sha512-bfLq7kwdVeMggYA1czOEUoGLaQJDRAiOwJ/XDbNNkLDdJvHx/cXkPu9il+vAQEarMz/QrOBlI2Ygbv32Bws5Iw==,
       }
-    engines: { node: '>=20.0.0' }
+    engines: { node: '>=20.19.0' }
 
   '@mdit-vue/plugin-sfc@4.0.0':
     resolution:
@@ -1674,12 +1674,12 @@ packages:
       }
     engines: { node: '>=20.19.0' }
 
-  '@mdit-vue/shared@3.0.2':
+  '@mdit-vue/shared@4.0.0':
     resolution:
       {
-        integrity: sha512-anFGls154h0iVzUt5O43EaqYvPwzfUxQ34QpNQsUQML7pbEJMhcgkRNvYw9hZBspab+/TP45agdPw5joh6/BBA==,
+        integrity: sha512-aYqXHD8UCbGewcpn2Q0zhDRLx/8tj6pW3dDGDlJifytD7UqyorQvJ1Vc8xIY93fcXXedRcLH8OfguPgj9uDsqg==,
       }
-    engines: { node: '>=20.0.0' }
+    engines: { node: '>=20.19.0' }
 
   '@mdit-vue/types@3.0.2':
     resolution:
@@ -5348,13 +5348,6 @@ packages:
       }
     engines: { node: '>=4' }
 
-  postcss@8.5.26:
-    resolution:
-      {
-        integrity: sha512-u82N74LFzG8ca+dD8puPnplTXoGH4fTPpVGuIbt36G3qvNlkvfD0lEAZSxaly3KX8TS/L1A1gsCEmvKmBcVbkQ==,
-      }
-    engines: { node: ^10 || ^12 || >=14 }
-
   postcss@8.5.28:
     resolution:
       {
@@ -6919,23 +6912,21 @@ snapshots:
       gray-matter: 4.0.3
       markdown-it: 15.0.3
 
-  '@mdit-vue/plugin-headers@3.0.2':
+  '@mdit-vue/plugin-headers@4.0.0':
     dependencies:
-      '@mdit-vue/shared': 3.0.2
-      '@mdit-vue/types': 3.0.2
-      '@types/markdown-it': 14.1.2
-      markdown-it: 14.1.1
+      '@mdit-vue/shared': 4.0.0
+      '@mdit-vue/types': 4.0.0
+      markdown-it: 15.0.3
 
   '@mdit-vue/plugin-sfc@4.0.0':
     dependencies:
       '@mdit-vue/types': 4.0.0
       markdown-it: 15.0.3
 
-  '@mdit-vue/shared@3.0.2':
+  '@mdit-vue/shared@4.0.0':
     dependencies:
-      '@mdit-vue/types': 3.0.2
-      '@types/markdown-it': 14.1.2
-      markdown-it: 14.1.1
+      '@mdit-vue/types': 4.0.0
+      markdown-it: 15.0.3
 
   '@mdit-vue/types@3.0.2': {}
 
@@ -7539,7 +7530,7 @@ snapshots:
 
   '@typescript-eslint/utils@8.70.0(eslint@10.10.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@10.10.0(jiti@2.7.0)(supports-color@10.2.2))
+      '@eslint-community/eslint-utils': 4.10.1(eslint@10.10.0(jiti@2.7.0)(supports-color@10.2.2))
       '@typescript-eslint/scope-manager': 8.70.0
       '@typescript-eslint/types': 8.70.0
       '@typescript-eslint/typescript-estree': 8.70.0(supports-color@10.2.2)(typescript@6.0.3)
@@ -7678,7 +7669,7 @@ snapshots:
       '@vue/shared': 3.5.42
       estree-walker: 2.0.2
       magic-string: 0.30.21
-      postcss: 8.5.26
+      postcss: 8.5.28
       source-map-js: 1.2.1
 
   '@vue/compiler-ssr@3.5.42':
@@ -9166,12 +9157,6 @@ snapshots:
     dependencies:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
-
-  postcss@8.5.26:
-    dependencies:
-      nanoid: 3.3.18
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
 
   postcss@8.5.28:
     dependencies:

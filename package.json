@@ -39,7 +39,7 @@
     "@iconify/json": "^2.2.527",
     "@mdit-vue/plugin-component": "^4.0.0",
     "@mdit-vue/plugin-frontmatter": "^4.0.0",
-    "@mdit-vue/plugin-headers": "^3.0.2",
+    "@mdit-vue/plugin-headers": "^4.0.0",
     "@mdit-vue/plugin-sfc": "^4.0.0",
     "@mdit/plugin-alert": "^2.0.1",
     "@mdit/plugin-anchor": "^2.4.0",
