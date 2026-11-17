@@ -32,7 +32,7 @@ export interface MarkdownOptions extends CreateHighlighterOptions, MarkdownItOpt
    * @example { theme: 'github-dark' }
    * @example { theme: { light: 'github-light', dark: 'github-dark' } }
    */
-  theme?: ThemeOptions
+  theme: ThemeOptions
 
   /* -------------------- Vue Integration -------------------- */
 
@@ -71,7 +71,7 @@ export async function createMarkdownRenderer(options: MarkdownOptions): Promise<
     loadLanguage,
     highlight,
     dispose: disposeHighlighter,
-  } = await createHighlighter(options.theme!, options)
+  } = await createHighlighter(options.theme, options)
   const md = new MarkdownIt({ html: true, linkify: true, highlight, ...options })
 
   md.linkify.set({ fuzzyLink: false })

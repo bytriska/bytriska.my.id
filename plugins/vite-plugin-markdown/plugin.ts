@@ -4,8 +4,10 @@ import type { MarkdownOptions } from './markdown'
 import type { Awaitable } from './utils/types'
 import { createMarkdownRenderer } from './markdown'
 
+interface RawMarkdownOptions extends Partial<MarkdownOptions> {}
+
 export interface Options {
-  markdown?: MarkdownOptions
+  markdown?: RawMarkdownOptions
 }
 const MARKDOWN_RE = /\.md$/
 
@@ -21,7 +23,9 @@ export async function markdown(options: Options = {}): Promise<Plugin> {
       if (!MARKDOWN_RE.test(id)) return
 
       const str = await this.fs.readFile(id, { encoding: 'utf8' })
-      return markdownRenderer.render(str, { env: renderEnv, signal: lifecycle.signal })
+      const html = markdownRenderer.render(str, { env: renderEnv, signal: lifecycle.signal })
+
+      return `<template><div>${html}</div></template>`
     },
     configureServer(server) {
       server.httpServer?.on('close', async () => {
@@ -44,6 +48,7 @@ function resolveOptions(options: Options): ResolvedOptions {
   const defaults: ResolvedOptions = {
     markdown: {
       theme: { light: 'github-light', dark: 'github-dark' },
+      languages: [],
     },
   }
 
@@ -81,7 +86,7 @@ function mergeOptions<A extends object, B extends object>(defaults: A, overrides
   return merged as A & B
 }
 
-function mergeMarkdownOptions(a: MarkdownOptions, b: MarkdownOptions) {
+function mergeMarkdownOptions(a: RawMarkdownOptions, b: RawMarkdownOptions) {
   const merged = mergeOptions(a, b)
   merged.preConfig = mergeMarkdownHooks(a.preConfig, b.preConfig)
   merged.config = mergeMarkdownHooks(a.config, b.config)

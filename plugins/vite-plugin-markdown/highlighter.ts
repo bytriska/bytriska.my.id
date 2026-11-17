@@ -21,7 +21,7 @@ export interface CreateHighlighterOptions {
   /**
    * Custom syntax highlighter language or preload built-in languages.
    */
-  languages?: (LanguageInput | BuiltinLanguage)[]
+  languages: (LanguageInput | BuiltinLanguage)[]
   /**
    * Configure fallback language when the language not available.
    * Make sure to add the specified language to language list options,
@@ -52,7 +52,7 @@ export async function createHighlighter(
       typeof theme === 'object' && 'light' in theme && 'dark' in theme
         ? [theme.light, theme.dark]
         : [theme],
-    langs: [...(options.languages || [])],
+    langs: options.languages,
   })
 
   if (options.shikiConfig) {
