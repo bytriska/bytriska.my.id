@@ -3,7 +3,7 @@ import type { FrontmatterPluginOptions } from '@mdit-vue/plugin-frontmatter'
 import type { HeadersPluginOptions } from '@mdit-vue/plugin-headers'
 import type { SfcPluginOptions } from '@mdit-vue/plugin-sfc'
 import type { MarkdownItOptions } from 'markdown-it'
-import type { CreateHighlighterOptions, ThemeOptions } from './highlighter'
+import type { CreateHighlighterOptions } from './highlighter'
 import type { Awaitable } from './utils/types'
 import { componentPlugin } from '@mdit-vue/plugin-component'
 import { frontmatterPlugin } from '@mdit-vue/plugin-frontmatter'
@@ -23,16 +23,6 @@ export interface MarkdownOptions extends CreateHighlighterOptions, MarkdownItOpt
    * Configure markdown-it instance after all plugins being applied.
    */
   config?: (md: InstanceType<typeof MarkdownIt>) => Awaitable<void>
-
-  /* -------------------- Syntax Highlighter Options -------------------- */
-
-  /**
-   * Configure shiki theme.
-   *
-   * @example { theme: 'github-dark' }
-   * @example { theme: { light: 'github-light', dark: 'github-dark' } }
-   */
-  theme: ThemeOptions
 
   /* -------------------- Vue Integration -------------------- */
 
@@ -67,12 +57,13 @@ export interface MarkdownRenderer {
 const SPACES_CHAR_RE = /\s+/
 
 export async function createMarkdownRenderer(options: MarkdownOptions): Promise<MarkdownRenderer> {
-  const {
-    loadLanguage,
-    highlight,
-    dispose: disposeHighlighter,
-  } = await createHighlighter(options.theme, options)
-  const md = new MarkdownIt({ html: true, linkify: true, highlight, ...options })
+  const highlighter = await createHighlighter(options)
+  const md = new MarkdownIt({
+    html: true,
+    linkify: true,
+    highlight: highlighter.highlight,
+    ...options,
+  })
 
   md.linkify.set({ fuzzyLink: false })
 
@@ -106,13 +97,13 @@ export async function createMarkdownRenderer(options: MarkdownOptions): Promise<
        */
       const langs = [...new Set(fences.map(t => langOf(t.info)).filter(Boolean))]
       signal?.throwIfAborted()
-      await Promise.all(langs.map(l => loadLanguage(l)))
+      await Promise.all(langs.map(l => highlighter.loadLanguage(l)))
 
       signal?.throwIfAborted()
       return md.renderer.render(tokens, md.options, env)
     },
     async dispose() {
-      disposeHighlighter()
+      highlighter.dispose()
     },
   }
 }

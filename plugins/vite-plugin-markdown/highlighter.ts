@@ -20,6 +20,13 @@ export type ThemeOptions =
 
 export interface CreateHighlighterOptions {
   /**
+   * Configure shiki theme.
+   *
+   * @example { theme: 'github-dark' }
+   * @example { theme: { light: 'github-light', dark: 'github-dark' } }
+   */
+  theme: ThemeOptions
+  /**
    * Custom syntax highlighter language or preload built-in languages.
    */
   languages: (LanguageInput | BuiltinLanguage)[]
@@ -45,14 +52,13 @@ export interface CreateHighlighterFn {
 }
 
 export async function createHighlighter(
-  theme: ThemeOptions,
   options: CreateHighlighterOptions
 ): Promise<CreateHighlighterFn> {
   const highlighter = await createShikiHighlighter({
     themes:
-      typeof theme === 'object' && 'light' in theme && 'dark' in theme
-        ? [theme.light, theme.dark]
-        : [theme],
+      typeof options.theme === 'object' && 'light' in options.theme && 'dark' in options.theme
+        ? [options.theme.light, options.theme.dark]
+        : [options.theme],
     langs: options.languages,
   })
 
@@ -81,9 +87,9 @@ export async function createHighlighter(
         lang: normalizeLang(lang),
         transformers: [transformerDisableVueInterpolation()],
         meta: { __attrs: attrs },
-        ...(typeof theme === 'object' && 'light' in theme && 'dark' in theme
-          ? { themes: theme, defaultColor: false }
-          : { theme }),
+        ...(typeof options.theme === 'object' && 'light' in options.theme && 'dark' in options.theme
+          ? { themes: options.theme, defaultColor: false }
+          : { theme: options.theme }),
       })
     },
     dispose() {
