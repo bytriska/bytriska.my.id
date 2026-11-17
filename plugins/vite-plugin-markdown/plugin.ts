@@ -1,6 +1,6 @@
 import type { MarkdownIt } from 'markdown-it'
 import type { Plugin } from 'vite'
-import type { MarkdownOptions } from './markdown'
+import type { MarkdownOptions, MarkdownRenderer } from './markdown'
 import type { Awaitable } from './utils/types'
 import { createMarkdownRenderer } from './markdown'
 
@@ -13,17 +13,21 @@ const MARKDOWN_RE = /\.md$/
 
 export async function markdown(options: Options = {}): Promise<Plugin> {
   const resolvedOptions = resolveOptions(options)
-  const markdownRenderer = await createMarkdownRenderer(resolvedOptions.markdown)
+
+  let markdownRenderer: MarkdownRenderer
 
   const lifecycle = new AbortController()
   const renderEnv = {}
   return {
     name: 'local:vite-plugin-markdown',
+    async config() {
+      markdownRenderer = await createMarkdownRenderer(resolvedOptions.markdown)
+    },
     async load(id) {
       if (!MARKDOWN_RE.test(id)) return
 
       const str = await this.fs.readFile(id, { encoding: 'utf8' })
-      const html = markdownRenderer.render(str, { env: renderEnv, signal: lifecycle.signal })
+      const html = await markdownRenderer.render(str, { env: renderEnv, signal: lifecycle.signal })
 
       return `<template><div>${html}</div></template>`
     },

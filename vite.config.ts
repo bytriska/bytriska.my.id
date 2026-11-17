@@ -10,7 +10,7 @@ import icons from 'unplugin-icons/vite'
 import components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import vueRouter from 'vue-router/vite'
-import markdown from './scripts/markdown/vite.ts'
+import { markdown } from './plugins/vite-plugin-markdown'
 import virtualIndexHtml from './scripts/virtual-index-html/vite.ts'
 
 const MARKDOWN_RE = /\.md$/

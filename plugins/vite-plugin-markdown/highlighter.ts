@@ -4,6 +4,7 @@ import type {
   BundledLanguage,
   Highlighter,
   LanguageInput,
+  ShikiTransformer,
   ThemeRegistrationAny,
 } from 'shiki'
 import type { Awaitable } from './utils/types'
@@ -78,6 +79,7 @@ export async function createHighlighter(
     highlight(str, lang, attrs) {
       return highlighter.codeToHtml(str, {
         lang: normalizeLang(lang),
+        transformers: [transformerDisableVueInterpolation()],
         meta: { __attrs: attrs },
         ...(typeof theme === 'object' && 'light' in theme && 'dark' in theme
           ? { themes: theme, defaultColor: false }
@@ -86,6 +88,15 @@ export async function createHighlighter(
     },
     dispose() {
       return highlighter.dispose()
+    },
+  }
+}
+
+function transformerDisableVueInterpolation(): ShikiTransformer {
+  return {
+    name: 'local:transformer-disable-vue-interpolation',
+    pre(hast) {
+      hast.properties['v-pre'] = ''
     },
   }
 }
