@@ -1,0 +1,6 @@
+export function normalizeTemplateProps(props: unknown) {
+  return JSON.stringify(props ?? {})
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+}

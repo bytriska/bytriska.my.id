@@ -11,6 +11,7 @@ import components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import vueRouter from 'vue-router/vite'
 import { markdown } from './plugins/vite-plugin-markdown'
+import { normalizeTemplateProps } from './plugins/vite-plugin-markdown/utils/render.ts'
 import virtualIndexHtml from './scripts/virtual-index-html/vite.ts'
 
 const MARKDOWN_RE = /\.md$/
@@ -22,7 +23,11 @@ const VUE_X_SUBREQUEST_RE = /\.vue\.[jt]sx?\?vue/
 export default defineConfig({
   plugins: [
     tailwindcss(),
-    markdown(),
+    markdown({
+      applyTemplate(html, { frontmatter }) {
+        return `<MarkdownWrapper :frontmatter="${normalizeTemplateProps(frontmatter)}">${html}</MarkdownWrapper>`
+      },
+    }),
     vueRouter({
       routesFolder: 'src/pages',
       extensions: ['.vue', '.md'],

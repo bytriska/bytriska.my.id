@@ -1,4 +1,4 @@
-import type { MarkdownIt } from 'markdown-it'
+import type { Env, MarkdownIt } from 'markdown-it'
 import type { Plugin } from 'vite'
 import type { MarkdownOptions, MarkdownRenderer } from './markdown'
 import type { Awaitable } from './utils/types'
@@ -7,8 +7,17 @@ import { createMarkdownRenderer } from './markdown'
 interface RawMarkdownOptions extends Partial<MarkdownOptions> {}
 
 export interface Options {
+  /**
+   * Apply layout wrapper to the rendered markdown.
+   * @default (html:string) => `<div>${html}</div>`
+   */
+  applyTemplate?: (html: string, env: Env) => string
+  /**
+   * Configure markdown renderer
+   */
   markdown?: RawMarkdownOptions
 }
+
 const MARKDOWN_RE = /\.md$/
 
 export async function markdown(options: Options = {}): Promise<Plugin> {
@@ -17,7 +26,7 @@ export async function markdown(options: Options = {}): Promise<Plugin> {
   let markdownRenderer: MarkdownRenderer
 
   const lifecycle = new AbortController()
-  const renderEnv = {}
+  const renderEnv = {} as Env
   return {
     name: 'local:vite-plugin-markdown',
     async config() {
@@ -29,7 +38,24 @@ export async function markdown(options: Options = {}): Promise<Plugin> {
       const str = await this.fs.readFile(id, { encoding: 'utf8' })
       const html = await markdownRenderer.render(str, { env: renderEnv, signal: lifecycle.signal })
 
-      return `<template><div>${html}</div></template>`
+      const { sfcBlocks } = renderEnv
+
+      /** @todo add some hooks to append or prepend custom script maybe? */
+      const rawScriptSetupBlock = sfcBlocks?.scriptSetup?.content
+      const rawScriptBlock = sfcBlocks?.script?.content
+
+      const templateBlock = `<template>${resolvedOptions.applyTemplate(html, renderEnv)}</template>`
+      const stylesBlocks = sfcBlocks?.styles.map(b => b.content) ?? []
+      const customBlocks = sfcBlocks?.customBlocks.map(b => b.content) ?? []
+      const vuesfc = [
+        rawScriptBlock,
+        rawScriptSetupBlock,
+        templateBlock,
+        ...stylesBlocks,
+        ...customBlocks,
+      ]
+
+      return vuesfc.filter(Boolean).join('\n')
     },
     configureServer(server) {
       server.httpServer?.on('close', async () => {
@@ -45,11 +71,13 @@ export async function markdown(options: Options = {}): Promise<Plugin> {
 }
 
 interface ResolvedOptions extends Options {
+  applyTemplate: (html: string, env: Env) => string
   markdown: MarkdownOptions
 }
 
 function resolveOptions(options: Options): ResolvedOptions {
   const defaults: ResolvedOptions = {
+    applyTemplate: (html: string) => `<div>${html}</div>`,
     markdown: {
       theme: { light: 'github-light', dark: 'github-dark' },
       languages: [],
