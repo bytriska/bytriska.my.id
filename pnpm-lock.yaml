@@ -247,18 +247,33 @@ importers:
       '@iconify/json':
         specifier: ^2.2.527
         version: 2.2.527
+      '@mdit-vue/plugin-component':
+        specifier: ^4.0.0
+        version: 4.0.0
+      '@mdit-vue/plugin-frontmatter':
+        specifier: ^4.0.0
+        version: 4.0.0
       '@mdit-vue/plugin-headers':
-        specifier: ^3.0.2
-        version: 3.0.2
+        specifier: ^4.0.0
+        version: 4.0.0
+      '@mdit-vue/plugin-sfc':
+        specifier: ^4.0.0
+        version: 4.0.0
       '@mdit/plugin-alert':
         specifier: ^2.0.1
-        version: 2.0.1(markdown-it@15.0.1)
+        version: 2.0.1(markdown-it@15.0.3)
+      '@mdit/plugin-anchor':
+        specifier: ^2.4.0
+        version: 2.4.0(markdown-it@15.0.3)
       '@mdit/plugin-attrs':
         specifier: ^1.3.1
-        version: 1.3.1(markdown-it@15.0.1)
+        version: 1.3.1(markdown-it@15.0.3)
       '@mdit/plugin-container':
         specifier: ^2.0.1
-        version: 2.0.1(markdown-it@15.0.1)
+        version: 2.0.1(markdown-it@15.0.3)
+      '@mdit/plugin-emoji':
+        specifier: ^1.3.0
+        version: 1.3.0(markdown-it@15.0.3)
       '@shikijs/transformers':
         specifier: ^4.4.3
         version: 4.4.3
@@ -301,15 +316,18 @@ importers:
       markdown-exit:
         specifier: 1.3.0
         version: 1.3.0
+      markdown-it:
+        specifier: ^15.0.3
+        version: 15.0.3
       markdown-it-anchor:
         specifier: ^10.0.0
-        version: 10.0.0(@types/markdown-it@14.1.2)(markdown-it@15.0.1)
+        version: 10.0.0(@types/markdown-it@14.1.2)(markdown-it@15.0.3)
       markdown-it-emoji:
         specifier: ^3.1.0
         version: 3.1.0
       node:
         specifier: runtime:^22.23.2
-        version: runtime:22.23.3
+        version: runtime:22.23.5
       prettier:
         specifier: ^3.9.6
         version: 3.9.6
@@ -1621,6 +1639,13 @@ packages:
       }
     engines: { node: '>=20.0.0' }
 
+  '@mdit-vue/plugin-component@4.0.0':
+    resolution:
+      {
+        integrity: sha512-AflqdSLBBWtDhgTuJTF9i+/xp2g95NXzOCC1LYmNa24PJn59csZyu1ZJx/QcTYUqF6PmDOHL0BkhFT0bjJPhTw==,
+      }
+    engines: { node: '>=20.19.0' }
+
   '@mdit-vue/plugin-frontmatter@3.0.2':
     resolution:
       {
@@ -1628,19 +1653,33 @@ packages:
       }
     engines: { node: '>=20.0.0' }
 
-  '@mdit-vue/plugin-headers@3.0.2':
+  '@mdit-vue/plugin-frontmatter@4.0.0':
     resolution:
       {
-        integrity: sha512-Z3PpDdwBTO5jlW2r617tQibkwtCc5unTnj/Ew1SCxTQaXjtKgwP9WngdSN+xxriISHoNOYzwpoUw/1CW8ntibA==,
+        integrity: sha512-zCkwn5CiXN4gXSF2Ggfo2I9J+b0cnu9i3y4w8oFWvhvfW8UXIjCsfQnLeYTuYVaFeLeMEp3sII377VfEt73u/g==,
       }
-    engines: { node: '>=20.0.0' }
+    engines: { node: '>=20.19.0' }
 
-  '@mdit-vue/shared@3.0.2':
+  '@mdit-vue/plugin-headers@4.0.0':
     resolution:
       {
-        integrity: sha512-anFGls154h0iVzUt5O43EaqYvPwzfUxQ34QpNQsUQML7pbEJMhcgkRNvYw9hZBspab+/TP45agdPw5joh6/BBA==,
+        integrity: sha512-bfLq7kwdVeMggYA1czOEUoGLaQJDRAiOwJ/XDbNNkLDdJvHx/cXkPu9il+vAQEarMz/QrOBlI2Ygbv32Bws5Iw==,
       }
-    engines: { node: '>=20.0.0' }
+    engines: { node: '>=20.19.0' }
+
+  '@mdit-vue/plugin-sfc@4.0.0':
+    resolution:
+      {
+        integrity: sha512-PolNeZ3zJLcVahGN3j/97kVv6I1M2yKx1HU6O31hPuBAKCEXJTXvE4UDkomv6jPVuOkvAemIDqNIscbN4Gn55Q==,
+      }
+    engines: { node: '>=20.19.0' }
+
+  '@mdit-vue/shared@4.0.0':
+    resolution:
+      {
+        integrity: sha512-aYqXHD8UCbGewcpn2Q0zhDRLx/8tj6pW3dDGDlJifytD7UqyorQvJ1Vc8xIY93fcXXedRcLH8OfguPgj9uDsqg==,
+      }
+    engines: { node: '>=20.19.0' }
 
   '@mdit-vue/types@3.0.2':
     resolution:
@@ -1648,6 +1687,13 @@ packages:
         integrity: sha512-00aAZ0F0NLik6I6Yba2emGbHLxv+QYrPH00qQ5dFKXlAo1Ll2RHDXwY7nN2WAfrx2pP+WrvSRFTGFCNGdzBDHw==,
       }
     engines: { node: '>=20.0.0' }
+
+  '@mdit-vue/types@4.0.0':
+    resolution:
+      {
+        integrity: sha512-c8YYON97dW2WIE5zPwH5noB8a9JYsvktEZLy8G3nLcsDJTlnzVJ0Ux9VRNqkv8yEHN+iTLP53wuB+Vd79ntICw==,
+      }
+    engines: { node: '>=20.19.0' }
 
   '@mdit/helper@1.1.1':
     resolution:
@@ -1661,6 +1707,18 @@ packages:
       markdown-it:
         optional: true
 
+  '@mdit/helper@1.2.1':
+    resolution:
+      {
+        integrity: sha512-OS++ECXryTqYD3IQFngmYI5Eag8ZftewAmsFnZ8EqBV+YpoTNVFubb9fFgQDkxdNdDT/oh5wtEzcj1Tu1/BLSQ==,
+      }
+    engines: { node: '>=22' }
+    peerDependencies:
+      markdown-it: ^15.0.3
+    peerDependenciesMeta:
+      markdown-it:
+        optional: true
+
   '@mdit/plugin-alert@2.0.1':
     resolution:
       {
@@ -1669,6 +1727,18 @@ packages:
     engines: { node: '>=22' }
     peerDependencies:
       markdown-it: 15.0.1
+    peerDependenciesMeta:
+      markdown-it:
+        optional: true
+
+  '@mdit/plugin-anchor@2.4.0':
+    resolution:
+      {
+        integrity: sha512-fVDhw+/DewPMLFxJGR8y8yPRn2nRk5LIUXIc4bgnxbkNNP+6ZqWtmuKgsgQRu98AfTwrN7L+fkMIM8dnHbaRXQ==,
+      }
+    engines: { node: '>=22' }
+    peerDependencies:
+      markdown-it: ^15.0.3
     peerDependenciesMeta:
       markdown-it:
         optional: true
@@ -1693,6 +1763,18 @@ packages:
     engines: { node: '>=22' }
     peerDependencies:
       markdown-it: 15.0.1
+    peerDependenciesMeta:
+      markdown-it:
+        optional: true
+
+  '@mdit/plugin-emoji@1.3.0':
+    resolution:
+      {
+        integrity: sha512-GOIvFM0e7ddZ6brLdiBEgVXtZPTQLmSCkinZ/XAtw66mNJo7l5uPblo0/K02YkFAR8hn8h5fK30tRm9YEucZpw==,
+      }
+    engines: { node: '>=22' }
+    peerDependencies:
+      markdown-it: ^15.0.3
     peerDependenciesMeta:
       markdown-it:
         optional: true
@@ -3093,10 +3175,10 @@ packages:
         integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==,
       }
 
-  argparse@3.0.2:
+  argparse@3.0.4:
     resolution:
       {
-        integrity: sha512-mFdDM6WqWKraGLsVb+C9CahPnzTXOefAOLq3jYcca2YZ8bEWpr++Tzj+zSaKW9+X9L5uSxcm1AZ3Y6aZJ09OhQ==,
+        integrity: sha512-fwWK3Zq22l4XJJjx5mcBHGikIk+hJqO+32dPm0Jur7+rtG5x1scOjSfdT9ZKeWHPpsya/l0HHK4tDImBkTrtvA==,
       }
 
   aria-hidden@1.2.6:
@@ -4537,10 +4619,10 @@ packages:
       }
     hasBin: true
 
-  markdown-it@15.0.1:
+  markdown-it@15.0.3:
     resolution:
       {
-        integrity: sha512-9/7gE95FNPkfUWrjJIoHZza2iLmuJlPD0UNMxPi7bxUrbCR525YZY0r+zyfes0dZI5ZZ/uNIXUJca0pJvtw41g==,
+        integrity: sha512-+Az7Ojz3iRGu8KYMvJ6xVhvrxP3eE+vEtJX75Ow88XBpcQNV/0lGX5ZynIIBftREo4DC2jsveAMDaeltmm8QvQ==,
       }
     hasBin: true
 
@@ -4898,7 +4980,7 @@ packages:
       }
     engines: { node: '>=18' }
 
-  node@runtime:22.23.3:
+  node@runtime:22.23.5:
     resolution:
       type: variations
       variants:
@@ -4906,9 +4988,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-uF3F8NepvoA4xOc0UNkSWyQceS7H7ElSKTRfhtHj9vo=
+            integrity: sha256-8N2guueWeKtus8oCF59P5TRGPOb2irlC0rSbBX5HhDM=
             type: binary
-            url: https://nodejs.org/download/release/v22.23.3/node-v22.23.3-aix-ppc64.tar.gz
+            url: https://nodejs.org/download/release/v22.23.5/node-v22.23.5-aix-ppc64.tar.gz
           targets:
             - cpu: ppc64
               os: aix
@@ -4916,9 +4998,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-I7JSRdz7mvcmL4/xQuni4K8CU2gRcynnp0WKUeWSL1M=
+            integrity: sha256-5xMZlXWbYaAXC2RgENKtNaXTe0yw1HHz6DF+rG90Lz0=
             type: binary
-            url: https://nodejs.org/download/release/v22.23.3/node-v22.23.3-darwin-arm64.tar.gz
+            url: https://nodejs.org/download/release/v22.23.5/node-v22.23.5-darwin-arm64.tar.gz
           targets:
             - cpu: arm64
               os: darwin
@@ -4926,9 +5008,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-imd7AhkXjv1usOR1RXxK+0UrUhqS9uZ4Rac72Fcn8qg=
+            integrity: sha256-xTODI4IGua5NsjxdimNkXi51O+yKtRpJzIGTmqZOlCI=
             type: binary
-            url: https://nodejs.org/download/release/v22.23.3/node-v22.23.3-darwin-x64.tar.gz
+            url: https://nodejs.org/download/release/v22.23.5/node-v22.23.5-darwin-x64.tar.gz
           targets:
             - cpu: x64
               os: darwin
@@ -4936,9 +5018,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-XO0tSNHXGYc5t/hoBN4Bca77aCO2hLEjQdMyGvw8sLI=
+            integrity: sha256-i9Pcae7o8/ImMVqA19HU+szyF6TI+uUAForC448726M=
             type: binary
-            url: https://nodejs.org/download/release/v22.23.3/node-v22.23.3-linux-arm64.tar.gz
+            url: https://nodejs.org/download/release/v22.23.5/node-v22.23.5-linux-arm64.tar.gz
           targets:
             - cpu: arm64
               os: linux
@@ -4946,9 +5028,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-i5kFjsb043K5iH+Oy1d6KSrbEy1Z5RBDVkKKdY/bEmw=
+            integrity: sha256-As0iGAhyFIG6Pt2LUWJKORtFNXVDuBROb/eqw14VAKw=
             type: binary
-            url: https://nodejs.org/download/release/v22.23.3/node-v22.23.3-linux-armv7l.tar.gz
+            url: https://nodejs.org/download/release/v22.23.5/node-v22.23.5-linux-armv7l.tar.gz
           targets:
             - cpu: armv7l
               os: linux
@@ -4956,9 +5038,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-I2cS3e9z9WwOBZCixJ9pyDk6LC2Cw9YsfBZWBbRys40=
+            integrity: sha256-3kagJ+6zlC1YnaY/LFc05z1cU6rIJF51CIoawTvaLgQ=
             type: binary
-            url: https://nodejs.org/download/release/v22.23.3/node-v22.23.3-linux-ppc64le.tar.gz
+            url: https://nodejs.org/download/release/v22.23.5/node-v22.23.5-linux-ppc64le.tar.gz
           targets:
             - cpu: ppc64le
               os: linux
@@ -4966,9 +5048,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-UfZHlPX2G9/ICqGGyCcwIUc5l2Bc+Q7THtFIvuZQpVQ=
+            integrity: sha256-UPjhE79mOLudWuZiCIP9kLmOjh968Q74fMqdyXnNs5s=
             type: binary
-            url: https://nodejs.org/download/release/v22.23.3/node-v22.23.3-linux-s390x.tar.gz
+            url: https://nodejs.org/download/release/v22.23.5/node-v22.23.5-linux-s390x.tar.gz
           targets:
             - cpu: s390x
               os: linux
@@ -4976,9 +5058,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-Yz9JpPOIxflWTVbZwPX/o5Q0bZLKAHb+Ic93bs4ZiLw=
+            integrity: sha256-g7i6kW6yLom6gnRCakD3qgARxuTF/3elsDeT94GpB4Y=
             type: binary
-            url: https://nodejs.org/download/release/v22.23.3/node-v22.23.3-linux-x64-musl.tar.gz
+            url: https://nodejs.org/download/release/v22.23.5/node-v22.23.5-linux-x64-musl.tar.gz
           targets:
             - cpu: x64
               os: linux
@@ -4987,9 +5069,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-EISqNhlrukw6Xmmh7jiKbk/3KdrQlEX7zUNLKP48JK8=
+            integrity: sha256-xUEYEErMUkYztavhBrv0SlMSbsi05foQXLkrXX3ooaE=
             type: binary
-            url: https://nodejs.org/download/release/v22.23.3/node-v22.23.3-linux-x64.tar.gz
+            url: https://nodejs.org/download/release/v22.23.5/node-v22.23.5-linux-x64.tar.gz
           targets:
             - cpu: x64
               os: linux
@@ -4997,10 +5079,10 @@ packages:
             archive: zip
             bin:
               node: node.exe
-            integrity: sha256-M9rSLkzvXuj5+7Gw0Df9rNDlbRKkWA8NY/aLiU3qtTU=
-            prefix: node-v22.23.3-win-arm64
+            integrity: sha256-wYVoF/YRc4x3U077/4paF5kFk+qyQEa8jSwjp3oWDRM=
+            prefix: node-v22.23.5-win-arm64
             type: binary
-            url: https://nodejs.org/download/release/v22.23.3/node-v22.23.3-win-arm64.zip
+            url: https://nodejs.org/download/release/v22.23.5/node-v22.23.5-win-arm64.zip
           targets:
             - cpu: arm64
               os: win32
@@ -5008,10 +5090,10 @@ packages:
             archive: zip
             bin:
               node: node.exe
-            integrity: sha256-Kw/1ewSc2hu86iJA7sIEZwGHE8Hv4fc2DCaBhZuQ7XE=
-            prefix: node-v22.23.3-win-x64
+            integrity: sha256-ShkQgulwaGaDA3nVd9LMilDHdvzZQ2qNBhsGPtDZoOM=
+            prefix: node-v22.23.5-win-x64
             type: binary
-            url: https://nodejs.org/download/release/v22.23.3/node-v22.23.3-win-x64.zip
+            url: https://nodejs.org/download/release/v22.23.5/node-v22.23.5-win-x64.zip
           targets:
             - cpu: x64
               os: win32
@@ -5019,10 +5101,10 @@ packages:
             archive: zip
             bin:
               node: node.exe
-            integrity: sha256-HgesAOYbQbfs8kLejjiIPSN9WtP9ytfBby3TqIZw4rY=
-            prefix: node-v22.23.3-win-x86
+            integrity: sha256-nAEkVoPIfj+B7t+62CwWZWEXSWJ80bC1pCkh25NhtKY=
+            prefix: node-v22.23.5-win-x86
             type: binary
-            url: https://nodejs.org/download/release/v22.23.3/node-v22.23.3-win-x86.zip
+            url: https://nodejs.org/download/release/v22.23.5/node-v22.23.5-win-x86.zip
           targets:
             - cpu: x86
               os: win32
@@ -5030,9 +5112,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-jOwDpJjYg3OdHcm5JP2i+GlEcFtUrHB79IpjdIN3THA=
+            integrity: sha256-UccuOhOFsQ1MhipAyEX8e+pbGeMMfhCdvcwgd8VeObs=
             type: binary
-            url: https://unofficial-builds.nodejs.org/download/release/v22.23.3/node-v22.23.3-linux-arm64-musl.tar.gz
+            url: https://unofficial-builds.nodejs.org/download/release/v22.23.5/node-v22.23.5-linux-arm64-musl.tar.gz
           targets:
             - cpu: arm64
               os: linux
@@ -5041,14 +5123,14 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-XqRolPwG4JNjhG2O1lqCK9AL6jXZdOQTICcqSK8wnjo=
+            integrity: sha256-WRb60QoF5H8ty9cPmToDln/9UTMPQEFeyK/dmSjcEL4=
             type: binary
-            url: https://unofficial-builds.nodejs.org/download/release/v22.23.3/node-v22.23.3-linux-x64-musl.tar.gz
+            url: https://unofficial-builds.nodejs.org/download/release/v22.23.5/node-v22.23.5-linux-x64-musl.tar.gz
           targets:
             - cpu: x64
               os: linux
               libc: musl
-    version: 22.23.3
+    version: 22.23.5
     hasBin: true
 
   nostics@1.2.0:
@@ -5265,13 +5347,6 @@ packages:
         integrity: sha512-7qASPzhKF2l2KLboRZux8CCTRMdGiV08vWmyKzPz22qZ7ZjQBOeY7rNzNoCLSUiftJ7HUq0GERHmxw/t0dCdMw==,
       }
     engines: { node: '>=4' }
-
-  postcss@8.5.26:
-    resolution:
-      {
-        integrity: sha512-u82N74LFzG8ca+dD8puPnplTXoGH4fTPpVGuIbt36G3qvNlkvfD0lEAZSxaly3KX8TS/L1A1gsCEmvKmBcVbkQ==,
-      }
-    engines: { node: ^10 || ^12 || >=14 }
 
   postcss@8.5.28:
     resolution:
@@ -6819,6 +6894,11 @@ snapshots:
       '@types/markdown-it': 14.1.2
       markdown-it: 14.1.1
 
+  '@mdit-vue/plugin-component@4.0.0':
+    dependencies:
+      '@mdit-vue/types': 4.0.0
+      markdown-it: 15.0.3
+
   '@mdit-vue/plugin-frontmatter@3.0.2':
     dependencies:
       '@mdit-vue/types': 3.0.2
@@ -6826,42 +6906,71 @@ snapshots:
       gray-matter: 4.0.3
       markdown-it: 14.1.1
 
-  '@mdit-vue/plugin-headers@3.0.2':
+  '@mdit-vue/plugin-frontmatter@4.0.0':
     dependencies:
-      '@mdit-vue/shared': 3.0.2
-      '@mdit-vue/types': 3.0.2
-      '@types/markdown-it': 14.1.2
-      markdown-it: 14.1.1
+      '@mdit-vue/types': 4.0.0
+      gray-matter: 4.0.3
+      markdown-it: 15.0.3
 
-  '@mdit-vue/shared@3.0.2':
+  '@mdit-vue/plugin-headers@4.0.0':
     dependencies:
-      '@mdit-vue/types': 3.0.2
-      '@types/markdown-it': 14.1.2
-      markdown-it: 14.1.1
+      '@mdit-vue/shared': 4.0.0
+      '@mdit-vue/types': 4.0.0
+      markdown-it: 15.0.3
+
+  '@mdit-vue/plugin-sfc@4.0.0':
+    dependencies:
+      '@mdit-vue/types': 4.0.0
+      markdown-it: 15.0.3
+
+  '@mdit-vue/shared@4.0.0':
+    dependencies:
+      '@mdit-vue/types': 4.0.0
+      markdown-it: 15.0.3
 
   '@mdit-vue/types@3.0.2': {}
 
-  '@mdit/helper@1.1.1(markdown-it@15.0.1)':
-    optionalDependencies:
-      markdown-it: 15.0.1
-
-  '@mdit/plugin-alert@2.0.1(markdown-it@15.0.1)':
+  '@mdit-vue/types@4.0.0':
     dependencies:
-      '@mdit/helper': 1.1.1(markdown-it@15.0.1)
-    optionalDependencies:
-      markdown-it: 15.0.1
+      markdown-it: 15.0.3
 
-  '@mdit/plugin-attrs@1.3.1(markdown-it@15.0.1)':
-    dependencies:
-      '@mdit/helper': 1.1.1(markdown-it@15.0.1)
+  '@mdit/helper@1.1.1(markdown-it@15.0.3)':
     optionalDependencies:
-      markdown-it: 15.0.1
+      markdown-it: 15.0.3
 
-  '@mdit/plugin-container@2.0.1(markdown-it@15.0.1)':
-    dependencies:
-      '@mdit/helper': 1.1.1(markdown-it@15.0.1)
+  '@mdit/helper@1.2.1(markdown-it@15.0.3)':
     optionalDependencies:
-      markdown-it: 15.0.1
+      markdown-it: 15.0.3
+
+  '@mdit/plugin-alert@2.0.1(markdown-it@15.0.3)':
+    dependencies:
+      '@mdit/helper': 1.1.1(markdown-it@15.0.3)
+    optionalDependencies:
+      markdown-it: 15.0.3
+
+  '@mdit/plugin-anchor@2.4.0(markdown-it@15.0.3)':
+    dependencies:
+      '@mdit/helper': 1.2.1(markdown-it@15.0.3)
+    optionalDependencies:
+      markdown-it: 15.0.3
+
+  '@mdit/plugin-attrs@1.3.1(markdown-it@15.0.3)':
+    dependencies:
+      '@mdit/helper': 1.1.1(markdown-it@15.0.3)
+    optionalDependencies:
+      markdown-it: 15.0.3
+
+  '@mdit/plugin-container@2.0.1(markdown-it@15.0.3)':
+    dependencies:
+      '@mdit/helper': 1.1.1(markdown-it@15.0.3)
+    optionalDependencies:
+      markdown-it: 15.0.3
+
+  '@mdit/plugin-emoji@1.3.0(markdown-it@15.0.3)':
+    dependencies:
+      '@mdit/helper': 1.2.1(markdown-it@15.0.3)
+    optionalDependencies:
+      markdown-it: 15.0.3
 
   '@ota-meshi/ast-token-store@0.3.0': {}
 
@@ -7421,7 +7530,7 @@ snapshots:
 
   '@typescript-eslint/utils@8.70.0(eslint@10.10.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@10.10.0(jiti@2.7.0)(supports-color@10.2.2))
+      '@eslint-community/eslint-utils': 4.10.1(eslint@10.10.0(jiti@2.7.0)(supports-color@10.2.2))
       '@typescript-eslint/scope-manager': 8.70.0
       '@typescript-eslint/types': 8.70.0
       '@typescript-eslint/typescript-estree': 8.70.0(supports-color@10.2.2)(typescript@6.0.3)
@@ -7560,7 +7669,7 @@ snapshots:
       '@vue/shared': 3.5.42
       estree-walker: 2.0.2
       magic-string: 0.30.21
-      postcss: 8.5.26
+      postcss: 8.5.28
       source-map-js: 1.2.1
 
   '@vue/compiler-ssr@3.5.42':
@@ -7660,7 +7769,7 @@ snapshots:
 
   argparse@2.0.1: {}
 
-  argparse@3.0.2: {}
+  argparse@3.0.4: {}
 
   aria-hidden@1.2.6:
     dependencies:
@@ -8530,10 +8639,10 @@ snapshots:
       punycode.js: 2.3.1
       uc.micro: 2.1.0
 
-  markdown-it-anchor@10.0.0(@types/markdown-it@14.1.2)(markdown-it@15.0.1):
+  markdown-it-anchor@10.0.0(@types/markdown-it@14.1.2)(markdown-it@15.0.3):
     dependencies:
       '@types/markdown-it': 14.1.2
-      markdown-it: 15.0.1
+      markdown-it: 15.0.3
 
   markdown-it-emoji@3.1.0: {}
 
@@ -8546,9 +8655,9 @@ snapshots:
       punycode.js: 2.3.1
       uc.micro: 2.1.0
 
-  markdown-it@15.0.1:
+  markdown-it@15.0.3:
     dependencies:
-      argparse: 3.0.2
+      argparse: 3.0.4
       entities: 8.1.0
       linkify-it: 6.1.0
       mdurl: 2.1.0
@@ -8946,7 +9055,7 @@ snapshots:
 
   node-releases@2.0.55: {}
 
-  node@runtime:22.23.3: {}
+  node@runtime:22.23.5: {}
 
   nostics@1.2.0: {}
 
@@ -9048,12 +9157,6 @@ snapshots:
     dependencies:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
-
-  postcss@8.5.26:
-    dependencies:
-      nanoid: 3.3.18
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
 
   postcss@8.5.28:
     dependencies:
