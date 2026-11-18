@@ -10,8 +10,7 @@ import icons from 'unplugin-icons/vite'
 import components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import vueRouter from 'vue-router/vite'
-import { markdown } from './plugins/vite-plugin-markdown'
-import { normalizeTemplateProps } from './plugins/vite-plugin-markdown/utils/render.ts'
+import { escapeVueProps, markdown } from './plugins/vite-plugin-markdown'
 import virtualIndexHtml from './scripts/virtual-index-html/vite.ts'
 
 const MARKDOWN_RE = /\.md$/
@@ -24,8 +23,9 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     markdown({
-      applyTemplate(html, { frontmatter }) {
-        return `<MarkdownWrapper :frontmatter="${normalizeTemplateProps(frontmatter)}">${html}</MarkdownWrapper>`
+      applyTemplate(html, { frontmatter, headers }) {
+        const json = escapeVueProps({ ...frontmatter, toc: headers })
+        return `<MarkdownWrapper :frontmatter="${json}">${html}</MarkdownWrapper>`
       },
     }),
     vueRouter({
