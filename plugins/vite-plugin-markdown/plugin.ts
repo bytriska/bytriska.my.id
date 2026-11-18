@@ -22,11 +22,10 @@ const MARKDOWN_RE = /\.md$/
 
 export async function markdown(options: Options = {}): Promise<Plugin> {
   const resolvedOptions = resolveOptions(options)
+  const lifecycle = new AbortController()
 
   let markdownRenderer: MarkdownRenderer
 
-  const lifecycle = new AbortController()
-  const renderEnv = {} as Env
   return {
     name: 'local:vite-plugin-markdown',
     async config() {
@@ -35,6 +34,7 @@ export async function markdown(options: Options = {}): Promise<Plugin> {
     async load(id) {
       if (!MARKDOWN_RE.test(id)) return
 
+      const renderEnv = {} as Env
       const str = await this.fs.readFile(id, { encoding: 'utf8' })
       const html = await markdownRenderer.render(str, { env: renderEnv, signal: lifecycle.signal })
 

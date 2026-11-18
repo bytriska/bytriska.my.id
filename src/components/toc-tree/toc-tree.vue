@@ -23,5 +23,5 @@ defineProps<TocTreeProps>()
       <TocTree v-if="heading.children.length" :toc="heading.children" class="ms-4" />
     </li>
   </ul>
-  <p v-else class="text-sm text-muted-foreground">Empty heading</p>
+  <p v-else class="text-sm text-center text-muted-foreground my-2">Empty heading</p>
 </template>
