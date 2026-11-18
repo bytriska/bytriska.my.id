@@ -85,7 +85,10 @@ watch(
 </script>
 
 <template>
-  <div data-slot="layout-root" class="home-layout__root">
+  <div
+    data-slot="layout-root"
+    class="home-layout__root root:[--scroll-padding-top:var(--layout-scroll-padding-top)]!"
+  >
     <Link
       href="#main"
       variant="outline"
@@ -209,8 +212,7 @@ watch(
   --layout-row-1: var(--layout-announcement-height);
   --layout-row-2: calc(var(--layout-row-1) + var(--layout-header-height));
 
-  /* override root var */
-  --scroll-padding-top: var(--layout-row-2);
+  --layout-scroll-padding-top: calc(var(--layout-row-1) + var(--header-navbar-height));
 }
 
 .home-layout__root {
