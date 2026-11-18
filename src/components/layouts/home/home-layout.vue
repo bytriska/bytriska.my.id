@@ -149,7 +149,7 @@ watch(
       <CollapsibleRoot ref="header-drawer" data-drawer-region data-show="base" :open="openDrawer">
         <CollapsibleContent
           id="header-drawer__content"
-          class="overflow-hidden motion-safe:data-[state=open]:animate-collapsible-down motion-safe:data-[state=closed]:animate-collapsible-up"
+          class="overflow-hidden motion-safe:data-[state=open]:animate-collapsible-down motion-safe:data-[state=closed]:animate-collapsible-up motion-safe:data-[state=closed]:fill-mode-forwards"
         >
           <div class="absolute inset-x-2 h-px bg-border" />
 
