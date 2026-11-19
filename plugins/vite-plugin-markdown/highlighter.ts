@@ -18,6 +18,8 @@ export type ThemeOptions =
       dark: ThemeRegistrationAny | BuiltinTheme
     }
 
+export type HighlighterHooks = (hl: Highlighter) => Awaitable<void>
+
 export interface CreateHighlighterOptions {
   /**
    * Configure shiki theme.
@@ -42,7 +44,7 @@ export interface CreateHighlighterOptions {
   /**
    * Configure shiki instance.
    */
-  shikiConfig?: (hl: Highlighter) => Awaitable<void>
+  shikiConfig?: HighlighterHooks
 }
 
 export interface CreateHighlighterFn {
