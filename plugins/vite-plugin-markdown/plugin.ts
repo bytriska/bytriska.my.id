@@ -1,7 +1,7 @@
-import type { Env, MarkdownIt } from 'markdown-it'
+import type { Env } from 'markdown-it'
 import type { Plugin } from 'vite'
-import type { MarkdownOptions, MarkdownRenderer } from './markdown'
-import type { Awaitable } from './utils/types'
+import type { HighlighterHooks } from './highlighter'
+import type { MarkdownHooks, MarkdownOptions, MarkdownRenderer } from './markdown'
 import { createMarkdownRenderer } from './markdown'
 
 interface RawMarkdownOptions extends Partial<MarkdownOptions> {}
@@ -87,27 +87,28 @@ function resolveOptions(options: Options): ResolvedOptions {
   return mergeOptions(defaults, options)
 }
 
-function mergeOptions<A extends object, B extends object>(defaults: A, overrides: B): A & B {
+function mergeOptions<A extends object, B extends object>(
+  defaults: A,
+  overrides: B,
+  isRoot: boolean = true
+): A & B {
   const merged: Record<string, any> = { ...defaults }
 
   for (const key in overrides) {
     const value = overrides[key]
-    if (typeof value === 'undefined') continue
+    if (value == null) continue
 
     const existing = merged[key]
-    if (typeof existing === 'undefined') {
-      merged[key] = value as any
-      continue
-    }
-
     if (Array.isArray(existing) && Array.isArray(value)) {
       merged[key] = [...existing, ...value] as any
       continue
     }
 
     if (isObject(existing) && isObject(value)) {
-      if (key === 'markdown') {
+      if (isRoot && key === 'markdown') {
         merged[key] = mergeMarkdownOptions(existing, value)
+      } else {
+        merged[key] = mergeOptions(existing, value, false)
       }
       continue
     }
@@ -122,11 +123,14 @@ function mergeMarkdownOptions(a: RawMarkdownOptions, b: RawMarkdownOptions) {
   const merged = mergeOptions(a, b)
   merged.preConfig = mergeMarkdownHooks(a.preConfig, b.preConfig)
   merged.config = mergeMarkdownHooks(a.config, b.config)
+  merged.shikiConfig = mergeHighlighterHooks(a.shikiConfig, b.shikiConfig)
   return merged
 }
 
-type MarkdownHooks = ((md: InstanceType<typeof MarkdownIt>) => Awaitable<void>) | undefined
-function mergeMarkdownHooks(a: MarkdownHooks, b: MarkdownHooks): MarkdownHooks {
+function mergeMarkdownHooks(
+  a: MarkdownHooks | undefined,
+  b: MarkdownHooks | undefined
+): MarkdownHooks | undefined {
   if (!a || !b) {
     return a ?? b
   }
@@ -134,6 +138,20 @@ function mergeMarkdownHooks(a: MarkdownHooks, b: MarkdownHooks): MarkdownHooks {
   return async function (md) {
     await a(md)
     await b(md)
+  }
+}
+
+function mergeHighlighterHooks(
+  a: HighlighterHooks | undefined,
+  b: HighlighterHooks | undefined
+): HighlighterHooks | undefined {
+  if (!a || !b) {
+    return a ?? b
+  }
+
+  return async function (hl) {
+    await a(hl)
+    await b(hl)
   }
 }
 
