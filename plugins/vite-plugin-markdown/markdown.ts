@@ -12,17 +12,19 @@ import { sfcPlugin } from '@mdit-vue/plugin-sfc'
 import MarkdownIt from 'markdown-it'
 import { createHighlighter } from './highlighter'
 
+export type MarkdownHooks = (md: InstanceType<typeof MarkdownIt>) => Awaitable<void>
+
 export interface MarkdownOptions extends CreateHighlighterOptions, MarkdownItOptions {
   /* -------------------- General Options -------------------- */
 
   /**
    * Configure markdown-it instance before plugins being applied.
    */
-  preConfig?: (md: InstanceType<typeof MarkdownIt>) => Awaitable<void>
+  preConfig?: MarkdownHooks
   /**
    * Configure markdown-it instance after all plugins being applied.
    */
-  config?: (md: InstanceType<typeof MarkdownIt>) => Awaitable<void>
+  config?: MarkdownHooks
 
   /* -------------------- Vue Integration -------------------- */
 
