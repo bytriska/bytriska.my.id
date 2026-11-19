@@ -120,7 +120,7 @@ function mergeOptions<A extends object, B extends object>(
 }
 
 function mergeMarkdownOptions(a: RawMarkdownOptions, b: RawMarkdownOptions) {
-  const merged = mergeOptions(a, b)
+  const merged = mergeOptions(a, b, false)
   merged.preConfig = mergeMarkdownHooks(a.preConfig, b.preConfig)
   merged.config = mergeMarkdownHooks(a.config, b.config)
   merged.shikiConfig = mergeHighlighterHooks(a.shikiConfig, b.shikiConfig)
