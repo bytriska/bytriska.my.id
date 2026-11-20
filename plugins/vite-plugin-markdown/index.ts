@@ -1,4 +1,4 @@
-export { markdown } from './plugin'
-export type { Options } from './plugin'
+export { markdown } from './plugin.ts'
+export type { Options } from './plugin.ts'
 
-export * from './utils/render'
+export { escapeVueProps } from './utils/render.ts'

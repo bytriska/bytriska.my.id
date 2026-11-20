@@ -2,15 +2,15 @@ import type { ComponentPluginOptions } from '@mdit-vue/plugin-component'
 import type { FrontmatterPluginOptions } from '@mdit-vue/plugin-frontmatter'
 import type { HeadersPluginOptions } from '@mdit-vue/plugin-headers'
 import type { SfcPluginOptions } from '@mdit-vue/plugin-sfc'
-import type { MarkdownItOptions } from 'markdown-it'
-import type { CreateHighlighterOptions } from './highlighter'
-import type { Awaitable } from './utils/types'
+import type { Env, MarkdownItOptions } from 'markdown-it'
+import type { CreateHighlighterOptions } from './highlighter.ts'
+import type { Awaitable } from './utils/types.ts'
 import { componentPlugin } from '@mdit-vue/plugin-component'
 import { frontmatterPlugin } from '@mdit-vue/plugin-frontmatter'
 import { headersPlugin } from '@mdit-vue/plugin-headers'
 import { sfcPlugin } from '@mdit-vue/plugin-sfc'
 import MarkdownIt from 'markdown-it'
-import { createHighlighter } from './highlighter'
+import { createHighlighter } from './highlighter.ts'
 
 export type MarkdownHooks = (md: InstanceType<typeof MarkdownIt>) => Awaitable<void>
 
@@ -46,13 +46,15 @@ export interface MarkdownOptions extends CreateHighlighterOptions, MarkdownItOpt
   sfc?: SfcPluginOptions
 }
 
-export interface RenderOptions {
-  env: Record<string, unknown>
-  signal?: AbortSignal
+export interface RenderResult {
+  html: string
+  frontmatter: Env['frontmatter']
+  headers: Env['headers']
+  sfc: Env['sfcBlocks']
 }
 
 export interface MarkdownRenderer {
-  render: (src: string, options: RenderOptions) => Promise<string>
+  render: (source: string) => Promise<RenderResult>
   dispose: () => Promise<void>
 }
 
@@ -85,24 +87,30 @@ export async function createMarkdownRenderer(options: MarkdownOptions): Promise<
   }
 
   function langOf(info: string) {
-    return md.utils.unescapeAll(info).trim().split(SPACES_CHAR_RE)[0]
+    return md.utils.unescapeAll(info).trim().split(SPACES_CHAR_RE)[0] ?? ''
   }
 
   return {
-    async render(src, { env = {}, signal }) {
-      signal?.throwIfAborted()
-      const tokens = md.parse(src, env)
-      const fences = tokens.filter(t => t.type === 'fence')
+    async render(source) {
+      const env = {} as Env
+      const tokens = md.parse(source, env)
 
       /**
-       * Load all language used by shiki in parallel.
+       * Load every language the document uses in parallel
        */
-      const langs = [...new Set(fences.map(t => langOf(t.info)).filter(Boolean))]
-      signal?.throwIfAborted()
-      await Promise.all(langs.map(l => highlighter.loadLanguage(l)))
+      const langs = [
+        ...new Set(tokens.filter(t => t.type === 'fence').map(t => langOf(t.info))),
+      ].filter(Boolean)
+      await highlighter.loadLanguage(langs)
 
-      signal?.throwIfAborted()
-      return md.renderer.render(tokens, md.options, env)
+      const html = md.renderer.render(tokens, md.options, env)
+
+      return {
+        html,
+        frontmatter: env.frontmatter,
+        headers: env.headers,
+        sfc: env.sfcBlocks,
+      }
     },
     async dispose() {
       highlighter.dispose()
