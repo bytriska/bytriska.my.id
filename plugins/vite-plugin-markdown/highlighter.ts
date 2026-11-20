@@ -7,7 +7,7 @@ import type {
   ShikiTransformer,
   ThemeRegistrationAny,
 } from 'shiki'
-import type { Awaitable } from './utils/types'
+import type { Awaitable } from './utils/types.ts'
 import { createHighlighter as createShikiHighlighter } from 'shiki'
 
 export type ThemeOptions =
@@ -42,14 +42,18 @@ export interface CreateHighlighterOptions {
    */
   defaultLang?: string
   /**
+   * Add custom shiki transformers
+   */
+  shikiTransformers?: ShikiTransformer[]
+  /**
    * Configure shiki instance.
    */
   shikiConfig?: HighlighterHooks
 }
 
 export interface CreateHighlighterFn {
-  loadLanguage: (lang: string) => Promise<void>
-  highlight: (str: string, lang: string, attrs: string) => string
+  loadLanguage: (langs: string[]) => Promise<void>
+  highlight: (code: string, lang: string, meta: string) => string
   dispose: () => void
 }
 
@@ -69,8 +73,8 @@ export async function createHighlighter(
   }
 
   function normalizeLang(lang: string | undefined) {
-    const normalized = lang ?? options.defaultLang ?? 'txt'
-    return highlighter.getLoadedLanguages().includes(normalized) ? normalized : 'txt'
+    const wanted = lang || options.defaultLang || 'txt'
+    return highlighter.getLoadedLanguages().includes(wanted) ? wanted : 'txt'
   }
 
   function isBundledLang(lang: string): lang is BundledLanguage {
@@ -78,17 +82,17 @@ export async function createHighlighter(
   }
 
   return {
-    async loadLanguage(lang) {
-      if (highlighter.getLoadedLanguages().includes(lang)) return
-
-      /** only load if already known language */
-      if (isBundledLang(lang)) return highlighter.loadLanguage(lang)
+    async loadLanguage(langs) {
+      const pending = langs.filter(
+        l => !highlighter.getLoadedLanguages().includes(l) && isBundledLang(l)
+      )
+      await Promise.all(pending.map(p => highlighter.loadLanguage(p as BundledLanguage)))
     },
-    highlight(str, lang, attrs) {
-      return highlighter.codeToHtml(str, {
+    highlight(code, lang, meta) {
+      return highlighter.codeToHtml(code, {
         lang: normalizeLang(lang),
-        transformers: [transformerDisableVueInterpolation()],
-        meta: { __attrs: attrs },
+        meta: { __raw: meta },
+        transformers: [transformerDisableVueInterpolation(), ...(options.shikiTransformers ?? [])],
         ...(typeof options.theme === 'object' && 'light' in options.theme && 'dark' in options.theme
           ? { themes: options.theme, defaultColor: false }
           : { theme: options.theme }),
