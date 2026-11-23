@@ -25,6 +25,12 @@
   --prose-table-border: var(--border);
   --prose-table-radius: var(--radius);
 
+  /* code block (<pre>) */
+  --prose-pre-bg: var(--card);
+  --prose-pre-border: var(--border);
+  --prose-pre-radius: var(--radius);
+  --prose-pre-code: var(--foreground);
+
   /* misc */
   --prose-code-radius: 5px;
   --prose-link-underline-offset: 3.5px;
@@ -322,6 +328,40 @@
       background: transparent;
       font-size: inherit;
       color: inherit;
+    }
+
+    /* ---- code block ---- */
+    &:where(pre) {
+      margin-top: calc(20em / 16);
+      margin-bottom: calc(20em / 16);
+      padding: calc(var(--spacing) * 4 * var(--prose-size));
+      overflow-x: auto;
+      font-size: calc(13px * var(--prose-size));
+      line-height: calc(20 / 13);
+      tab-size: 2;
+      border: 1px solid var(--prose-pre-border);
+      border-radius: var(--prose-pre-radius);
+      background-color: var(--prose-pre-bg);
+      color: var(--prose-pre-code);
+    }
+
+    &:where(pre.shiki) {
+      color: var(--shiki-light, var(--prose-pre-code));
+      @variant dark {
+        color: var(--shiki-dark, var(--prose-pre-code));
+      }
+    }
+    &:where(pre.shiki span) {
+      color: var(--shiki-light);
+      font-style: var(--shiki-light-font-style);
+      font-weight: var(--shiki-light-font-weight);
+      text-decoration: var(--shiki-light-text-decoration);
+      @variant dark {
+        color: var(--shiki-dark);
+        font-style: var(--shiki-dark-font-style);
+        font-weight: var(--shiki-dark-font-weight);
+        text-decoration: var(--shiki-dark-text-decoration);
+      }
     }
 
     /* ---- table (shared) ---- */
