@@ -1,7 +1,7 @@
-import type { RouteRecord } from 'vue-router'
-import type { Post, PostFrontmatter } from '@/types'
+import type { Post } from '@/types'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { isPostRoute } from '@/lib/post'
 
 export function usePosts() {
   const router = useRouter()
@@ -85,17 +85,4 @@ export function usePosts() {
   }
 
   return { allPosts, allCategories, allTags, allSeries, featuredPosts, byCategory, byTag, bySeries }
-}
-
-function isPostRoute(route: RouteRecord): route is RouteRecord & { meta: PostFrontmatter } {
-  const meta = route.meta
-
-  return (
-    route.path.startsWith('/posts/') &&
-    route.path !== '/posts/' &&
-    typeof meta.title === 'string' &&
-    typeof meta.publishedAt === 'string' &&
-    !meta.draft &&
-    !meta.noIndex
-  )
 }
