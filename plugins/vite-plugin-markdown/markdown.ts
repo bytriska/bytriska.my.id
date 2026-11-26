@@ -11,6 +11,7 @@ import { headersPlugin } from '@mdit-vue/plugin-headers'
 import { sfcPlugin } from '@mdit-vue/plugin-sfc'
 import MarkdownIt from 'markdown-it'
 import { createHighlighter } from './highlighter.ts'
+import { codeBlockPlugin } from './plugins/code-block.ts'
 
 export type MarkdownHooks = (md: InstanceType<typeof MarkdownIt>) => Awaitable<void>
 
@@ -74,6 +75,8 @@ export async function createMarkdownRenderer(options: MarkdownOptions): Promise<
   if (options.preConfig) {
     await options.preConfig(md)
   }
+
+  codeBlockPlugin(md)
 
   ;(options.frontmatter ??= {}).grayMatterOptions ??= {}
 

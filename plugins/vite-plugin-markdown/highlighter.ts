@@ -8,6 +8,13 @@ import type {
   ThemeRegistrationAny,
 } from 'shiki'
 import type { Awaitable } from './utils/types.ts'
+import {
+  transformerMetaHighlight,
+  transformerNotationDiff,
+  transformerNotationErrorLevel,
+  transformerNotationFocus,
+  transformerNotationHighlight,
+} from '@shikijs/transformers'
 import { createHighlighter as createShikiHighlighter } from 'shiki'
 
 export type ThemeOptions =
@@ -72,6 +79,15 @@ export async function createHighlighter(
     await options.shikiConfig(highlighter)
   }
 
+  const builtinTransformers: ShikiTransformer[] = [
+    transformerDisableVueInterpolation(),
+    transformerNotationHighlight(),
+    transformerNotationDiff(),
+    transformerNotationFocus(),
+    transformerNotationErrorLevel(),
+    transformerMetaHighlight(),
+  ] as const
+
   function normalizeLang(lang: string | undefined) {
     const wanted = lang || options.defaultLang || 'txt'
     return highlighter.getLoadedLanguages().includes(wanted) ? wanted : 'txt'
@@ -92,7 +108,7 @@ export async function createHighlighter(
       return highlighter.codeToHtml(code, {
         lang: normalizeLang(lang),
         meta: { __raw: meta },
-        transformers: [transformerDisableVueInterpolation(), ...(options.shikiTransformers ?? [])],
+        transformers: [...builtinTransformers, ...(options.shikiTransformers ?? [])],
         ...(typeof options.theme === 'object' && 'light' in options.theme && 'dark' in options.theme
           ? { themes: options.theme, defaultColor: false }
           : { theme: options.theme }),

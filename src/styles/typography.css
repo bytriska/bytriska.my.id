@@ -30,6 +30,8 @@
   --prose-pre-border: var(--border);
   --prose-pre-radius: var(--radius);
   --prose-pre-code: var(--foreground);
+  --prose-code-block-header-bg: var(--card);
+  --prose-code-block-header-fg: var(--muted-foreground);
 
   /* misc */
   --prose-code-radius: 5px;
@@ -334,7 +336,7 @@
     &:where(pre) {
       margin-top: calc(20em / 16);
       margin-bottom: calc(20em / 16);
-      padding: calc(var(--spacing) * 4 * var(--prose-size));
+      padding-block: calc(var(--spacing) * 4 * var(--prose-size));
       overflow-x: auto;
       font-size: calc(13px * var(--prose-size));
       line-height: calc(20 / 13);
@@ -343,6 +345,11 @@
       border-radius: var(--prose-pre-radius);
       background-color: var(--prose-pre-bg);
       color: var(--prose-pre-code);
+    }
+    &:where(pre code) {
+      display: grid;
+      width: max-content;
+      min-width: 100%;
     }
 
     &:where(pre.shiki) {
@@ -361,6 +368,236 @@
         font-style: var(--shiki-dark-font-style);
         font-weight: var(--shiki-dark-font-weight);
         text-decoration: var(--shiki-dark-text-decoration);
+      }
+    }
+    &:where(pre.shiki .line) {
+      position: relative;
+      padding-inline: calc(var(--spacing) * 4 * var(--prose-size));
+    }
+    &:where(pre.shiki .line):empty {
+      height: 1lh;
+    }
+    &:where(pre.shiki .line:last-child):empty {
+      display: none;
+    }
+    &:where(pre.shiki.has-focused .line:not(.focused)) {
+      filter: blur(2px);
+      transition: filter 150ms;
+    }
+    &:where(pre.shiki.has-focused:hover .line:not(.focused)) {
+      filter: blur(0);
+    }
+    &:where(pre.shiki.has-diff .line)::after {
+      position: absolute;
+      display: block;
+      inset-block: 0;
+      left: 0;
+      width: calc(var(--spacing) * 4 * var(--prose-size));
+      text-align: center;
+    }
+    &:where(pre.shiki.has-diff .line.remove) {
+      background-color: color-mix(in oklab, var(--color-code-block-diff-remove) 10%, transparent);
+    }
+    &:where(pre.shiki.has-diff .line.remove)::after {
+      content: '-';
+      color: var(--color-code-block-diff-remove-foreground);
+    }
+    &:where(pre.shiki.has-diff .line.add) {
+      background-color: color-mix(in oklab, var(--color-code-block-diff-add) 10%, transparent);
+    }
+    &:where(pre.shiki.has-diff .line.add)::after {
+      content: '+';
+      color: var(--color-code-block-diff-add-foreground);
+    }
+    &:where(pre.shiki .line.highlighted) {
+      background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted)::before {
+      content: '';
+      position: absolute;
+      display: block;
+      inset-block: 0;
+      left: 0;
+      width: 2px;
+      background-color: color-mix(in oklab, var(--primary) 50%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted.info) {
+      background-color: color-mix(in oklab, var(--color-info) 10%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted.info)::before {
+      background-color: color-mix(in oklab, var(--color-info) 50%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted.warning) {
+      background-color: color-mix(in oklab, var(--color-warning) 10%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted.warning)::before {
+      background-color: color-mix(in oklab, var(--color-warning) 50%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted.error) {
+      background-color: color-mix(in oklab, var(--color-error) 10%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted.error)::before {
+      background-color: color-mix(in oklab, var(--color-error) 50%, transparent);
+    }
+
+    &:where(figure.code-block) {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: calc(20em / 16);
+      margin-bottom: calc(20em / 16);
+      border: 1px solid var(--prose-pre-border);
+      border-radius: var(--prose-pre-radius);
+      background-color: var(--prose-pre-bg);
+      overflow: hidden;
+    }
+    &:where(figure.code-block > pre) {
+      grid-area: 1 / 1;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      background-color: transparent;
+    }
+    &:where(figure.code-block[data-titled] > pre) {
+      grid-row: 2;
+    }
+    &:where(figure.code-block:not([data-titled]) > pre.shiki .line) {
+      padding-inline-end: calc(var(--spacing) * 12 * var(--prose-size));
+    }
+    &:where(figure.code-block.line-numbers) {
+      counter-reset: line calc(var(--line-numbers-start, 1) - 1);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki .line) {
+      padding-inline-start: calc(var(--spacing) * 16 * var(--prose-size));
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki .line)::before {
+      content: counter(line);
+      counter-increment: line;
+      position: absolute;
+      display: block;
+      inset-block: 0;
+      left: 0;
+      width: calc(var(--spacing) * 12 * var(--prose-size));
+      text-align: center;
+      color: var(--prose-counters);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki.has-diff .line)::after {
+      left: calc(var(--spacing) * 12 * var(--prose-size));
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki.has-diff .line.remove)::before {
+      color: var(--prose-body);
+      background-color: color-mix(in oklab, var(--color-code-block-diff-remove) 30%, transparent);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki.has-diff .line.add)::before {
+      color: var(--prose-body);
+      background-color: color-mix(in oklab, var(--color-code-block-diff-add) 30%, transparent);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki .line.highlighted)::before {
+      color: var(--prose-body);
+      background-color: color-mix(in oklab, var(--primary) 30%, transparent);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki .line.highlighted.info)::before {
+      background-color: color-mix(in oklab, var(--color-info) 30%, transparent);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki .line.highlighted.warning)::before {
+      background-color: color-mix(in oklab, var(--color-warning) 30%, transparent);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki .line.highlighted.error)::before {
+      background-color: color-mix(in oklab, var(--color-error) 30%, transparent);
+    }
+
+    /* header (file name) */
+    &:where(figure.code-block > figcaption) {
+      grid-area: 1 / 1;
+      display: flex;
+      align-items: center;
+      gap: calc(var(--spacing) * 2);
+      min-height: calc(var(--spacing) * 11);
+      margin: 0;
+      padding-block: calc(var(--spacing) * 2);
+      padding-inline: calc(var(--spacing) * 3) calc(var(--spacing) * 12);
+      border-bottom: 1px solid var(--prose-pre-border);
+      background-color: var(--prose-code-block-header-bg);
+      color: var(--prose-code-block-header-fg);
+      font-size: calc(13px * var(--prose-size));
+      line-height: 1;
+    }
+    &:where(.code-block__icon) {
+      display: inline-flex;
+      flex: none;
+    }
+    &:where(.code-block__icon > svg) {
+      width: calc(var(--spacing) * 4);
+      height: calc(var(--spacing) * 4);
+    }
+    &:where(.code-block__title) {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-family: var(--font-mono);
+    }
+
+    /* copy button */
+    &:where(figure.code-block > .code-block__copy) {
+      grid-area: 1 / 1;
+      z-index: 1;
+      justify-self: end;
+      align-self: start;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: calc(var(--spacing) * 7);
+      height: calc(var(--spacing) * 7);
+      margin: calc(var(--spacing) * 2);
+      padding: 0;
+      border: 1px solid var(--prose-pre-border);
+      border-radius: calc(var(--prose-pre-radius) * 0.6);
+      background-color: var(--prose-pre-bg);
+      color: var(--prose-code-block-header-fg);
+      cursor: pointer;
+      transition:
+        opacity 0.15s,
+        color 0.15s,
+        background-color 0.15s;
+    }
+    &:where(figure.code-block[data-titled] > .code-block__copy) {
+      align-self: center;
+      border-color: transparent;
+      background-color: transparent;
+    }
+    &:where(.code-block__copy):hover {
+      color: var(--foreground);
+      background-color: var(--muted);
+    }
+    &:where(.code-block__copy):focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+    &:where(.code-block__copy > svg) {
+      width: calc(var(--spacing) * 4);
+      height: calc(var(--spacing) * 4);
+    }
+    &:where(.code-block__copy .code-block__icon-check) {
+      display: none;
+    }
+    &:where(.code-block__copy[data-copied=''] .code-block__icon-copy) {
+      display: none;
+    }
+    &:where(.code-block__copy[data-copied=''] .code-block__icon-check) {
+      display: block;
+    }
+
+    @media (hover: hover) {
+      &:where(figure.code-block:not([data-titled]) > .code-block__copy) {
+        opacity: 0;
+      }
+      &:where(
+        figure.code-block:hover > .code-block__copy,
+        figure.code-block > .code-block__copy:focus-visible,
+        figure.code-block > .code-block__copy[data-copied]
+      ) {
+        opacity: 1;
       }
     }
 
