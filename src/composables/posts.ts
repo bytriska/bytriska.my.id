@@ -1,7 +1,7 @@
 import type { Post } from '@/types'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { isPostRoute } from '@/lib/post'
+import { isPost } from '@/lib/route'
 
 export function usePosts() {
   const router = useRouter()
@@ -9,7 +9,7 @@ export function usePosts() {
   const allPosts = computed<Post[]>(() =>
     router
       .getRoutes()
-      .filter(isPostRoute)
+      .filter(isPost)
       .map(route => ({
         path: route.path,
         meta: route.meta,
