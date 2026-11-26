@@ -336,7 +336,7 @@
     &:where(pre) {
       margin-top: calc(20em / 16);
       margin-bottom: calc(20em / 16);
-      padding: calc(var(--spacing) * 4 * var(--prose-size));
+      padding-block: calc(var(--spacing) * 4 * var(--prose-size));
       overflow-x: auto;
       font-size: calc(13px * var(--prose-size));
       line-height: calc(20 / 13);
@@ -345,6 +345,11 @@
       border-radius: var(--prose-pre-radius);
       background-color: var(--prose-pre-bg);
       color: var(--prose-pre-code);
+    }
+    &:where(pre code) {
+      display: grid;
+      width: max-content;
+      min-width: 100%;
     }
 
     &:where(pre.shiki) {
@@ -365,6 +370,69 @@
         text-decoration: var(--shiki-dark-text-decoration);
       }
     }
+    &:where(pre.shiki .line) {
+      position: relative;
+      padding-inline: calc(var(--spacing) * 4 * var(--prose-size));
+    }
+    &:where(pre.shiki .line):empty {
+      height: 1lh;
+    }
+    &:where(pre.shiki .line:last-child):empty {
+      display: none;
+    }
+    &:where(pre.shiki.has-focused .line:not(.focused)) {
+      filter: blur(2px);
+      transition: filter 150ms;
+    }
+    &:where(pre.shiki.has-focused:hover .line:not(.focused)) {
+      filter: blur(0);
+    }
+    &:where(pre.shiki.has-diff .line)::before {
+      position: absolute;
+      left: calc(var(--spacing) * 1.5 * var(--prose-size));
+    }
+    &:where(pre.shiki.has-diff .line.remove) {
+      background-color: var(--color-code-block-diff-remove);
+    }
+    &:where(pre.shiki.has-diff .line.remove)::before {
+      content: '-';
+      color: var(--color-code-block-diff-remove-foreground);
+    }
+    &:where(pre.shiki.has-diff .line.add) {
+      background-color: var(--color-code-block-diff-add);
+    }
+    &:where(pre.shiki.has-diff .line.add)::before {
+      content: '+';
+      color: var(--color-code-block-diff-add-foreground);
+    }
+    &:where(pre.shiki .line.highlighted) {
+      background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted)::after {
+      content: '';
+      position: absolute;
+      inset-block: 0;
+      left: 0;
+      border-left: 2px solid color-mix(in oklab, var(--primary) 50%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted.info) {
+      background-color: color-mix(in oklab, var(--color-info) 10%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted.info)::after {
+      border-color: color-mix(in oklab, var(--color-info) 50%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted.warning) {
+      background-color: color-mix(in oklab, var(--color-warning) 10%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted.warning)::after {
+      border-color: color-mix(in oklab, var(--color-warning) 50%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted.error) {
+      background-color: color-mix(in oklab, var(--color-error) 10%, transparent);
+    }
+    &:where(pre.shiki .line.highlighted.error)::after {
+      border-color: color-mix(in oklab, var(--color-error) 50%, transparent);
+    }
 
     &:where(figure.code-block) {
       position: relative;
@@ -384,11 +452,11 @@
       border-radius: 0;
       background-color: transparent;
     }
-    &:where(figure.code-block:not([data-titled]) > pre) {
-      padding-inline-end: calc(var(--spacing) * 12);
-    }
     &:where(figure.code-block[data-titled] > pre) {
       grid-row: 2;
+    }
+    &:where(figure.code-block:not([data-titled]) > pre.shiki .line) {
+      padding-inline-end: calc(var(--spacing) * 12);
     }
 
     /* header (file name) */
@@ -471,7 +539,6 @@
     }
     &:where(.code-block__copy[data-copied=''] .code-block__icon-check) {
       display: block;
-      color: var(--primary);
     }
 
     @media (hover: hover) {
