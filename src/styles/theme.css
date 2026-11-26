@@ -7,9 +7,9 @@
   --color-error: oklch(63.7% 0.237 25.331);
   --color-success: oklch(72.3% 0.219 149.579);
   --color-idea: oklch(70.5% 0.209 60.849);
-  --color-code-block-diff-remove: oklch(54.01% 0.2141 2.41 / 12%);
+  --color-code-block-diff-remove: oklch(54.01% 0.2141 2.41);
   --color-code-block-diff-remove-foreground: oklch(59.48% 0.2352 7.85);
-  --color-code-block-diff-add: oklch(67.65% 0.1688 153.77 / 10%);
+  --color-code-block-diff-add: oklch(67.65% 0.1688 153.77);
   --color-code-block-diff-add-foreground: oklch(72.94% 0.1936 151.23);
 }
 

@@ -387,51 +387,57 @@
     &:where(pre.shiki.has-focused:hover .line:not(.focused)) {
       filter: blur(0);
     }
-    &:where(pre.shiki.has-diff .line)::before {
+    &:where(pre.shiki.has-diff .line)::after {
       position: absolute;
-      left: calc(var(--spacing) * 1.5 * var(--prose-size));
+      display: block;
+      inset-block: 0;
+      left: 0;
+      width: calc(var(--spacing) * 4 * var(--prose-size));
+      text-align: center;
     }
     &:where(pre.shiki.has-diff .line.remove) {
-      background-color: var(--color-code-block-diff-remove);
+      background-color: color-mix(in oklab, var(--color-code-block-diff-remove) 10%, transparent);
     }
-    &:where(pre.shiki.has-diff .line.remove)::before {
+    &:where(pre.shiki.has-diff .line.remove)::after {
       content: '-';
       color: var(--color-code-block-diff-remove-foreground);
     }
     &:where(pre.shiki.has-diff .line.add) {
-      background-color: var(--color-code-block-diff-add);
+      background-color: color-mix(in oklab, var(--color-code-block-diff-add) 10%, transparent);
     }
-    &:where(pre.shiki.has-diff .line.add)::before {
+    &:where(pre.shiki.has-diff .line.add)::after {
       content: '+';
       color: var(--color-code-block-diff-add-foreground);
     }
     &:where(pre.shiki .line.highlighted) {
       background-color: color-mix(in oklab, var(--primary) 10%, transparent);
     }
-    &:where(pre.shiki .line.highlighted)::after {
+    &:where(pre.shiki .line.highlighted)::before {
       content: '';
       position: absolute;
+      display: block;
       inset-block: 0;
       left: 0;
-      border-left: 2px solid color-mix(in oklab, var(--primary) 50%, transparent);
+      width: 2px;
+      background-color: color-mix(in oklab, var(--primary) 50%, transparent);
     }
     &:where(pre.shiki .line.highlighted.info) {
       background-color: color-mix(in oklab, var(--color-info) 10%, transparent);
     }
-    &:where(pre.shiki .line.highlighted.info)::after {
-      border-color: color-mix(in oklab, var(--color-info) 50%, transparent);
+    &:where(pre.shiki .line.highlighted.info)::before {
+      background-color: color-mix(in oklab, var(--color-info) 50%, transparent);
     }
     &:where(pre.shiki .line.highlighted.warning) {
       background-color: color-mix(in oklab, var(--color-warning) 10%, transparent);
     }
-    &:where(pre.shiki .line.highlighted.warning)::after {
-      border-color: color-mix(in oklab, var(--color-warning) 50%, transparent);
+    &:where(pre.shiki .line.highlighted.warning)::before {
+      background-color: color-mix(in oklab, var(--color-warning) 50%, transparent);
     }
     &:where(pre.shiki .line.highlighted.error) {
       background-color: color-mix(in oklab, var(--color-error) 10%, transparent);
     }
-    &:where(pre.shiki .line.highlighted.error)::after {
-      border-color: color-mix(in oklab, var(--color-error) 50%, transparent);
+    &:where(pre.shiki .line.highlighted.error)::before {
+      background-color: color-mix(in oklab, var(--color-error) 50%, transparent);
     }
 
     &:where(figure.code-block) {
@@ -456,7 +462,48 @@
       grid-row: 2;
     }
     &:where(figure.code-block:not([data-titled]) > pre.shiki .line) {
-      padding-inline-end: calc(var(--spacing) * 12);
+      padding-inline-end: calc(var(--spacing) * 12 * var(--prose-size));
+    }
+    &:where(figure.code-block.line-numbers) {
+      counter-reset: line calc(var(--line-numbers-start, 1) - 1);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki .line) {
+      padding-inline-start: calc(var(--spacing) * 16 * var(--prose-size));
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki .line)::before {
+      content: counter(line);
+      counter-increment: line;
+      position: absolute;
+      display: block;
+      inset-block: 0;
+      left: 0;
+      width: calc(var(--spacing) * 12 * var(--prose-size));
+      text-align: center;
+      color: var(--prose-counters);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki.has-diff .line)::after {
+      left: calc(var(--spacing) * 12 * var(--prose-size));
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki.has-diff .line.remove)::before {
+      color: var(--prose-body);
+      background-color: color-mix(in oklab, var(--color-code-block-diff-remove) 30%, transparent);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki.has-diff .line.add)::before {
+      color: var(--prose-body);
+      background-color: color-mix(in oklab, var(--color-code-block-diff-add) 30%, transparent);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki .line.highlighted)::before {
+      color: var(--prose-body);
+      background-color: color-mix(in oklab, var(--primary) 30%, transparent);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki .line.highlighted.info)::before {
+      background-color: color-mix(in oklab, var(--color-info) 30%, transparent);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki .line.highlighted.warning)::before {
+      background-color: color-mix(in oklab, var(--color-warning) 30%, transparent);
+    }
+    &:where(figure.code-block.line-numbers > pre.shiki .line.highlighted.error)::before {
+      background-color: color-mix(in oklab, var(--color-error) 30%, transparent);
     }
 
     /* header (file name) */

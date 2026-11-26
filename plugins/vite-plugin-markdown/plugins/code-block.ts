@@ -14,6 +14,11 @@ export function codeBlockPlugin(md: InstanceType<typeof MarkdownIt>) {
     const props = escapeVueProps({
       language: parsedInfo.language ?? 'txt',
       title: parsedInfo.title,
+      class: { 'line-numbers': !!parsedInfo.lineNumbers },
+      style:
+        typeof parsedInfo.lineNumbers === 'number'
+          ? { '--line-numbers-start': String(parsedInfo.lineNumbers) }
+          : undefined,
     })
 
     token.info = normalizedInfo
